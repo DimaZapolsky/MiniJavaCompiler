@@ -1,0 +1,15 @@
+class Main {
+    public static void main() {
+        int x;
+        x = 2;
+        int y;
+        y = 3;
+        int c;
+        c = x + y;
+        c = c * c;
+        int v;
+        v = 4;
+        c = c / v - v;
+        System.out.println(c);
+    }
+}
