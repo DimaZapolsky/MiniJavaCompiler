@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.0)
-project(Compilers)
+project(NaiveInterpreter)
 
 if (CMAKE_HOST_SYSTEM_NAME MATCHES "Darwin")
     execute_process(
@@ -31,7 +31,7 @@ find_package(BISON REQUIRED)
 
 set(CMAKE_CXX_STANDARD 14)
 
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${Compilers_SOURCE_DIR}/bin)
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${NaiveInterpreter_SOURCE_DIR}/bin)
 
 add_subdirectory(src)
 

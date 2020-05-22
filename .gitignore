@@ -221,3 +221,4 @@ $RECYCLE.BIN/
 
 # End of https://www.gitignore.io/api/ssh,linux,clion,macos,pycharm,windows
 
+/build/

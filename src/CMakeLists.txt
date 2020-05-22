@@ -1,4 +1,4 @@
-project(NaiveInterpreter)
+project(ParserExample)
 set(
         HEADERS
         ${ParserExample_SOURCE_DIR}/driver.hh
@@ -26,5 +26,115 @@ add_executable(
         driver.cpp
         ${BISON_MyParser_OUTPUTS}
         ${FLEX_MyScanner_OUTPUTS}
+
+        nodes/Expr/ArrayCreation.cpp
+        nodes/Expr/ArrayCreation.h
+        nodes/Lvalue/ArrayElement.cpp
+        nodes/Lvalue/ArrayElement.h
+        nodes/Expr/ArrayElementVal.cpp
+        nodes/Expr/ArrayElementVal.h
+        nodes/Type/ArrayType.cpp
+        nodes/Type/ArrayType.h
+        nodes/Statement/Assert.cpp
+        nodes/Statement/Assert.h
+        nodes/Statement/Assignment.cpp
+        nodes/Statement/Assignment.h
+        nodes/Expr/BinaryOperation/BinaryOperation.cpp
+        nodes/Expr/BinaryOperation/BinaryOperation.h
+        nodes/Type/Boolean.cpp
+        nodes/Type/Boolean.h
+        nodes/Declaration/ClassDeclaration.cpp
+        nodes/Declaration/ClassDeclaration.h
+        nodes/Lists/ClassDeclarationList.cpp
+        nodes/Lists/ClassDeclarationList.h
+        nodes/Expr/BinaryOperation/ComparisonGT.cpp
+        nodes/Expr/BinaryOperation/ComparisonGT.h
+        nodes/Expr/BinaryOperation/ComparisonLT.cpp
+        nodes/Expr/BinaryOperation/ComparisonLT.h
+        nodes/Statement/Declaration.cpp
+        nodes/Statement/Declaration.h
+        nodes/Lists/DeclarationList.cpp
+        nodes/Lists/DeclarationList.h
+        nodes/Expr/BinaryOperation/Dif.cpp
+        nodes/Expr/BinaryOperation/Dif.h
+        nodes/Expr/BinaryOperation/Div.cpp
+        nodes/Expr/BinaryOperation/Div.h
+        nodes/Expr/BinaryOperation/Equal.cpp
+        nodes/Expr/BinaryOperation/Equal.h
+        nodes/Expr/Expr.cpp
+        nodes/Expr/Expr.h
+        nodes/Lists/ExprList.cpp
+        nodes/Lists/ExprList.h
+        nodes/Expr/False.cpp
+        nodes/Expr/False.h
+        nodes/Formal.cpp
+        nodes/Formal.h
+        nodes/Lists/Formals.cpp
+        nodes/Lists/Formals.h
+        nodes/Identifier.cpp
+        nodes/Identifier.h
+        nodes/Statement/If.cpp
+        nodes/Statement/If.h
+        nodes/Statement/IfElse.cpp
+        nodes/Statement/IfElse.h
+        nodes/Type/Int.cpp
+        nodes/Type/Int.h
+        nodes/Expr/IntegerLiteral.cpp
+        nodes/Expr/IntegerLiteral.h
+        nodes/Expr/Length.cpp
+        nodes/Expr/Length.h
+        nodes/Statement/LocalVariableDeclaration.cpp
+        nodes/Statement/LocalVariableDeclaration.h
+        nodes/Expr/BinaryOperation/LogicalAnd.cpp
+        nodes/Expr/BinaryOperation/LogicalAnd.h
+        nodes/Expr/BinaryOperation/LogicalOr.cpp
+        nodes/Expr/BinaryOperation/LogicalOr.h
+        nodes/Lvalue/Lvalue.cpp
+        nodes/Lvalue/Lvalue.h
+        nodes/MainClass.cpp
+        nodes/MainClass.h
+        nodes/Declaration/MethodDeclaration.cpp
+        nodes/Declaration/MethodDeclaration.h
+        nodes/Statement/MethodInvocation.cpp
+        nodes/Statement/MethodInvocation.h
+        nodes/Expr/MethodInvocationVal.cpp
+        nodes/Expr/MethodInvocationVal.h
+        nodes/Expr/BinaryOperation/Mod.cpp
+        nodes/Expr/BinaryOperation/Mod.h
+        nodes/Expr/BinaryOperation/Mul.cpp
+        nodes/Expr/BinaryOperation/Mul.h
+        nodes/Expr/Not.cpp
+        nodes/Expr/Not.h
+        nodes/Expr/ObjectCreation.cpp
+        nodes/Expr/ObjectCreation.h
+        nodes/Program.cpp
+        nodes/Program.h
+        nodes/Statement/Return.cpp
+        nodes/Statement/Return.h
+        nodes/Type/SimpleType.h
+        nodes/Statement/Sout.cpp
+        nodes/Statement/Sout.h
+        nodes/Statement/Statement.h
+        nodes/Lists/StatementList.cpp
+        nodes/Lists/StatementList.h
+        nodes/Expr/BinaryOperation/Sum.cpp
+        nodes/Expr/BinaryOperation/Sum.h
+        nodes/Expr/This.cpp
+        nodes/Expr/This.h
+        nodes/Expr/True.cpp
+        nodes/Expr/True.h
+        nodes/Type/Type.h
+        nodes/Type/TypeIdentifier.cpp
+        nodes/Type/TypeIdentifier.h
+        nodes/Lvalue/Variable.cpp
+        nodes/Lvalue/Variable.h
+        nodes/Declaration/VariableDeclaration.cpp
+        nodes/Declaration/VariableDeclaration.h
+        nodes/Expr/VariableVal.cpp
+        nodes/Expr/VariableVal.h
+        nodes/Type/Void.cpp
+        nodes/Type/Void.h
+        nodes/Statement/While.cpp
+        nodes/Statement/While.h
 )
 target_include_directories(NaiveInterpreter PRIVATE ${ParserExample_SOURCE_DIR})

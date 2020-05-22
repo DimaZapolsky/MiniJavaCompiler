@@ -41,16 +41,73 @@
 
 
 // Unqualified %code blocks.
-#line 18 "parser.y"
+#line 75 "parser.y"
 
     #include "driver.hh"
     #include "location.hh"
+
+    #include "nodes/Declaration/ClassDeclaration.h"
+    #include "nodes/Declaration/MethodDeclaration.h"
+    #include "nodes/Declaration/VariableDeclaration.h"
+    #include "nodes/Expr/BinaryOperation/BinaryOperation.h"
+    #include "nodes/Expr/BinaryOperation/ComparisonGT.h"
+    #include "nodes/Expr/BinaryOperation/ComparisonLT.h"
+    #include "nodes/Expr/BinaryOperation/Dif.h"
+    #include "nodes/Expr/BinaryOperation/Div.h"
+    #include "nodes/Expr/BinaryOperation/Equal.h"
+    #include "nodes/Expr/BinaryOperation/LogicalAnd.h"
+    #include "nodes/Expr/BinaryOperation/LogicalOr.h"
+    #include "nodes/Expr/BinaryOperation/Mod.h"
+    #include "nodes/Expr/BinaryOperation/Mul.h"
+    #include "nodes/Expr/BinaryOperation/Sum.h"
+    #include "nodes/Expr/ArrayCreation.h"
+    #include "nodes/Expr/ArrayElementVal.h"
+    #include "nodes/Expr/Expr.h"
+    #include "nodes/Expr/False.h"
+    #include "nodes/Expr/IntegerLiteral.h"
+    #include "nodes/Expr/Length.h"
+    #include "nodes/Expr/MethodInvocationVal.h"
+    #include "nodes/Expr/Not.h"
+    #include "nodes/Expr/ObjectCreation.h"
+    #include "nodes/Expr/This.h"
+    #include "nodes/Expr/True.h"
+    #include "nodes/Expr/VariableVal.h"
+    #include "nodes/Lists/ClassDeclarationList.h"
+    #include "nodes/Lists/DeclarationList.h"
+    #include "nodes/Lists/ExprList.h"
+    #include "nodes/Lists/Formals.h"
+    #include "nodes/Lists/StatementList.h"
+    #include "nodes/Lvalue/ArrayElement.h"
+    #include "nodes/Lvalue/Lvalue.h"
+    #include "nodes/Lvalue/Variable.h"
+    #include "nodes/Statement/Assert.h"
+    #include "nodes/Statement/Assignment.h"
+    #include "nodes/Statement/Declaration.h"
+    #include "nodes/Statement/If.h"
+    #include "nodes/Statement/IfElse.h"
+    #include "nodes/Statement/LocalVariableDeclaration.h"
+    #include "nodes/Statement/MethodInvocation.h"
+    #include "nodes/Statement/Return.h"
+    #include "nodes/Statement/Sout.h"
+    #include "nodes/Statement/Statement.h"
+    #include "nodes/Statement/While.h"
+    #include "nodes/Type/ArrayType.h"
+    #include "nodes/Type/Boolean.h"
+    #include "nodes/Type/Int.h"
+    #include "nodes/Type/SimpleType.h"
+    #include "nodes/Type/Type.h"
+    #include "nodes/Type/TypeIdentifier.h"
+    #include "nodes/Type/Void.h"
+    #include "nodes/Formal.h"
+    #include "nodes/Identifier.h"
+    #include "nodes/MainClass.h"
+    #include "nodes/Program.h"
 
     static yy::parser::symbol_type yylex(Scanner &scanner, Driver& driver) {
         return scanner.ScanToken();
     }
 
-#line 54 "/home/ubuntu/proj/src/parser.cpp"
+#line 111 "/home/ubuntu/proj/src/parser.cpp"
 
 
 #ifndef YY_
@@ -141,7 +198,7 @@
 #define YYRECOVERING()  (!!yyerrstatus_)
 
 namespace yy {
-#line 145 "/home/ubuntu/proj/src/parser.cpp"
+#line 202 "/home/ubuntu/proj/src/parser.cpp"
 
 
   /* Return YYSTR after stripping away unnecessary quotes and
@@ -252,12 +309,103 @@ namespace yy {
   {
     switch (that.type_get ())
     {
-      case 25: // "number"
-      case 29: // exp
+      case 65: // array_type
+        value.YY_MOVE_OR_COPY< ArrayType* > (YY_MOVE (that.value));
+        break;
+
+      case 69: // binary_operation
+        value.YY_MOVE_OR_COPY< BinaryOperation* > (YY_MOVE (that.value));
+        break;
+
+      case 56: // class_declaration
+        value.YY_MOVE_OR_COPY< ClassDeclaration* > (YY_MOVE (that.value));
+        break;
+
+      case 53: // class_declaration_list
+        value.YY_MOVE_OR_COPY< ClassDeclarationList* > (YY_MOVE (that.value));
+        break;
+
+      case 60: // declaration
+        value.YY_MOVE_OR_COPY< Declaration* > (YY_MOVE (that.value));
+        break;
+
+      case 59: // declaration_list
+        value.YY_MOVE_OR_COPY< DeclarationList* > (YY_MOVE (that.value));
+        break;
+
+      case 50: // exp
+        value.YY_MOVE_OR_COPY< Expr* > (YY_MOVE (that.value));
+        break;
+
+      case 70: // expr_list
+        value.YY_MOVE_OR_COPY< ExprList* > (YY_MOVE (that.value));
+        break;
+
+      case 58: // formal
+        value.YY_MOVE_OR_COPY< Formal* > (YY_MOVE (that.value));
+        break;
+
+      case 57: // formals
+        value.YY_MOVE_OR_COPY< Formals* > (YY_MOVE (that.value));
+        break;
+
+      case 48: // identifier
+        value.YY_MOVE_OR_COPY< Identifier* > (YY_MOVE (that.value));
+        break;
+
+      case 49: // number
+        value.YY_MOVE_OR_COPY< IntegerLiteral* > (YY_MOVE (that.value));
+        break;
+
+      case 66: // local_variable_declaration
+        value.YY_MOVE_OR_COPY< LocalVariableDeclaration* > (YY_MOVE (that.value));
+        break;
+
+      case 67: // lvalue
+        value.YY_MOVE_OR_COPY< Lvalue* > (YY_MOVE (that.value));
+        break;
+
+      case 52: // main_class
+        value.YY_MOVE_OR_COPY< MainClass* > (YY_MOVE (that.value));
+        break;
+
+      case 61: // method_declaration
+        value.YY_MOVE_OR_COPY< MethodDeclaration* > (YY_MOVE (that.value));
+        break;
+
+      case 68: // method_invocation
+        value.YY_MOVE_OR_COPY< MethodInvocation* > (YY_MOVE (that.value));
+        break;
+
+      case 51: // unit
+        value.YY_MOVE_OR_COPY< Program* > (YY_MOVE (that.value));
+        break;
+
+      case 64: // simple_type
+        value.YY_MOVE_OR_COPY< SimpleType* > (YY_MOVE (that.value));
+        break;
+
+      case 55: // stmt
+        value.YY_MOVE_OR_COPY< Statement* > (YY_MOVE (that.value));
+        break;
+
+      case 54: // stmt_list
+        value.YY_MOVE_OR_COPY< StatementList* > (YY_MOVE (that.value));
+        break;
+
+      case 63: // type
+        value.YY_MOVE_OR_COPY< Type* > (YY_MOVE (that.value));
+        break;
+
+      case 62: // variable_declaration
+        value.YY_MOVE_OR_COPY< VariableDeclaration* > (YY_MOVE (that.value));
+        break;
+
+      case 46: // "number"
         value.YY_MOVE_OR_COPY< int > (YY_MOVE (that.value));
         break;
 
-      case 24: // "identifier"
+      case 45: // "identifier"
         value.YY_MOVE_OR_COPY< std::string > (YY_MOVE (that.value));
         break;
 
@@ -276,12 +424,103 @@ namespace yy {
   {
     switch (that.type_get ())
     {
-      case 25: // "number"
-      case 29: // exp
+      case 65: // array_type
+        value.move< ArrayType* > (YY_MOVE (that.value));
+        break;
+
+      case 69: // binary_operation
+        value.move< BinaryOperation* > (YY_MOVE (that.value));
+        break;
+
+      case 56: // class_declaration
+        value.move< ClassDeclaration* > (YY_MOVE (that.value));
+        break;
+
+      case 53: // class_declaration_list
+        value.move< ClassDeclarationList* > (YY_MOVE (that.value));
+        break;
+
+      case 60: // declaration
+        value.move< Declaration* > (YY_MOVE (that.value));
+        break;
+
+      case 59: // declaration_list
+        value.move< DeclarationList* > (YY_MOVE (that.value));
+        break;
+
+      case 50: // exp
+        value.move< Expr* > (YY_MOVE (that.value));
+        break;
+
+      case 70: // expr_list
+        value.move< ExprList* > (YY_MOVE (that.value));
+        break;
+
+      case 58: // formal
+        value.move< Formal* > (YY_MOVE (that.value));
+        break;
+
+      case 57: // formals
+        value.move< Formals* > (YY_MOVE (that.value));
+        break;
+
+      case 48: // identifier
+        value.move< Identifier* > (YY_MOVE (that.value));
+        break;
+
+      case 49: // number
+        value.move< IntegerLiteral* > (YY_MOVE (that.value));
+        break;
+
+      case 66: // local_variable_declaration
+        value.move< LocalVariableDeclaration* > (YY_MOVE (that.value));
+        break;
+
+      case 67: // lvalue
+        value.move< Lvalue* > (YY_MOVE (that.value));
+        break;
+
+      case 52: // main_class
+        value.move< MainClass* > (YY_MOVE (that.value));
+        break;
+
+      case 61: // method_declaration
+        value.move< MethodDeclaration* > (YY_MOVE (that.value));
+        break;
+
+      case 68: // method_invocation
+        value.move< MethodInvocation* > (YY_MOVE (that.value));
+        break;
+
+      case 51: // unit
+        value.move< Program* > (YY_MOVE (that.value));
+        break;
+
+      case 64: // simple_type
+        value.move< SimpleType* > (YY_MOVE (that.value));
+        break;
+
+      case 55: // stmt
+        value.move< Statement* > (YY_MOVE (that.value));
+        break;
+
+      case 54: // stmt_list
+        value.move< StatementList* > (YY_MOVE (that.value));
+        break;
+
+      case 63: // type
+        value.move< Type* > (YY_MOVE (that.value));
+        break;
+
+      case 62: // variable_declaration
+        value.move< VariableDeclaration* > (YY_MOVE (that.value));
+        break;
+
+      case 46: // "number"
         value.move< int > (YY_MOVE (that.value));
         break;
 
-      case 24: // "identifier"
+      case 45: // "identifier"
         value.move< std::string > (YY_MOVE (that.value));
         break;
 
@@ -300,12 +539,103 @@ namespace yy {
     state = that.state;
     switch (that.type_get ())
     {
-      case 25: // "number"
-      case 29: // exp
+      case 65: // array_type
+        value.copy< ArrayType* > (that.value);
+        break;
+
+      case 69: // binary_operation
+        value.copy< BinaryOperation* > (that.value);
+        break;
+
+      case 56: // class_declaration
+        value.copy< ClassDeclaration* > (that.value);
+        break;
+
+      case 53: // class_declaration_list
+        value.copy< ClassDeclarationList* > (that.value);
+        break;
+
+      case 60: // declaration
+        value.copy< Declaration* > (that.value);
+        break;
+
+      case 59: // declaration_list
+        value.copy< DeclarationList* > (that.value);
+        break;
+
+      case 50: // exp
+        value.copy< Expr* > (that.value);
+        break;
+
+      case 70: // expr_list
+        value.copy< ExprList* > (that.value);
+        break;
+
+      case 58: // formal
+        value.copy< Formal* > (that.value);
+        break;
+
+      case 57: // formals
+        value.copy< Formals* > (that.value);
+        break;
+
+      case 48: // identifier
+        value.copy< Identifier* > (that.value);
+        break;
+
+      case 49: // number
+        value.copy< IntegerLiteral* > (that.value);
+        break;
+
+      case 66: // local_variable_declaration
+        value.copy< LocalVariableDeclaration* > (that.value);
+        break;
+
+      case 67: // lvalue
+        value.copy< Lvalue* > (that.value);
+        break;
+
+      case 52: // main_class
+        value.copy< MainClass* > (that.value);
+        break;
+
+      case 61: // method_declaration
+        value.copy< MethodDeclaration* > (that.value);
+        break;
+
+      case 68: // method_invocation
+        value.copy< MethodInvocation* > (that.value);
+        break;
+
+      case 51: // unit
+        value.copy< Program* > (that.value);
+        break;
+
+      case 64: // simple_type
+        value.copy< SimpleType* > (that.value);
+        break;
+
+      case 55: // stmt
+        value.copy< Statement* > (that.value);
+        break;
+
+      case 54: // stmt_list
+        value.copy< StatementList* > (that.value);
+        break;
+
+      case 63: // type
+        value.copy< Type* > (that.value);
+        break;
+
+      case 62: // variable_declaration
+        value.copy< VariableDeclaration* > (that.value);
+        break;
+
+      case 46: // "number"
         value.copy< int > (that.value);
         break;
 
-      case 24: // "identifier"
+      case 45: // "identifier"
         value.copy< std::string > (that.value);
         break;
 
@@ -323,12 +653,103 @@ namespace yy {
     state = that.state;
     switch (that.type_get ())
     {
-      case 25: // "number"
-      case 29: // exp
+      case 65: // array_type
+        value.move< ArrayType* > (that.value);
+        break;
+
+      case 69: // binary_operation
+        value.move< BinaryOperation* > (that.value);
+        break;
+
+      case 56: // class_declaration
+        value.move< ClassDeclaration* > (that.value);
+        break;
+
+      case 53: // class_declaration_list
+        value.move< ClassDeclarationList* > (that.value);
+        break;
+
+      case 60: // declaration
+        value.move< Declaration* > (that.value);
+        break;
+
+      case 59: // declaration_list
+        value.move< DeclarationList* > (that.value);
+        break;
+
+      case 50: // exp
+        value.move< Expr* > (that.value);
+        break;
+
+      case 70: // expr_list
+        value.move< ExprList* > (that.value);
+        break;
+
+      case 58: // formal
+        value.move< Formal* > (that.value);
+        break;
+
+      case 57: // formals
+        value.move< Formals* > (that.value);
+        break;
+
+      case 48: // identifier
+        value.move< Identifier* > (that.value);
+        break;
+
+      case 49: // number
+        value.move< IntegerLiteral* > (that.value);
+        break;
+
+      case 66: // local_variable_declaration
+        value.move< LocalVariableDeclaration* > (that.value);
+        break;
+
+      case 67: // lvalue
+        value.move< Lvalue* > (that.value);
+        break;
+
+      case 52: // main_class
+        value.move< MainClass* > (that.value);
+        break;
+
+      case 61: // method_declaration
+        value.move< MethodDeclaration* > (that.value);
+        break;
+
+      case 68: // method_invocation
+        value.move< MethodInvocation* > (that.value);
+        break;
+
+      case 51: // unit
+        value.move< Program* > (that.value);
+        break;
+
+      case 64: // simple_type
+        value.move< SimpleType* > (that.value);
+        break;
+
+      case 55: // stmt
+        value.move< Statement* > (that.value);
+        break;
+
+      case 54: // stmt_list
+        value.move< StatementList* > (that.value);
+        break;
+
+      case 63: // type
+        value.move< Type* > (that.value);
+        break;
+
+      case 62: // variable_declaration
+        value.move< VariableDeclaration* > (that.value);
+        break;
+
+      case 46: // "number"
         value.move< int > (that.value);
         break;
 
-      case 24: // "identifier"
+      case 45: // "identifier"
         value.move< std::string > (that.value);
         break;
 
@@ -369,29 +790,7 @@ namespace yy {
     yyo << (yytype < yyntokens_ ? "token" : "nterm")
         << ' ' << yytname_[yytype] << " ("
         << yysym.location << ": ";
-    switch (yytype)
-    {
-      case 24: // "identifier"
-#line 65 "parser.y"
-                 { yyo << yysym.value.template as < std::string > (); }
-#line 378 "/home/ubuntu/proj/src/parser.cpp"
-        break;
-
-      case 25: // "number"
-#line 65 "parser.y"
-                 { yyo << yysym.value.template as < int > (); }
-#line 384 "/home/ubuntu/proj/src/parser.cpp"
-        break;
-
-      case 29: // exp
-#line 65 "parser.y"
-                 { yyo << yysym.value.template as < int > (); }
-#line 390 "/home/ubuntu/proj/src/parser.cpp"
-        break;
-
-      default:
-        break;
-    }
+    YYUSE (yytype);
     yyo << ')';
   }
 #endif
@@ -604,12 +1003,103 @@ namespace yy {
          when using variants.  */
       switch (yyr1_[yyn])
     {
-      case 25: // "number"
-      case 29: // exp
+      case 65: // array_type
+        yylhs.value.emplace< ArrayType* > ();
+        break;
+
+      case 69: // binary_operation
+        yylhs.value.emplace< BinaryOperation* > ();
+        break;
+
+      case 56: // class_declaration
+        yylhs.value.emplace< ClassDeclaration* > ();
+        break;
+
+      case 53: // class_declaration_list
+        yylhs.value.emplace< ClassDeclarationList* > ();
+        break;
+
+      case 60: // declaration
+        yylhs.value.emplace< Declaration* > ();
+        break;
+
+      case 59: // declaration_list
+        yylhs.value.emplace< DeclarationList* > ();
+        break;
+
+      case 50: // exp
+        yylhs.value.emplace< Expr* > ();
+        break;
+
+      case 70: // expr_list
+        yylhs.value.emplace< ExprList* > ();
+        break;
+
+      case 58: // formal
+        yylhs.value.emplace< Formal* > ();
+        break;
+
+      case 57: // formals
+        yylhs.value.emplace< Formals* > ();
+        break;
+
+      case 48: // identifier
+        yylhs.value.emplace< Identifier* > ();
+        break;
+
+      case 49: // number
+        yylhs.value.emplace< IntegerLiteral* > ();
+        break;
+
+      case 66: // local_variable_declaration
+        yylhs.value.emplace< LocalVariableDeclaration* > ();
+        break;
+
+      case 67: // lvalue
+        yylhs.value.emplace< Lvalue* > ();
+        break;
+
+      case 52: // main_class
+        yylhs.value.emplace< MainClass* > ();
+        break;
+
+      case 61: // method_declaration
+        yylhs.value.emplace< MethodDeclaration* > ();
+        break;
+
+      case 68: // method_invocation
+        yylhs.value.emplace< MethodInvocation* > ();
+        break;
+
+      case 51: // unit
+        yylhs.value.emplace< Program* > ();
+        break;
+
+      case 64: // simple_type
+        yylhs.value.emplace< SimpleType* > ();
+        break;
+
+      case 55: // stmt
+        yylhs.value.emplace< Statement* > ();
+        break;
+
+      case 54: // stmt_list
+        yylhs.value.emplace< StatementList* > ();
+        break;
+
+      case 63: // type
+        yylhs.value.emplace< Type* > ();
+        break;
+
+      case 62: // variable_declaration
+        yylhs.value.emplace< VariableDeclaration* > ();
+        break;
+
+      case 46: // "number"
         yylhs.value.emplace< int > ();
         break;
 
-      case 24: // "identifier"
+      case 45: // "identifier"
         yylhs.value.emplace< std::string > ();
         break;
 
@@ -634,139 +1124,406 @@ namespace yy {
           switch (yyn)
             {
   case 2:
-#line 70 "parser.y"
-               {}
-#line 640 "/home/ubuntu/proj/src/parser.cpp"
+#line 236 "parser.y"
+                                      {
+        yylhs.value.as < Program* > () = new Program(yystack_[1].value.as < MainClass* > (), yystack_[0].value.as < ClassDeclarationList* > ());
+        driver.program = yylhs.value.as < Program* > ();
+    }
+#line 1133 "/home/ubuntu/proj/src/parser.cpp"
     break;
 
   case 3:
-#line 73 "parser.y"
-                                                                                           {}
-#line 646 "/home/ubuntu/proj/src/parser.cpp"
+#line 242 "parser.y"
+                                                                                         { yylhs.value.as < MainClass* > () = new MainClass(yystack_[11].value.as < Identifier* > (), yystack_[2].value.as < StatementList* > ()); }
+#line 1139 "/home/ubuntu/proj/src/parser.cpp"
     break;
 
   case 4:
-#line 76 "parser.y"
-                   {}
-#line 652 "/home/ubuntu/proj/src/parser.cpp"
+#line 245 "parser.y"
+                                             {yystack_[0].value.as < ClassDeclarationList* > ()->AddClassDeclaration(yystack_[1].value.as < ClassDeclaration* > ()); yylhs.value.as < ClassDeclarationList* > () = yystack_[0].value.as < ClassDeclarationList* > ();}
+#line 1145 "/home/ubuntu/proj/src/parser.cpp"
     break;
 
   case 5:
-#line 77 "parser.y"
-             {}
-#line 658 "/home/ubuntu/proj/src/parser.cpp"
+#line 246 "parser.y"
+             { yylhs.value.as < ClassDeclarationList* > () = new ClassDeclarationList(); }
+#line 1151 "/home/ubuntu/proj/src/parser.cpp"
     break;
 
   case 6:
-#line 80 "parser.y"
-                   {}
-#line 664 "/home/ubuntu/proj/src/parser.cpp"
+#line 249 "parser.y"
+                                                { yylhs.value.as < ClassDeclaration* > () = new ClassDeclaration(yystack_[3].value.as < Identifier* > (), yystack_[1].value.as < DeclarationList* > ()); }
+#line 1157 "/home/ubuntu/proj/src/parser.cpp"
     break;
 
   case 7:
-#line 81 "parser.y"
-                        {}
-#line 670 "/home/ubuntu/proj/src/parser.cpp"
+#line 250 "parser.y"
+                                                                       { yylhs.value.as < ClassDeclaration* > () = new ClassDeclaration(yystack_[5].value.as < Identifier* > (), yystack_[3].value.as < Identifier* > (), yystack_[1].value.as < DeclarationList* > ()); }
+#line 1163 "/home/ubuntu/proj/src/parser.cpp"
     break;
 
   case 8:
-#line 82 "parser.y"
-                                           {std::cout << yystack_[2].value.as < int > () << std::endl; }
-#line 676 "/home/ubuntu/proj/src/parser.cpp"
+#line 253 "parser.y"
+                                 { yystack_[0].value.as < DeclarationList* > ()->AddDeclaration(yystack_[1].value.as < Declaration* > ()); yylhs.value.as < DeclarationList* > () = yystack_[0].value.as < DeclarationList* > (); }
+#line 1169 "/home/ubuntu/proj/src/parser.cpp"
     break;
 
   case 9:
-#line 83 "parser.y"
-                               {driver.variables[yystack_[3].value.as < std::string > ()] = yystack_[1].value.as < int > (); }
-#line 682 "/home/ubuntu/proj/src/parser.cpp"
+#line 254 "parser.y"
+             { yylhs.value.as < DeclarationList* > () = new DeclarationList(); }
+#line 1175 "/home/ubuntu/proj/src/parser.cpp"
     break;
 
   case 10:
-#line 86 "parser.y"
-             {}
-#line 688 "/home/ubuntu/proj/src/parser.cpp"
+#line 257 "parser.y"
+                         {yylhs.value.as < Declaration* > () = yystack_[0].value.as < VariableDeclaration* > (); }
+#line 1181 "/home/ubuntu/proj/src/parser.cpp"
     break;
 
   case 11:
-#line 89 "parser.y"
-                                 {driver.variables[yystack_[1].value.as < std::string > ()] = 0; }
-#line 694 "/home/ubuntu/proj/src/parser.cpp"
+#line 258 "parser.y"
+                         {yylhs.value.as < Declaration* > () = yystack_[0].value.as < MethodDeclaration* > (); }
+#line 1187 "/home/ubuntu/proj/src/parser.cpp"
     break;
 
   case 12:
-#line 90 "parser.y"
-                                  {driver.arrays[yystack_[1].value.as < std::string > ()] = std::vector<int>(); }
-#line 700 "/home/ubuntu/proj/src/parser.cpp"
+#line 261 "parser.y"
+                        { yylhs.value.as < VariableDeclaration* > () = new VariableDeclaration(yystack_[2].value.as < Type* > (), yystack_[1].value.as < Identifier* > ()); }
+#line 1193 "/home/ubuntu/proj/src/parser.cpp"
     break;
 
   case 13:
-#line 97 "parser.y"
-          {}
-#line 706 "/home/ubuntu/proj/src/parser.cpp"
+#line 264 "parser.y"
+                                                       { yylhs.value.as < MethodDeclaration* > () = new MethodDeclaration(yystack_[6].value.as < Type* > (), yystack_[5].value.as < Identifier* > (), yystack_[1].value.as < StatementList* > ()); }
+#line 1199 "/home/ubuntu/proj/src/parser.cpp"
     break;
 
   case 14:
-#line 103 "parser.y"
-                        {}
-#line 712 "/home/ubuntu/proj/src/parser.cpp"
+#line 265 "parser.y"
+                                                                 { yylhs.value.as < MethodDeclaration* > () = new MethodDeclaration(yystack_[7].value.as < Type* > (), yystack_[6].value.as < Identifier* > (), yystack_[4].value.as < Formals* > (), yystack_[1].value.as < StatementList* > ()); }
+#line 1205 "/home/ubuntu/proj/src/parser.cpp"
     break;
 
   case 15:
-#line 109 "parser.y"
-             {yylhs.value.as < int > () = yystack_[0].value.as < int > (); }
-#line 718 "/home/ubuntu/proj/src/parser.cpp"
+#line 268 "parser.y"
+                       { yystack_[0].value.as < Formals* > ()->AddFormal(yystack_[2].value.as < Formal* > ()); yylhs.value.as < Formals* > () = yystack_[0].value.as < Formals* > (); }
+#line 1211 "/home/ubuntu/proj/src/parser.cpp"
     break;
 
   case 16:
-#line 110 "parser.y"
-                               {yylhs.value.as < int > () = driver.arrays[yystack_[3].value.as < std::string > ()][yystack_[1].value.as < int > ()]; }
-#line 724 "/home/ubuntu/proj/src/parser.cpp"
+#line 269 "parser.y"
+             { yylhs.value.as < Formals* > () = new Formals(); yylhs.value.as < Formals* > ()->AddFormal(yystack_[0].value.as < Formal* > ()); }
+#line 1217 "/home/ubuntu/proj/src/parser.cpp"
     break;
 
   case 17:
-#line 111 "parser.y"
-                   {yylhs.value.as < int > () = driver.variables[yystack_[0].value.as < std::string > ()]; }
-#line 730 "/home/ubuntu/proj/src/parser.cpp"
+#line 272 "parser.y"
+                    { yylhs.value.as < Formal* > () = new Formal(yystack_[1].value.as < Type* > (), yystack_[0].value.as < Identifier* > ()); }
+#line 1223 "/home/ubuntu/proj/src/parser.cpp"
     break;
 
   case 18:
-#line 112 "parser.y"
-                  {yylhs.value.as < int > () = yystack_[2].value.as < int > () + yystack_[0].value.as < int > (); }
-#line 736 "/home/ubuntu/proj/src/parser.cpp"
+#line 275 "parser.y"
+                { yylhs.value.as < Type* > () = yystack_[0].value.as < SimpleType* > (); }
+#line 1229 "/home/ubuntu/proj/src/parser.cpp"
     break;
 
   case 19:
-#line 113 "parser.y"
-                  {yylhs.value.as < int > () = yystack_[2].value.as < int > () - yystack_[0].value.as < int > (); }
-#line 742 "/home/ubuntu/proj/src/parser.cpp"
+#line 276 "parser.y"
+                 {yylhs.value.as < Type* > () = yystack_[0].value.as < ArrayType* > (); }
+#line 1235 "/home/ubuntu/proj/src/parser.cpp"
     break;
 
   case 20:
-#line 114 "parser.y"
-                  {yylhs.value.as < int > () = yystack_[2].value.as < int > () * yystack_[0].value.as < int > (); }
-#line 748 "/home/ubuntu/proj/src/parser.cpp"
+#line 279 "parser.y"
+          { yylhs.value.as < SimpleType* > () = new Int(); }
+#line 1241 "/home/ubuntu/proj/src/parser.cpp"
     break;
 
   case 21:
-#line 115 "parser.y"
-                  {yylhs.value.as < int > () = yystack_[2].value.as < int > () / yystack_[0].value.as < int > (); }
-#line 754 "/home/ubuntu/proj/src/parser.cpp"
+#line 280 "parser.y"
+                { yylhs.value.as < SimpleType* > () = new Boolean(); }
+#line 1247 "/home/ubuntu/proj/src/parser.cpp"
     break;
 
   case 22:
-#line 116 "parser.y"
-                  {yylhs.value.as < int > () = yystack_[1].value.as < int > (); }
-#line 760 "/home/ubuntu/proj/src/parser.cpp"
+#line 281 "parser.y"
+             { yylhs.value.as < SimpleType* > () = new Void(); }
+#line 1253 "/home/ubuntu/proj/src/parser.cpp"
     break;
 
   case 23:
-#line 117 "parser.y"
-                                {yylhs.value.as < int > () = driver.arrays[yystack_[2].value.as < std::string > ()].size(); }
-#line 766 "/home/ubuntu/proj/src/parser.cpp"
+#line 282 "parser.y"
+                 { yylhs.value.as < SimpleType* > () = new TypeIdentifier(yystack_[0].value.as < Identifier* > ()); }
+#line 1259 "/home/ubuntu/proj/src/parser.cpp"
+    break;
+
+  case 24:
+#line 285 "parser.y"
+                        { yylhs.value.as < ArrayType* > () = new ArrayType(yystack_[2].value.as < SimpleType* > ()); }
+#line 1265 "/home/ubuntu/proj/src/parser.cpp"
+    break;
+
+  case 25:
+#line 288 "parser.y"
+                   {yystack_[0].value.as < StatementList* > ()->AddStatement(yystack_[1].value.as < Statement* > ()); yylhs.value.as < StatementList* > () = yystack_[0].value.as < StatementList* > ();}
+#line 1271 "/home/ubuntu/proj/src/parser.cpp"
+    break;
+
+  case 26:
+#line 289 "parser.y"
+             {yylhs.value.as < StatementList* > () = new StatementList(); }
+#line 1277 "/home/ubuntu/proj/src/parser.cpp"
+    break;
+
+  case 27:
+#line 292 "parser.y"
+                         {yylhs.value.as < Statement* > () = new Assert(yystack_[1].value.as < Expr* > ()); }
+#line 1283 "/home/ubuntu/proj/src/parser.cpp"
+    break;
+
+  case 28:
+#line 293 "parser.y"
+                                 {yylhs.value.as < Statement* > () = yystack_[0].value.as < LocalVariableDeclaration* > (); }
+#line 1289 "/home/ubuntu/proj/src/parser.cpp"
+    break;
+
+  case 29:
+#line 294 "parser.y"
+                        {yylhs.value.as < Statement* > () = yystack_[1].value.as < StatementList* > (); }
+#line 1295 "/home/ubuntu/proj/src/parser.cpp"
+    break;
+
+  case 30:
+#line 295 "parser.y"
+                            {yylhs.value.as < Statement* > () = new If(yystack_[2].value.as < Expr* > (), yystack_[0].value.as < Statement* > ()); }
+#line 1301 "/home/ubuntu/proj/src/parser.cpp"
+    break;
+
+  case 31:
+#line 296 "parser.y"
+                                        {yylhs.value.as < Statement* > () = new IfElse(yystack_[4].value.as < Expr* > (), yystack_[2].value.as < Statement* > (), yystack_[0].value.as < Statement* > ()); }
+#line 1307 "/home/ubuntu/proj/src/parser.cpp"
+    break;
+
+  case 32:
+#line 297 "parser.y"
+                               {yylhs.value.as < Statement* > () = new While(yystack_[2].value.as < Expr* > (), yystack_[0].value.as < Statement* > ()); }
+#line 1313 "/home/ubuntu/proj/src/parser.cpp"
+    break;
+
+  case 33:
+#line 298 "parser.y"
+                                           {yylhs.value.as < Statement* > () = new Sout(yystack_[2].value.as < Expr* > ()); }
+#line 1319 "/home/ubuntu/proj/src/parser.cpp"
+    break;
+
+  case 34:
+#line 299 "parser.y"
+                         {yylhs.value.as < Statement* > () = new Assignment(yystack_[3].value.as < Lvalue* > (), yystack_[1].value.as < Expr* > ()); }
+#line 1325 "/home/ubuntu/proj/src/parser.cpp"
+    break;
+
+  case 35:
+#line 300 "parser.y"
+                       {yylhs.value.as < Statement* > () = new Return(yystack_[1].value.as < Expr* > ()); }
+#line 1331 "/home/ubuntu/proj/src/parser.cpp"
+    break;
+
+  case 36:
+#line 301 "parser.y"
+                        {yylhs.value.as < Statement* > () = yystack_[0].value.as < MethodInvocation* > (); }
+#line 1337 "/home/ubuntu/proj/src/parser.cpp"
+    break;
+
+  case 37:
+#line 304 "parser.y"
+                                         {yylhs.value.as < MethodInvocation* > () = new MethodInvocation(yystack_[5].value.as < Expr* > (), yystack_[3].value.as < Identifier* > (), yystack_[1].value.as < ExprList* > ()); }
+#line 1343 "/home/ubuntu/proj/src/parser.cpp"
+    break;
+
+  case 38:
+#line 305 "parser.y"
+                                 {yylhs.value.as < MethodInvocation* > () = new MethodInvocation(yystack_[4].value.as < Expr* > (), yystack_[2].value.as < Identifier* > ()); }
+#line 1349 "/home/ubuntu/proj/src/parser.cpp"
+    break;
+
+  case 39:
+#line 308 "parser.y"
+        {yylhs.value.as < ExprList* > () = new ExprList(); yylhs.value.as < ExprList* > ()->AddExpr(yystack_[0].value.as < Expr* > ()); }
+#line 1355 "/home/ubuntu/proj/src/parser.cpp"
+    break;
+
+  case 40:
+#line 309 "parser.y"
+                        {yystack_[0].value.as < ExprList* > ()->AddExpr(yystack_[2].value.as < Expr* > ()); yylhs.value.as < ExprList* > () = yystack_[0].value.as < ExprList* > (); }
+#line 1361 "/home/ubuntu/proj/src/parser.cpp"
+    break;
+
+  case 41:
+#line 312 "parser.y"
+                         {yylhs.value.as < LocalVariableDeclaration* > () = new LocalVariableDeclaration(yystack_[0].value.as < VariableDeclaration* > ()); }
+#line 1367 "/home/ubuntu/proj/src/parser.cpp"
+    break;
+
+  case 42:
+#line 315 "parser.y"
+               {yylhs.value.as < Lvalue* > () = new Variable(yystack_[0].value.as < Identifier* > ()); }
+#line 1373 "/home/ubuntu/proj/src/parser.cpp"
+    break;
+
+  case 43:
+#line 316 "parser.y"
+                             {yylhs.value.as < Lvalue* > () = new ArrayElement(yystack_[3].value.as < Identifier* > (), yystack_[1].value.as < Expr* > ()); }
+#line 1379 "/home/ubuntu/proj/src/parser.cpp"
+    break;
+
+  case 44:
+#line 319 "parser.y"
+                     {yylhs.value.as < Expr* > () = yystack_[0].value.as < BinaryOperation* > (); }
+#line 1385 "/home/ubuntu/proj/src/parser.cpp"
+    break;
+
+  case 45:
+#line 320 "parser.y"
+                      {yylhs.value.as < Expr* > () = new ArrayElementVal(yystack_[3].value.as < Expr* > (), yystack_[1].value.as < Expr* > ()); }
+#line 1391 "/home/ubuntu/proj/src/parser.cpp"
+    break;
+
+  case 46:
+#line 321 "parser.y"
+                       {yylhs.value.as < Expr* > () = new Length(yystack_[2].value.as < Expr* > ()); }
+#line 1397 "/home/ubuntu/proj/src/parser.cpp"
+    break;
+
+  case 47:
+#line 322 "parser.y"
+                                    {yylhs.value.as < Expr* > () = new ArrayCreation(yystack_[3].value.as < SimpleType* > (), yystack_[1].value.as < Expr* > ()); }
+#line 1403 "/home/ubuntu/proj/src/parser.cpp"
+    break;
+
+  case 48:
+#line 324 "parser.y"
+              {yylhs.value.as < Expr* > () = new Not(yystack_[0].value.as < Expr* > ()); }
+#line 1409 "/home/ubuntu/proj/src/parser.cpp"
+    break;
+
+  case 49:
+#line 325 "parser.y"
+                  { yylhs.value.as < Expr* > () = yystack_[1].value.as < Expr* > (); }
+#line 1415 "/home/ubuntu/proj/src/parser.cpp"
+    break;
+
+  case 50:
+#line 326 "parser.y"
+                 {yylhs.value.as < Expr* > () = new VariableVal(yystack_[0].value.as < Identifier* > ()); }
+#line 1421 "/home/ubuntu/proj/src/parser.cpp"
+    break;
+
+  case 51:
+#line 327 "parser.y"
+             {yylhs.value.as < Expr* > () = yystack_[0].value.as < IntegerLiteral* > (); }
+#line 1427 "/home/ubuntu/proj/src/parser.cpp"
+    break;
+
+  case 52:
+#line 328 "parser.y"
+             {yylhs.value.as < Expr* > () = new This(); }
+#line 1433 "/home/ubuntu/proj/src/parser.cpp"
+    break;
+
+  case 53:
+#line 329 "parser.y"
+             {yylhs.value.as < Expr* > () = new True(); }
+#line 1439 "/home/ubuntu/proj/src/parser.cpp"
+    break;
+
+  case 54:
+#line 330 "parser.y"
+              {yylhs.value.as < Expr* > () = new False(); }
+#line 1445 "/home/ubuntu/proj/src/parser.cpp"
+    break;
+
+  case 55:
+#line 331 "parser.y"
+                        {yylhs.value.as < Expr* > () = new MethodInvocationVal(yystack_[0].value.as < MethodInvocation* > ()); }
+#line 1451 "/home/ubuntu/proj/src/parser.cpp"
+    break;
+
+  case 56:
+#line 334 "parser.y"
+                 {yylhs.value.as < BinaryOperation* > () = new LogicalAnd(yystack_[2].value.as < Expr* > (), yystack_[0].value.as < Expr* > ()); }
+#line 1457 "/home/ubuntu/proj/src/parser.cpp"
+    break;
+
+  case 57:
+#line 335 "parser.y"
+                   {yylhs.value.as < BinaryOperation* > () = new LogicalOr(yystack_[2].value.as < Expr* > (), yystack_[0].value.as < Expr* > ()); }
+#line 1463 "/home/ubuntu/proj/src/parser.cpp"
+    break;
+
+  case 58:
+#line 336 "parser.y"
+                  {yylhs.value.as < BinaryOperation* > () = new ComparisonLT(yystack_[2].value.as < Expr* > (), yystack_[0].value.as < Expr* > ()); }
+#line 1469 "/home/ubuntu/proj/src/parser.cpp"
+    break;
+
+  case 59:
+#line 337 "parser.y"
+                  {yylhs.value.as < BinaryOperation* > () = new ComparisonGT(yystack_[2].value.as < Expr* > (), yystack_[0].value.as < Expr* > ()); }
+#line 1475 "/home/ubuntu/proj/src/parser.cpp"
+    break;
+
+  case 60:
+#line 338 "parser.y"
+                   {yylhs.value.as < BinaryOperation* > () = new Equal(yystack_[2].value.as < Expr* > (), yystack_[0].value.as < Expr* > ()); }
+#line 1481 "/home/ubuntu/proj/src/parser.cpp"
+    break;
+
+  case 61:
+#line 339 "parser.y"
+                  {yylhs.value.as < BinaryOperation* > () = new Sum(yystack_[2].value.as < Expr* > (), yystack_[0].value.as < Expr* > ()); }
+#line 1487 "/home/ubuntu/proj/src/parser.cpp"
+    break;
+
+  case 62:
+#line 340 "parser.y"
+                  {yylhs.value.as < BinaryOperation* > () = new Dif(yystack_[2].value.as < Expr* > (), yystack_[0].value.as < Expr* > ()); }
+#line 1493 "/home/ubuntu/proj/src/parser.cpp"
+    break;
+
+  case 63:
+#line 341 "parser.y"
+                  {yylhs.value.as < BinaryOperation* > () = new Mul(yystack_[2].value.as < Expr* > (), yystack_[0].value.as < Expr* > ()); }
+#line 1499 "/home/ubuntu/proj/src/parser.cpp"
+    break;
+
+  case 64:
+#line 342 "parser.y"
+                  {yylhs.value.as < BinaryOperation* > () = new Div(yystack_[2].value.as < Expr* > (), yystack_[0].value.as < Expr* > ()); }
+#line 1505 "/home/ubuntu/proj/src/parser.cpp"
+    break;
+
+  case 65:
+#line 343 "parser.y"
+                  {yylhs.value.as < BinaryOperation* > () = new Mod(yystack_[2].value.as < Expr* > (), yystack_[0].value.as < Expr* > ()); }
+#line 1511 "/home/ubuntu/proj/src/parser.cpp"
+    break;
+
+  case 66:
+#line 346 "parser.y"
+                 { yylhs.value.as < Identifier* > () = new Identifier(yystack_[0].value.as < std::string > ()); }
+#line 1517 "/home/ubuntu/proj/src/parser.cpp"
+    break;
+
+  case 67:
+#line 349 "parser.y"
+             { yylhs.value.as < IntegerLiteral* > () = new IntegerLiteral(yystack_[0].value.as < int > ()); }
+#line 1523 "/home/ubuntu/proj/src/parser.cpp"
     break;
 
 
-#line 770 "/home/ubuntu/proj/src/parser.cpp"
+#line 1527 "/home/ubuntu/proj/src/parser.cpp"
 
             default:
               break;
@@ -1037,95 +1794,219 @@ namespace yy {
   }
 
 
-  const signed char parser::yypact_ninf_ = -27;
+  const signed char parser::yypact_ninf_ = -119;
 
-  const signed char parser::yytable_ninf_ = -1;
+  const signed char parser::yytable_ninf_ = -56;
 
-  const signed char
+  const short
   parser::yypact_[] =
   {
-      -7,     8,    38,   -27,    28,   -27,    31,    32,    33,    34,
-      39,    40,    41,    16,    16,    44,   -27,    50,    43,    16,
-     -27,   -27,    11,    35,    45,     0,     0,    46,   -27,    37,
-      42,    47,   -27,     0,   -15,   -27,    23,     7,   -27,   -27,
-     -27,   -27,    36,    48,     0,     0,     0,     0,     0,    49,
-     -27,   -27,   -27,    -4,     9,     9,   -27,   -27,   -27,   -27
+      -3,   -28,    21,    10,  -119,    32,  -119,   -28,  -119,    10,
+      15,    33,  -119,    43,    -9,   -28,    54,   107,  -119,  -119,
+    -119,  -119,    35,    -9,  -119,  -119,   -28,    36,  -119,    73,
+      68,   -28,  -119,  -119,    67,    60,    -9,    85,    86,  -119,
+    -119,    90,    87,    18,  -119,    93,    99,   108,    94,   -28,
+     113,   113,   110,   107,  -119,    47,   113,   116,   117,   123,
+     126,    47,   107,  -119,  -119,  -119,    47,  -119,     0,  -119,
+     369,   127,   113,  -119,  -119,   134,   391,  -119,   128,   113,
+    -119,  -119,   156,  -119,   131,    47,    47,    47,    47,   162,
+     125,    -8,    47,    47,    47,    47,    47,   -13,    47,    47,
+      47,    47,    47,    47,    47,   141,  -119,    47,  -119,   144,
+    -119,  -119,   200,   206,   244,   250,  -119,    47,   272,    46,
+      46,    -8,    -8,  -119,   163,   295,   441,   441,   419,   397,
+     447,    -8,  -119,   319,  -119,   152,  -119,   113,   113,   341,
+    -119,    31,  -119,  -119,  -119,   143,  -119,  -119,  -119,   347,
+     164,   113,    47,  -119,  -119,  -119
   };
 
   const signed char
   parser::yydefact_[] =
   {
-       0,     0,     0,     2,     0,     1,     0,     0,     0,     0,
-       0,     0,     0,     5,     5,     0,    13,     0,     0,     5,
-       6,    10,     0,     0,     0,     0,     0,     0,     4,     0,
-       0,     0,     7,     0,    17,    15,     0,     0,     3,    11,
-      14,    12,     0,     0,     0,     0,     0,     0,     0,     0,
-       9,    22,    23,     0,    19,    18,    20,    21,     8,    16
+       0,     0,     0,     5,    66,     0,     1,     0,     2,     5,
+       0,     0,     4,     0,     9,     0,     0,     0,    22,    20,
+      21,    23,     0,     9,    11,    10,     0,    18,    19,     0,
+       0,     0,     6,     8,     0,     0,     9,     0,     0,    12,
+      24,     0,     0,     0,     7,     0,     0,     0,    16,     0,
+      26,    26,     0,     0,    17,     0,    26,     0,     0,     0,
+       0,     0,     0,    52,    53,    54,     0,    67,    50,    51,
+       0,     0,    26,    41,    28,     0,    36,    44,     0,    26,
+      15,    50,     0,    55,     0,     0,     0,     0,     0,     0,
+       0,    48,     0,     0,     0,     0,     0,     0,     0,     0,
+       0,     0,     0,     0,     0,     0,    25,     0,    13,     0,
+      49,    29,     0,     0,     0,     0,    35,     0,     0,    62,
+      61,    63,    64,    46,     0,     0,    59,    58,    56,    57,
+      60,    65,     3,     0,    14,     0,    27,     0,     0,     0,
+      43,     0,    45,    34,    33,    30,    32,    47,    38,    39,
+       0,     0,     0,    37,    31,    40
   };
 
-  const signed char
+  const short
   parser::yypgoto_[] =
   {
-     -27,   -26,   -27,   -27,    -9,   -27,   -27,   -27,   -27,   -27
+    -119,    -1,  -119,    13,  -119,  -119,   166,   104,  -118,  -119,
+     124,  -119,    23,  -119,  -119,    37,   -16,   118,  -119,  -119,
+    -119,   -48,  -119,    26
   };
 
-  const signed char
+  const short
   parser::yydefgoto_[] =
   {
-      -1,    36,     2,     3,    18,    19,    20,    21,    22,    23
+      -1,    81,    69,    70,     2,     3,     8,    71,    72,     9,
+      47,    48,    22,    23,    24,    73,    26,    27,    28,    74,
+      75,    83,    77,   150
   };
 
-  const signed char
+  const short
   parser::yytable_[] =
   {
-      37,    45,    46,    47,    48,    24,     1,    42,    43,    33,
-      28,    44,    45,    46,    47,    48,    47,    48,    53,    54,
-      55,    56,    57,    59,    34,    35,    50,    14,    45,    46,
-      47,    48,     4,    49,    15,    29,    16,    30,     5,     6,
-      17,    45,    46,    47,    48,     7,    51,     8,    11,     9,
-      12,    10,    13,    25,    26,    27,    39,    32,    38,    31,
-       0,     0,     0,     0,     0,     0,    41,     0,    58,    40,
-      52
+       5,    31,    76,    76,   -42,    17,    11,    18,    76,   123,
+       1,    19,    20,    21,    29,    97,    21,     4,    98,   145,
+     146,     6,    21,     7,    76,    34,    92,    49,    46,    13,
+      38,    76,     4,   154,    18,    21,     4,    49,    19,    20,
+      55,   148,    21,    10,    14,   -23,    33,    32,    54,    68,
+      68,    25,    21,    95,    96,    68,    55,    15,    16,    41,
+      25,    21,    35,     4,    62,    63,    64,    65,    82,    97,
+      30,    68,    98,    25,    89,    66,     4,    67,    68,    91,
+      62,    63,    64,    65,    36,    37,    39,    40,   104,    76,
+      76,    66,     4,    67,    42,    43,   124,    45,   112,   113,
+     114,   115,    44,    76,    50,   118,   119,   120,   121,   122,
+      51,   125,   126,   127,   128,   129,   130,   131,    52,    53,
+     133,    79,    55,    18,    56,    85,    86,    19,    20,    18,
+     139,    57,    87,    19,    20,    88,    68,    68,   107,   105,
+     108,    58,    59,   111,    60,    61,    62,    63,    64,    65,
+      68,   117,     4,   132,   149,    78,   134,    66,     4,    67,
+      84,    93,    94,    95,    96,   149,   110,    93,    94,    95,
+      96,   144,   141,   151,   153,    12,   106,    80,   155,    97,
+      90,   116,    98,   109,     0,    97,     0,     0,    98,     0,
+       0,     0,     0,    99,   100,   101,   102,   103,   104,    99,
+     100,   101,   102,   103,   104,    93,    94,    95,    96,     0,
+     135,    93,    94,    95,    96,     0,   136,     0,     0,     0,
+       0,     0,     0,    97,     0,     0,    98,     0,     0,    97,
+       0,     0,    98,     0,     0,     0,     0,    99,   100,   101,
+     102,   103,   104,    99,   100,   101,   102,   103,   104,    93,
+      94,    95,    96,     0,   137,    93,    94,    95,    96,     0,
+     138,     0,     0,     0,     0,     0,     0,    97,     0,     0,
+      98,     0,     0,    97,     0,     0,    98,    93,    94,    95,
+      96,    99,   100,   101,   102,   103,   104,    99,   100,   101,
+     102,   103,   104,     0,     0,    97,     0,     0,    98,   140,
+      93,    94,    95,    96,     0,     0,     0,     0,     0,    99,
+     100,   101,   102,   103,   104,     0,     0,     0,    97,     0,
+       0,    98,   142,     0,    93,    94,    95,    96,     0,     0,
+       0,     0,    99,   100,   101,   102,   103,   104,   143,     0,
+       0,     0,    97,     0,     0,    98,    93,    94,    95,    96,
+       0,     0,    93,    94,    95,    96,    99,   100,   101,   102,
+     103,   104,     0,     0,    97,     0,     0,    98,   147,     0,
+      97,     0,   152,    98,    93,    94,    95,    96,    99,   100,
+     101,   102,   103,   104,    99,   100,   101,   102,   103,   104,
+       0,     0,    97,     0,     0,    98,   -55,   -55,   -55,   -55,
+       0,     0,    93,    94,    95,    96,    99,   100,   101,   102,
+     103,   104,     0,     0,   -55,     0,     0,   -55,     0,     0,
+      97,     0,     0,    98,    93,    94,    95,    96,   -55,   -55,
+     -55,   -55,   -55,   -55,    99,   100,   101,     0,   103,   104,
+       0,     0,    97,     0,     0,    98,    93,    94,    95,    96,
+       0,     0,    93,    94,    95,    96,    99,   100,     0,     0,
+     103,   104,     0,     0,    97,     0,     0,    98,     0,     0,
+      97,     0,     0,    98,     0,     0,     0,     0,   -56,   -56,
+       0,     0,     0,   104,    99,   100,     0,     0,     0,   104
   };
 
-  const signed char
+  const short
   parser::yycheck_[] =
   {
-      26,     5,     6,     7,     8,    14,    13,    33,    23,     9,
-      19,    26,     5,     6,     7,     8,     7,     8,    44,    45,
-      46,    47,    48,    27,    24,    25,    19,    11,     5,     6,
-       7,     8,    24,    10,    18,    24,    20,    26,     0,    11,
-      24,     5,     6,     7,     8,    14,    10,    15,     9,    16,
-      10,    17,    11,     9,     4,    12,    19,    12,    12,    24,
-      -1,    -1,    -1,    -1,    -1,    -1,    19,    -1,    19,    27,
-      22
+       1,    17,    50,    51,     4,    14,     7,    16,    56,    22,
+      13,    20,    21,    14,    15,    23,    17,    45,    26,   137,
+     138,     0,    23,    13,    72,    26,    26,    43,    10,    14,
+      31,    79,    45,   151,    16,    36,    45,    53,    20,    21,
+       9,    10,    43,    11,    11,    45,    23,    12,    49,    50,
+      51,    14,    53,     7,     8,    56,     9,    24,    15,    36,
+      23,    62,    26,    45,    33,    34,    35,    36,    55,    23,
+      16,    72,    26,    36,    61,    44,    45,    46,    79,    66,
+      33,    34,    35,    36,    11,    17,    19,    27,    42,   137,
+     138,    44,    45,    46,     9,     9,    97,    10,    85,    86,
+      87,    88,    12,   151,    11,    92,    93,    94,    95,    96,
+      11,    98,    99,   100,   101,   102,   103,   104,    10,    25,
+     107,    11,     9,    16,    11,     9,     9,    20,    21,    16,
+     117,    18,     9,    20,    21,     9,   137,   138,     4,    12,
+      12,    28,    29,    12,    31,    32,    33,    34,    35,    36,
+     151,    26,    45,    12,   141,    51,    12,    44,    45,    46,
+      56,     5,     6,     7,     8,   152,    10,     5,     6,     7,
+       8,    19,     9,    30,    10,     9,    72,    53,   152,    23,
+      62,    19,    26,    79,    -1,    23,    -1,    -1,    26,    -1,
+      -1,    -1,    -1,    37,    38,    39,    40,    41,    42,    37,
+      38,    39,    40,    41,    42,     5,     6,     7,     8,    -1,
+      10,     5,     6,     7,     8,    -1,    10,    -1,    -1,    -1,
+      -1,    -1,    -1,    23,    -1,    -1,    26,    -1,    -1,    23,
+      -1,    -1,    26,    -1,    -1,    -1,    -1,    37,    38,    39,
+      40,    41,    42,    37,    38,    39,    40,    41,    42,     5,
+       6,     7,     8,    -1,    10,     5,     6,     7,     8,    -1,
+      10,    -1,    -1,    -1,    -1,    -1,    -1,    23,    -1,    -1,
+      26,    -1,    -1,    23,    -1,    -1,    26,     5,     6,     7,
+       8,    37,    38,    39,    40,    41,    42,    37,    38,    39,
+      40,    41,    42,    -1,    -1,    23,    -1,    -1,    26,    27,
+       5,     6,     7,     8,    -1,    -1,    -1,    -1,    -1,    37,
+      38,    39,    40,    41,    42,    -1,    -1,    -1,    23,    -1,
+      -1,    26,    27,    -1,     5,     6,     7,     8,    -1,    -1,
+      -1,    -1,    37,    38,    39,    40,    41,    42,    19,    -1,
+      -1,    -1,    23,    -1,    -1,    26,     5,     6,     7,     8,
+      -1,    -1,     5,     6,     7,     8,    37,    38,    39,    40,
+      41,    42,    -1,    -1,    23,    -1,    -1,    26,    27,    -1,
+      23,    -1,    25,    26,     5,     6,     7,     8,    37,    38,
+      39,    40,    41,    42,    37,    38,    39,    40,    41,    42,
+      -1,    -1,    23,    -1,    -1,    26,     5,     6,     7,     8,
+      -1,    -1,     5,     6,     7,     8,    37,    38,    39,    40,
+      41,    42,    -1,    -1,    23,    -1,    -1,    26,    -1,    -1,
+      23,    -1,    -1,    26,     5,     6,     7,     8,    37,    38,
+      39,    40,    41,    42,    37,    38,    39,    -1,    41,    42,
+      -1,    -1,    23,    -1,    -1,    26,     5,     6,     7,     8,
+      -1,    -1,     5,     6,     7,     8,    37,    38,    -1,    -1,
+      41,    42,    -1,    -1,    23,    -1,    -1,    26,    -1,    -1,
+      23,    -1,    -1,    26,    -1,    -1,    -1,    -1,    37,    38,
+      -1,    -1,    -1,    42,    37,    38,    -1,    -1,    -1,    42
   };
 
   const signed char
   parser::yystos_[] =
   {
-       0,    13,    30,    31,    24,     0,    11,    14,    15,    16,
-      17,     9,    10,    11,    11,    18,    20,    24,    32,    33,
-      34,    35,    36,    37,    32,     9,     4,    12,    32,    24,
-      26,    24,    12,     9,    24,    25,    29,    29,    12,    19,
-      27,    19,    29,    23,    26,     5,     6,     7,     8,    10,
-      19,    10,    22,    29,    29,    29,    29,    29,    19,    27
+       0,    13,    51,    52,    45,    48,     0,    13,    53,    56,
+      11,    48,    53,    14,    11,    24,    15,    14,    16,    20,
+      21,    48,    59,    60,    61,    62,    63,    64,    65,    48,
+      16,    63,    12,    59,    48,    26,    11,    17,    48,    19,
+      27,    59,     9,     9,    12,    10,    10,    57,    58,    63,
+      11,    11,    10,    25,    48,     9,    11,    18,    28,    29,
+      31,    32,    33,    34,    35,    36,    44,    46,    48,    49,
+      50,    54,    55,    62,    66,    67,    68,    69,    54,    11,
+      57,    48,    50,    68,    54,     9,     9,     9,     9,    50,
+      64,    50,    26,     5,     6,     7,     8,    23,    26,    37,
+      38,    39,    40,    41,    42,    12,    54,     4,    12,    54,
+      10,    12,    50,    50,    50,    50,    19,    26,    50,    50,
+      50,    50,    50,    22,    48,    50,    50,    50,    50,    50,
+      50,    50,    12,    50,    12,    10,    10,    10,    10,    50,
+      27,     9,    27,    19,    19,    55,    55,    27,    10,    50,
+      70,    30,    25,    10,    55,    70
   };
 
   const signed char
   parser::yyr1_[] =
   {
-       0,    28,    30,    31,    32,    32,    33,    33,    33,    33,
-      34,    35,    35,    36,    37,    29,    29,    29,    29,    29,
-      29,    29,    29,    29
+       0,    47,    51,    52,    53,    53,    56,    56,    59,    59,
+      60,    60,    62,    61,    61,    57,    57,    58,    63,    63,
+      64,    64,    64,    64,    65,    54,    54,    55,    55,    55,
+      55,    55,    55,    55,    55,    55,    55,    68,    68,    70,
+      70,    66,    67,    67,    50,    50,    50,    50,    50,    50,
+      50,    50,    50,    50,    50,    50,    69,    69,    69,    69,
+      69,    69,    69,    69,    69,    69,    48,    49
   };
 
   const signed char
   parser::yyr2_[] =
   {
-       0,     2,     1,    13,     2,     0,     1,     3,     5,     4,
-       1,     3,     3,     1,     3,     1,     4,     1,     3,     3,
-       3,     3,     3,     3
+       0,     2,     2,    13,     2,     0,     5,     7,     2,     0,
+       1,     1,     3,     8,     9,     3,     1,     2,     1,     1,
+       1,     1,     1,     1,     3,     2,     0,     4,     1,     3,
+       5,     7,     5,     5,     4,     3,     1,     6,     5,     1,
+       3,     1,     1,     4,     1,     4,     3,     5,     2,     3,
+       1,     1,     1,     1,     1,     1,     3,     3,     3,     3,
+       3,     3,     3,     3,     3,     3,     1,     1
   };
 
 
@@ -1139,18 +2020,29 @@ namespace yy {
   "\"+\"", "\"*\"", "\"/\"", "\"(\"", "\")\"", "\"{\"", "\"}\"",
   "\"class\"", "\"public\"", "\"static\"", "\"void\"", "\"main\"",
   "\"System.out.println\"", "\";\"", "\"int\"", "\"boolean\"",
-  "\"length\"", "\".\"", "\"identifier\"", "\"number\"", "\"[\"", "\"]\"",
-  "$accept", "exp", "unit", "main_class", "stmt_list", "stmt",
-  "local_var_decl", "var_decl", "simple_type", "array_type", YY_NULLPTR
+  "\"length\"", "\".\"", "\"extends\"", "\",\"", "\"[\"", "\"]\"",
+  "\"assert\"", "\"if\"", "\"else\"", "\"while\"", "\"return\"", "\"new\"",
+  "\"this\"", "\"true\"", "\"false\"", "\">\"", "\"<\"", "\"&&\"",
+  "\"||\"", "\"==\"", "\"%\"", "\"!=\"", "\"!\"", "\"identifier\"",
+  "\"number\"", "$accept", "identifier", "number", "exp", "unit",
+  "main_class", "class_declaration_list", "stmt_list", "stmt",
+  "class_declaration", "formals", "formal", "declaration_list",
+  "declaration", "method_declaration", "variable_declaration", "type",
+  "simple_type", "array_type", "local_variable_declaration", "lvalue",
+  "method_invocation", "binary_operation", "expr_list", YY_NULLPTR
   };
 
 #if YYDEBUG
-  const signed char
+  const short
   parser::yyrline_[] =
   {
-       0,    70,    70,    73,    76,    77,    80,    81,    82,    83,
-      86,    89,    90,    97,   103,   109,   110,   111,   112,   113,
-     114,   115,   116,   117
+       0,   236,   236,   242,   245,   246,   249,   250,   253,   254,
+     257,   258,   261,   264,   265,   268,   269,   272,   275,   276,
+     279,   280,   281,   282,   285,   288,   289,   292,   293,   294,
+     295,   296,   297,   298,   299,   300,   301,   304,   305,   308,
+     309,   312,   315,   316,   319,   320,   321,   322,   324,   325,
+     326,   327,   328,   329,   330,   331,   334,   335,   336,   337,
+     338,   339,   340,   341,   342,   343,   346,   349
   };
 
   // Print the state stack on the debug stream.
@@ -1184,9 +2076,9 @@ namespace yy {
 
 
 } // yy
-#line 1188 "/home/ubuntu/proj/src/parser.cpp"
+#line 2080 "/home/ubuntu/proj/src/parser.cpp"
 
-#line 119 "parser.y"
+#line 351 "parser.y"
 
 
 void
