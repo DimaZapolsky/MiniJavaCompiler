@@ -4,5 +4,11 @@
 
 #include "Formal.h"
 
-Formal::Formal(Type *type, Identifier *identifier) :
+Formal::Formal(types::Type *type, Identifier *identifier) :
     type_(type), identifier_(identifier) {}
+types::Type *Formal::GetType() const {
+  return type_;
+}
+Identifier *Formal::GetIdentifier() const {
+  return identifier_;
+}

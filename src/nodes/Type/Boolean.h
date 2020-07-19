@@ -7,6 +7,8 @@
 
 #include "SimpleType.h"
 
+namespace types {
+
 class Boolean : public SimpleType {
 public:
     Boolean() = default;
@@ -14,5 +16,6 @@ public:
     virtual std::string GetIdentifier() override;
 };
 
+}
 
 #endif //COMPILERS_BOOLEAN_H

@@ -7,14 +7,18 @@
 
 #include "Identifier.h"
 #include "nodes/Type/Type.h"
+#include "Visitors/Visitable.h"
 
-class Formal {
+class Visitable;
+
+class Formal : public Visitable {
 public:
-    Formal(Type* type, Identifier* identifier);
+    Formal(types::Type* type, Identifier* identifier);
     ~Formal() = default;
-
-private:
-    Type* type_;
+  types::Type *GetType() const;
+  Identifier *GetIdentifier() const;
+ private:
+    types::Type* type_;
     Identifier* identifier_;
 };
 

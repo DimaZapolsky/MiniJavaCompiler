@@ -13,8 +13,9 @@ class ArrayElement : public Lvalue {
 public:
     ArrayElement(Identifier* identifier, Expr* expr);
     ~ArrayElement() = default;
-
-private:
+  Identifier *GetIdentifier() const;
+  Expr *GetExpr() const;
+ private:
     Identifier* identifier_;
     Expr* expr_;
 };

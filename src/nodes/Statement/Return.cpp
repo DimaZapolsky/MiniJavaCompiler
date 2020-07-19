@@ -6,3 +6,6 @@
 
 Return::Return(Expr *expr) :
     expr_(expr) {}
+Expr *Return::GetExpr() const {
+  return expr_;
+}

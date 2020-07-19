@@ -5,8 +5,9 @@
 #ifndef COMPILERS_STATEMENT_H
 #define COMPILERS_STATEMENT_H
 
+#include "../../Visitors/Visitable.h"
 
-class Statement {
+class Statement : public Visitable {
 public:
     Statement() = default;
     ~Statement() = default;

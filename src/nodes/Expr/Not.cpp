@@ -6,3 +6,6 @@
 
 Not::Not(Expr *expr) :
     expr_(expr) {}
+Expr *Not::GetExpr() const {
+  return expr_;
+}

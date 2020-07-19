@@ -13,7 +13,7 @@ public:
     ~IntegerLiteral() = default;
     int GetValue();
 
-private:
+ private:
     int value_;
 };
 

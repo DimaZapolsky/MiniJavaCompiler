@@ -13,8 +13,8 @@ public:
     StatementList();
     ~StatementList() = default;
     void AddStatement(Statement* statement);
-
-private:
+  const std::vector<Statement *> &GetStatements() const;
+ private:
     std::vector<Statement*> statements_;
 };
 

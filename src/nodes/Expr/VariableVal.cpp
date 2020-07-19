@@ -6,3 +6,7 @@
 
 VariableVal::VariableVal(Identifier *identifier) :
     identifier_(identifier) {}
+
+Identifier *VariableVal::GetIdentifier() const {
+  return identifier_;
+}

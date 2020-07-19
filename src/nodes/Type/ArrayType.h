@@ -8,17 +8,18 @@
 #include "Type.h"
 #include "SimpleType.h"
 
+namespace types {
+
 class ArrayType : public Type {
 public:
     ArrayType(SimpleType* simpleType);
     ~ArrayType() = default;
     SimpleType* GetSimpleType();
     virtual std::string GetIdentifier() override;
-
-
-private:
+ private:
     SimpleType* simpleType_;
 };
 
+}
 
 #endif //COMPILERS_ARRAYTYPE_H

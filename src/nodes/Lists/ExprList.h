@@ -5,16 +5,18 @@
 #ifndef COMPILERS_EXPRLIST_H
 #define COMPILERS_EXPRLIST_H
 
-#include "nodes/Expr/Expr.h"
 #include <vector>
 
-class ExprList {
+#include "nodes/Expr/Expr.h"
+#include "../../Visitors/Visitable.h"
+
+class ExprList : public Visitable {
 public:
     ExprList();
     ~ExprList() = default;
     void AddExpr(Expr* expr);
-
-private:
+  const std::vector<Expr *> &GetExpressions() const;
+ private:
     std::vector<Expr*> expressions_;
 };
 

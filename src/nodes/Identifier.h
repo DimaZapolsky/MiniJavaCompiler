@@ -6,14 +6,14 @@
 #define COMPILERS_IDENTIFIER_H
 
 #include <string>
+#include "../Visitors/Visitable.h"
 
-class Identifier {
+class Identifier : public Visitable {
 public:
     Identifier(const std::string &s);
     ~Identifier() = default;
     std::string GetIdentifier();
-
-private:
+ private:
     std::string identifier_;
 };
 

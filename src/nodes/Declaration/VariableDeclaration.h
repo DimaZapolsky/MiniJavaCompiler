@@ -10,12 +10,14 @@
 #include "nodes/Identifier.h"
 
 class VariableDeclaration : public Declaration {
-public:
-    VariableDeclaration(Type* type, Identifier* identifier);
+ public:
+    VariableDeclaration(types::Type* type, Identifier* identifier);
     ~VariableDeclaration() = default;
+  types::Type *GetType() const;
+  Identifier *GetIdentifier() const;
 
-private:
-    Type* type_;
+ private:
+    types::Type* type_;
     Identifier* identifier_;
 };
 

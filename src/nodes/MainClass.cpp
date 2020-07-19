@@ -6,3 +6,9 @@
 
 MainClass::MainClass(Identifier *identifier, StatementList *statementList) :
     identifier_(identifier), statementList_(statementList) {}
+Identifier *MainClass::GetIdentifier() const {
+  return identifier_;
+}
+StatementList *MainClass::GetStatementList() const {
+  return statementList_;
+}

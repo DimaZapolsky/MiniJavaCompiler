@@ -4,6 +4,6 @@
 
 #include "Int.h"
 
-std::string Int::GetIdentifier() {
+std::string types::Int::GetIdentifier() {
     return "int";
 }

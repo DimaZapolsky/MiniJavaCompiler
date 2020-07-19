@@ -12,8 +12,9 @@ class Assert : public Statement {
 public:
     Assert(Expr* expr);
     ~Assert();
+  Expr *GetExpr() const;
 
-private:
+ private:
     Expr* expr_;
 };
 

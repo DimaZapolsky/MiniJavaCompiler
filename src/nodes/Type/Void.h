@@ -6,13 +6,17 @@
 #define COMPILERS_VOID_H
 
 #include "nodes/Type/SimpleType.h"
+#include "SimpleType.h"
 
-class Void : public SimpleType {
+namespace types {
+
+class Void : public types::SimpleType {
 public:
     Void() = default;
     ~Void() = default;
     virtual std::string GetIdentifier() override;
 };
 
+}
 
 #endif //COMPILERS_VOID_H

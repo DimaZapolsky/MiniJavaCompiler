@@ -7,3 +7,6 @@
 
 Assert::Assert(Expr *expr) :
     expr_(expr){}
+Expr *Assert::GetExpr() const {
+  return expr_;
+}

@@ -6,13 +6,17 @@
 #define COMPILERS_TYPE_H
 
 #include <string>
+#include "Visitors/Visitable.h"
 
-class Type {
+namespace types {
+
+class Type : public Visitable {
 public:
     Type() = default;
     ~Type() = default;
     virtual std::string GetIdentifier() = 0;
 };
 
+}
 
 #endif //COMPILERS_TYPE_H

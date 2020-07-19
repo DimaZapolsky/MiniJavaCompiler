@@ -6,3 +6,6 @@
 
 Sout::Sout(Expr *expr) :
     expr_(expr) {}
+Expr *Sout::GetExpr() const {
+  return expr_;
+}

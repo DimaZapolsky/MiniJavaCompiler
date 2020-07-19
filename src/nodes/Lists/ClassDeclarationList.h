@@ -5,16 +5,18 @@
 #ifndef COMPILERS_CLASSESDECLARATION_H
 #define COMPILERS_CLASSESDECLARATION_H
 
-#include "nodes/Declaration/ClassDeclaration.h"
 #include <vector>
 
-class ClassDeclarationList {
+#include "nodes/Declaration/ClassDeclaration.h"
+#include "../../Visitors/Visitable.h"
+
+class ClassDeclarationList : public Visitable {
 public:
     ClassDeclarationList();
     ~ClassDeclarationList() = default;
     void AddClassDeclaration(ClassDeclaration* classDeclaration);
-
-private:
+  const std::vector<ClassDeclaration *> &GetClassDeclarations() const;
+ private:
     std::vector <ClassDeclaration*> classDeclarations_;
 };
 

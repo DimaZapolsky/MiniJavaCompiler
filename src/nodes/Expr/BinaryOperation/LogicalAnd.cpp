@@ -5,3 +5,4 @@
 #include "LogicalAnd.h"
 
 LogicalAnd::LogicalAnd(Expr *leftExpr, Expr *rightExpr) : BinaryOperation(leftExpr, rightExpr) {}
+

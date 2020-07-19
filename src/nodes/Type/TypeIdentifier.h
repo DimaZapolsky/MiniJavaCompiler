@@ -7,15 +7,20 @@
 
 #include "nodes/Type/SimpleType.h"
 #include "nodes/Identifier.h"
+#include "SimpleType.h"
 
-class TypeIdentifier : public SimpleType {
+namespace types {
+
+class TypeIdentifier : public types::SimpleType {
 public:
     TypeIdentifier(Identifier* identifier);
     ~TypeIdentifier() = default;
     std::string GetIdentifier();
-private:
+    Identifier* GetIdentifierPtr();
+ private:
     Identifier* identifier_;
 };
 
+}
 
 #endif //COMPILERS_TYPEIDENTIFIER_H

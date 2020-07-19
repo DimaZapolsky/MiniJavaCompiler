@@ -6,3 +6,12 @@
 
 IfElse::IfElse(Expr *expr, Statement *statementTrue, Statement *statementFalse) :
     expr_(expr), statementTrue_(statementTrue), statementFalse_(statementFalse) {}
+Expr *IfElse::GetExpr() const {
+  return expr_;
+}
+Statement *IfElse::GetStatementTrue() const {
+  return statementTrue_;
+}
+Statement *IfElse::GetStatementFalse() const {
+  return statementFalse_;
+}

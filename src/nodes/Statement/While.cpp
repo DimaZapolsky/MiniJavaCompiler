@@ -6,3 +6,9 @@
 
 While::While(Expr *expr, Statement *statement) :
     expr_(expr), statement_(statement) {}
+Expr *While::GetExpr() const {
+  return expr_;
+}
+Statement *While::GetStatement() const {
+  return statement_;
+}

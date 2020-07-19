@@ -3,14 +3,15 @@
 //
 
 #include "ArrayType.h"
+#include "SimpleType.h"
 
-ArrayType::ArrayType(SimpleType *simpleType) :
+types::ArrayType::ArrayType(SimpleType *simpleType) :
     simpleType_(simpleType) {}
 
-SimpleType* ArrayType::GetSimpleType() {
+types::SimpleType* types::ArrayType::GetSimpleType() {
     return simpleType_;
 }
 
-std::string ArrayType::GetIdentifier() {
+std::string types::ArrayType::GetIdentifier() {
     return simpleType_->GetIdentifier() + "_array";
 }

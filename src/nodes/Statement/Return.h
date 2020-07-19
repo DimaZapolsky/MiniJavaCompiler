@@ -12,8 +12,8 @@ class Return : public Statement {
 public:
     Return(Expr* expr);
     ~Return() = default;
-
-private:
+  Expr *GetExpr() const;
+ private:
     Expr* expr_;
 };
 

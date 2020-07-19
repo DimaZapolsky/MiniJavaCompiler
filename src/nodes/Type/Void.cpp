@@ -4,6 +4,6 @@
 
 #include "Void.h"
 
-std::string Void::GetIdentifier() {
+std::string types::Void::GetIdentifier() {
     return "void";
 }

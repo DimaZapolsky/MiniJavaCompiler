@@ -9,3 +9,6 @@ Formals::Formals() : formals_() {}
 void Formals::AddFormal(Formal *formal) {
     formals_.push_back(formal);
 }
+const std::vector<Formal *> &Formals::GetFormals() const {
+  return formals_;
+}

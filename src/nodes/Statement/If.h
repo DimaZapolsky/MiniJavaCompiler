@@ -12,8 +12,9 @@ class If : public Statement {
 public:
     If(Expr* expr, Statement* statement);
     ~If() = default;
-
-private:
+  Expr *GetExpr() const;
+  Statement *GetStatement() const;
+ private:
     Expr* expr_;
     Statement* statement_;
 };

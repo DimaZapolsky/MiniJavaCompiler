@@ -12,8 +12,8 @@ class MethodInvocationVal : public Expr{
 public:
     MethodInvocationVal(MethodInvocation* methodInvocation);
     ~MethodInvocationVal() = default;
-
-private:
+  MethodInvocation *GetMethodInvocation() const;
+ private:
     MethodInvocation* methodInvocation_;
 };
 

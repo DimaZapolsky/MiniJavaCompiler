@@ -5,3 +5,4 @@
 #include "Dif.h"
 
 Dif::Dif(Expr *leftExpr, Expr *rightExpr) : BinaryOperation(leftExpr, rightExpr) {}
+

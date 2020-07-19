@@ -5,3 +5,4 @@
 #include "LogicalOr.h"
 
 LogicalOr::LogicalOr(Expr *leftExpr, Expr *rightExpr) : BinaryOperation(leftExpr, rightExpr) {}
+

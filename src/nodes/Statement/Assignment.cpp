@@ -6,3 +6,9 @@
 
 Assignment::Assignment(Lvalue *lvalue, Expr *expr) :
     lvalue_(lvalue), expr_(expr) {}
+Lvalue *Assignment::GetLvalue() const {
+  return lvalue_;
+}
+Expr *Assignment::GetExpr() const {
+  return expr_;
+}

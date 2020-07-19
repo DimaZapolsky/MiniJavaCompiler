@@ -12,8 +12,10 @@ class IfElse : public Statement {
 public:
     IfElse(Expr* expr, Statement* statementTrue, Statement* statementFalse);
     ~IfElse() = default;
-
-private:
+  Expr *GetExpr() const;
+  Statement *GetStatementTrue() const;
+  Statement *GetStatementFalse() const;
+ private:
     Expr* expr_;
     Statement* statementTrue_;
     Statement* statementFalse_;

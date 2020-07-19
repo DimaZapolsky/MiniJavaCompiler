@@ -13,8 +13,9 @@ class Assignment : public Statement {
 public:
     Assignment(Lvalue* lvalue, Expr* expr);
     ~Assignment() = default;
-
-private:
+  Lvalue *GetLvalue() const;
+  Expr *GetExpr() const;
+ private:
     Lvalue* lvalue_;
     Expr* expr_;
 };

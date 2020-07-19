@@ -10,3 +10,7 @@ ExprList::ExprList() :
 void ExprList::AddExpr(Expr *expr) {
     expressions_.push_back(expr);
 }
+
+const std::vector<Expr *> &ExprList::GetExpressions() const {
+  return expressions_;
+}

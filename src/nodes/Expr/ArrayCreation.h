@@ -10,11 +10,13 @@
 
 class ArrayCreation : public Expr {
 public:
-    ArrayCreation(SimpleType* simpleType, Expr* expr);
+    ArrayCreation(types::SimpleType* simpleType, Expr* expr);
     ~ArrayCreation() = default;
+  types::SimpleType *GetSimpleType() const;
+  Expr *GetExpr() const;
 
-private:
-    SimpleType* simpleType_;
+ private:
+    types::SimpleType* simpleType_;
     Expr* expr_;
 };
 

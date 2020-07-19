@@ -4,5 +4,9 @@
 
 #include "ObjectCreation.h"
 
-ObjectCreation::ObjectCreation(TypeIdentifier *typeIdentifier) :
+ObjectCreation::ObjectCreation(types::TypeIdentifier *typeIdentifier) :
     typeIdentifier_(typeIdentifier) {}
+
+types::TypeIdentifier *ObjectCreation::GetTypeIdentifier() const {
+  return typeIdentifier_;
+}

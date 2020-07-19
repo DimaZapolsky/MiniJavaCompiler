@@ -136,5 +136,15 @@ add_executable(
         nodes/Type/Void.h
         nodes/Statement/While.cpp
         nodes/Statement/While.h
+        Visitors/PrintVisitor.h
+        Visitors/PrintVisitor.cpp
+        Visitors/Interpreter.cpp
+        Visitors/Visitable.cpp
+        Objects/Int.cpp
+        Objects/Boolean.cpp
+        Objects/IntArray.cpp
+        Objects/BooleanArray.cpp
+        Objects/BaseObject.cpp
 )
+
 target_include_directories(NaiveInterpreter PRIVATE ${ParserExample_SOURCE_DIR})

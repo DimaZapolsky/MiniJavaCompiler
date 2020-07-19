@@ -6,3 +6,9 @@
 
 If::If(Expr *expr, Statement *statement) :
     expr_(expr), statement_(statement) {}
+Expr *If::GetExpr() const {
+  return expr_;
+}
+Statement *If::GetStatement() const {
+  return statement_;
+}

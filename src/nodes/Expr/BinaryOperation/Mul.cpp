@@ -5,3 +5,4 @@
 #include "Mul.h"
 
 Mul::Mul(Expr *exprLeft, Expr *exprRight) : BinaryOperation(exprLeft, exprRight) {}
+

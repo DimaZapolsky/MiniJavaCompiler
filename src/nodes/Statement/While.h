@@ -12,8 +12,9 @@ class While : public Statement {
 public:
     While(Expr* expr, Statement* statement);
     ~While() = default;
-
-private:
+  Expr *GetExpr() const;
+  Statement *GetStatement() const;
+ private:
     Expr* expr_;
     Statement* statement_;
 };

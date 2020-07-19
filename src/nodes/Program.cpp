@@ -6,3 +6,11 @@
 
 Program::Program(MainClass *mainClass, ClassDeclarationList* classDeclarationList) :
     mainClass_(mainClass), classDeclarationList_(classDeclarationList) {}
+
+MainClass *Program::GetMainClass() const {
+  return mainClass_;
+}
+
+ClassDeclarationList *Program::GetClassDeclarationList() const {
+  return classDeclarationList_;
+}

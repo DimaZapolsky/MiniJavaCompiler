@@ -10,11 +10,11 @@
 
 class ObjectCreation : public Expr {
 public:
-    ObjectCreation(TypeIdentifier* typeIdentifier);
+    ObjectCreation(types::TypeIdentifier* typeIdentifier);
     ~ObjectCreation() = default;
-
-private:
-    TypeIdentifier* typeIdentifier_;
+  types::TypeIdentifier *GetTypeIdentifier() const;
+ private:
+    types::TypeIdentifier* typeIdentifier_;
 };
 
 

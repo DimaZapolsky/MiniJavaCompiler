@@ -4,6 +4,8 @@
 
 #include <iostream>
 #include <driver.hh>
+#include "Visitors/PrintVisitor.h"
+#include "Visitors/Interpreter.h"
 
 int main(int argc, char** argv) {
     int result = 0;
@@ -15,6 +17,10 @@ int main(int argc, char** argv) {
         } else if (argv[i] == std::string("-s")) {
             driver.trace_scanning = true;
         } else if (!driver.parse(argv[i])) {
+            PrintVisitor print_visitor("tree.txt");
+            Interpreter interpreter;
+            driver.program->Accept(&print_visitor);
+            driver.program->Accept(&interpreter);
             std::cout << "OK" << std::endl;
         } else {
             std::cout << "ERROR" << std::endl;

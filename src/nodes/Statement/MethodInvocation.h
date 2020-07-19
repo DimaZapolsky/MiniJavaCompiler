@@ -15,8 +15,10 @@ public:
     MethodInvocation(Expr* expr, Identifier* identifier, ExprList* exprList);
     MethodInvocation(Expr* expr, Identifier* identifier);
     ~MethodInvocation() = default;
-
-private:
+  Expr *GetExpr() const;
+  Identifier *GetIdentifier() const;
+  ExprList *GetExprList() const;
+ private:
     Expr* expr_;
     Identifier* identifier_;
     ExprList* exprList_;

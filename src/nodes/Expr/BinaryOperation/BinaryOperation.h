@@ -11,8 +11,9 @@ class BinaryOperation : public Expr {
 public:
     BinaryOperation(Expr* l_expr, Expr* r_expr);
     ~BinaryOperation() = default;
-
-private:
+  Expr *GetLExpr() const;
+  Expr *GetRExpr() const;
+ private:
     Expr* l_expr_;
     Expr* r_expr_;
 };

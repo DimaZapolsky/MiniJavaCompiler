@@ -6,3 +6,11 @@
 
 BinaryOperation::BinaryOperation(Expr *l_expr, Expr *r_expr) :
     l_expr_(l_expr), r_expr_(r_expr) {}
+
+Expr *BinaryOperation::GetLExpr() const {
+  return l_expr_;
+}
+
+Expr *BinaryOperation::GetRExpr() const {
+  return r_expr_;
+}

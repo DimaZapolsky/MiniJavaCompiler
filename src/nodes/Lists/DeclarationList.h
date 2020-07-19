@@ -13,8 +13,8 @@ public:
     DeclarationList();
     ~DeclarationList() = default;
     void AddDeclaration(Declaration* declaration);
-
-private:
+  const std::vector<Declaration *> &GetDeclarations() const;
+ private:
     std::vector<Declaration*> declarations_;
 };
 

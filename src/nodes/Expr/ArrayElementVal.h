@@ -11,8 +11,10 @@ class ArrayElementVal : public Expr {
 public:
     ArrayElementVal(Expr* expr, Expr* index);
     ~ArrayElementVal() = default;
+  Expr *GetExpr() const;
+  Expr *GetIndex() const;
 
-private:
+ private:
     Expr* expr_;
     Expr* index_;
 };

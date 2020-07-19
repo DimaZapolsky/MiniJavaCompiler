@@ -7,6 +7,8 @@
 
 #include "SimpleType.h"
 
+namespace types {
+
 class Int : public SimpleType {
 public:
     Int() = default;
@@ -14,5 +16,6 @@ public:
     virtual std::string GetIdentifier() override;
 };
 
+}
 
 #endif //COMPILERS_INT_H

@@ -6,3 +6,6 @@
 
 LocalVariableDeclaration::LocalVariableDeclaration(VariableDeclaration *variableDeclaration) :
     variableDeclaration_(variableDeclaration) {}
+VariableDeclaration *LocalVariableDeclaration::GetVariableDeclaration() const {
+  return variableDeclaration_;
+}

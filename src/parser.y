@@ -14,11 +14,9 @@
     class ArrayCreation;
     class ArrayElement;
     class ArrayElementVal;
-    class ArrayType;
     class Assert;
     class Assignment;
     class BinaryOperation;
-    class Boolean;
     class ClassDeclaration;
     class ClassDeclarationList;
     class ComparisonGT;
@@ -36,7 +34,6 @@
     class Identifier;
     class If;
     class IfElse;
-    class Int;
     class IntegerLiteral;
     class Length;
     class LocalVariableDeclaration;
@@ -53,20 +50,26 @@
     class ObjectCreation;
     class Program;
     class Return;
-    class SimpleType;
     class Sout;
     class Statement;
     class StatementList;
     class Sum;
     class This;
     class True;
-    class Type;
-    class TypeIdentifier;
     class Variable;
     class VariableDeclaration;
     class VariableVal;
-    class Void;
     class While;
+
+    namespace types {
+        class ArrayType;
+        class Boolean;
+        class Int;
+        class SimpleType;
+        class Type;
+        class TypeIdentifier;
+        class Void;
+    }
 }
 
 %define parse.trace
@@ -76,62 +79,7 @@
     #include "driver.hh"
     #include "location.hh"
 
-    #include "nodes/Declaration/ClassDeclaration.h"
-    #include "nodes/Declaration/MethodDeclaration.h"
-    #include "nodes/Declaration/VariableDeclaration.h"
-    #include "nodes/Expr/BinaryOperation/BinaryOperation.h"
-    #include "nodes/Expr/BinaryOperation/ComparisonGT.h"
-    #include "nodes/Expr/BinaryOperation/ComparisonLT.h"
-    #include "nodes/Expr/BinaryOperation/Dif.h"
-    #include "nodes/Expr/BinaryOperation/Div.h"
-    #include "nodes/Expr/BinaryOperation/Equal.h"
-    #include "nodes/Expr/BinaryOperation/LogicalAnd.h"
-    #include "nodes/Expr/BinaryOperation/LogicalOr.h"
-    #include "nodes/Expr/BinaryOperation/Mod.h"
-    #include "nodes/Expr/BinaryOperation/Mul.h"
-    #include "nodes/Expr/BinaryOperation/Sum.h"
-    #include "nodes/Expr/ArrayCreation.h"
-    #include "nodes/Expr/ArrayElementVal.h"
-    #include "nodes/Expr/Expr.h"
-    #include "nodes/Expr/False.h"
-    #include "nodes/Expr/IntegerLiteral.h"
-    #include "nodes/Expr/Length.h"
-    #include "nodes/Expr/MethodInvocationVal.h"
-    #include "nodes/Expr/Not.h"
-    #include "nodes/Expr/ObjectCreation.h"
-    #include "nodes/Expr/This.h"
-    #include "nodes/Expr/True.h"
-    #include "nodes/Expr/VariableVal.h"
-    #include "nodes/Lists/ClassDeclarationList.h"
-    #include "nodes/Lists/DeclarationList.h"
-    #include "nodes/Lists/ExprList.h"
-    #include "nodes/Lists/Formals.h"
-    #include "nodes/Lists/StatementList.h"
-    #include "nodes/Lvalue/ArrayElement.h"
-    #include "nodes/Lvalue/Lvalue.h"
-    #include "nodes/Lvalue/Variable.h"
-    #include "nodes/Statement/Assert.h"
-    #include "nodes/Statement/Assignment.h"
-    #include "nodes/Statement/Declaration.h"
-    #include "nodes/Statement/If.h"
-    #include "nodes/Statement/IfElse.h"
-    #include "nodes/Statement/LocalVariableDeclaration.h"
-    #include "nodes/Statement/MethodInvocation.h"
-    #include "nodes/Statement/Return.h"
-    #include "nodes/Statement/Sout.h"
-    #include "nodes/Statement/Statement.h"
-    #include "nodes/Statement/While.h"
-    #include "nodes/Type/ArrayType.h"
-    #include "nodes/Type/Boolean.h"
-    #include "nodes/Type/Int.h"
-    #include "nodes/Type/SimpleType.h"
-    #include "nodes/Type/Type.h"
-    #include "nodes/Type/TypeIdentifier.h"
-    #include "nodes/Type/Void.h"
-    #include "nodes/Formal.h"
-    #include "nodes/Identifier.h"
-    #include "nodes/MainClass.h"
-    #include "nodes/Program.h"
+    #include "nodes/NodesInclude.h"
 
     static yy::parser::symbol_type yylex(Scanner &scanner, Driver& driver) {
         return scanner.ScanToken();
@@ -219,10 +167,10 @@
 %nterm <Declaration*> declaration
 %nterm <MethodDeclaration*> method_declaration
 %nterm <VariableDeclaration*> variable_declaration
-%nterm <Type*> type
-%nterm <TypeIdentifier*> type_identifier
-%nterm <SimpleType*> simple_type
-%nterm <ArrayType*> array_type
+%nterm <types::Type*> type
+%nterm <types::TypeIdentifier*> type_identifier
+%nterm <types::SimpleType*> simple_type
+%nterm <types::ArrayType*> array_type
 %nterm <LocalVariableDeclaration*> local_variable_declaration
 %nterm <Lvalue*> lvalue
 %nterm <MethodInvocation*> method_invocation
@@ -276,13 +224,13 @@ type:
     | array_type {$$ = $1; };
 
 simple_type:
-    "int" { $$ = new Int(); }
-    | "boolean" { $$ = new Boolean(); }
-    | "void" { $$ = new Void(); }
-    | identifier { $$ = new TypeIdentifier($1); };
+    "int" { $$ = new types::Int(); }
+    | "boolean" { $$ = new types::Boolean(); }
+    | "void" { $$ = new types::Void(); }
+    | identifier { $$ = new types::TypeIdentifier($1); };
 
 array_type:
-    simple_type "[" "]" { $$ = new ArrayType($1); };
+    simple_type "[" "]" { $$ = new types::ArrayType($1); };
 
 stmt_list:
     stmt stmt_list {$2->AddStatement($1); $$ = $2;}

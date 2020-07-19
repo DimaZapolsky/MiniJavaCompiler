@@ -11,8 +11,8 @@ class Length : public Expr {
 public:
     Length(Expr* expr);
     ~Length() = default;
-
-private:
+  Expr *GetExpr() const;
+ private:
     Expr* expr_;
 };
 

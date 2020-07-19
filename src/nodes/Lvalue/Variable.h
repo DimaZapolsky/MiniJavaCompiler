@@ -12,8 +12,8 @@ class Variable : public Lvalue {
 public:
     Variable(Identifier* identifier);
     ~Variable() = default;
-
-private:
+  Identifier *GetIdentifier() const;
+ private:
     Identifier* identifier_;
 };
 

@@ -6,3 +6,7 @@
 
 MethodInvocationVal::MethodInvocationVal(MethodInvocation *methodInvocation) :
     methodInvocation_(methodInvocation) {}
+
+MethodInvocation *MethodInvocationVal::GetMethodInvocation() const {
+  return methodInvocation_;
+}

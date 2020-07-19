@@ -11,8 +11,8 @@ class Not : public Expr {
 public:
     Not(Expr* expr);
     ~Not() = default;
-
-private:
+  Expr *GetExpr() const;
+ private:
     Expr* expr_;
 };
 

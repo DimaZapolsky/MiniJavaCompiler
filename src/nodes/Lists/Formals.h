@@ -5,16 +5,18 @@
 #ifndef COMPILERS_FORMALS_H
 #define COMPILERS_FORMALS_H
 
-#include "nodes/Formal.h"
 #include <vector>
 
-class Formals {
+#include "nodes/Formal.h"
+#include "../../Visitors/Visitable.h"
+
+class Formals : public Visitable {
 public:
     Formals();
     ~Formals() = default;
     void AddFormal(Formal* formal);
-
-private:
+  const std::vector<Formal *> &GetFormals() const;
+ private:
     std::vector<Formal*> formals_;
 };
 

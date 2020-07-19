@@ -6,16 +6,19 @@
 #define COMPILERS_PROGRAM_H
 
 #include "MainClass.h"
-#include "nodes/lists/ClassDeclarationList.h"
+#include "nodes/Lists/ClassDeclarationList.h"
+#include "../Visitors/Visitable.h"
 
-class Program {
+class Program : public Visitable {
 public:
     Program(MainClass* mainClass, ClassDeclarationList* classDeclarationList);
     ~Program() = default;
+  MainClass *GetMainClass() const;
+  ClassDeclarationList *GetClassDeclarationList() const;
 
-private:
-    MainClass* mainClass_;
-    ClassDeclarationList* classDeclarationList_;
+ private:
+  MainClass* mainClass_;
+  ClassDeclarationList* classDeclarationList_;
 };
 
 

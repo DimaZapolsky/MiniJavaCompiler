@@ -4,6 +4,6 @@
 
 #include "Boolean.h"
 
-std::string Boolean::GetIdentifier() {
+std::string types::Boolean::GetIdentifier() {
     return "boolean";
 }

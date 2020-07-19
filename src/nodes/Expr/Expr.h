@@ -5,9 +5,9 @@
 #ifndef COMPILERS_EXPR_H
 #define COMPILERS_EXPR_H
 
+#include "../../Visitors/Visitable.h"
 
-class Expr {
-
+class Expr : public Visitable {
 };
 
 

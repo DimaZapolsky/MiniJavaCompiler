@@ -12,8 +12,8 @@ class LocalVariableDeclaration : public Statement {
 public:
     LocalVariableDeclaration(VariableDeclaration* variableDeclaration);
     ~LocalVariableDeclaration() = default;
-
-private:
+  VariableDeclaration *GetVariableDeclaration() const;
+ private:
     VariableDeclaration* variableDeclaration_;
 };
 

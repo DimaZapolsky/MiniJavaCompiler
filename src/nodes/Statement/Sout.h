@@ -12,8 +12,8 @@ class Sout : public Statement {
 public:
     Sout(Expr* expr);
     ~Sout() = default;
-
-private:
+  Expr *GetExpr() const;
+ private:
     Expr* expr_;
 };
 

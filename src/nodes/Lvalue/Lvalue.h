@@ -5,8 +5,9 @@
 #ifndef COMPILERS_LVALUE_H
 #define COMPILERS_LVALUE_H
 
+#include "../../Visitors/Visitable.h"
 
-class Lvalue {
+class Lvalue : public Visitable {
 
 };
 

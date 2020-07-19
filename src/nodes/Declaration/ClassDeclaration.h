@@ -9,13 +9,16 @@
 #include "nodes/Identifier.h"
 #include "nodes/Lists/DeclarationList.h"
 
-class ClassDeclaration {
+class ClassDeclaration : public Declaration {
 public:
     ClassDeclaration(Identifier* identifier, DeclarationList* statementList);
     ClassDeclaration(Identifier* identifier, Identifier* extends, DeclarationList* statementList);
     ~ClassDeclaration() = default;
+  Identifier *GetIdentifier() const;
+  Identifier *GetExtends() const;
+  DeclarationList *GetDeclarationList() const;
 
-private:
+ private:
     Identifier* identifier_;
     Identifier* extends_;
     DeclarationList* declarationList_;

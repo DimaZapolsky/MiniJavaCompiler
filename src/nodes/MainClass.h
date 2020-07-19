@@ -7,13 +7,15 @@
 
 #include "Identifier.h"
 #include "nodes/lists/StatementList.h"
+#include "../Visitors/Visitable.h"
 
-class MainClass {
+class MainClass : public Visitable {
 public:
     MainClass(Identifier* identifier, StatementList* statementList);
     ~MainClass() = default;
-
-private:
+  Identifier *GetIdentifier() const;
+  StatementList *GetStatementList() const;
+ private:
     Identifier* identifier_;
     StatementList* statementList_;
 };

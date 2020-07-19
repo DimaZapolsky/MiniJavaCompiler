@@ -11,14 +11,18 @@
 #include "nodes/Lists/Formals.h"
 #include "nodes/Lists/StatementList.h"
 
-class MethodDeclaration : public Declaration{
+class MethodDeclaration : public Declaration {
 public:
-    MethodDeclaration(Type* type, Identifier* identifier, Formals* formals, StatementList* statementList);
-    MethodDeclaration(Type* type, Identifier* identifier, StatementList* statementList);
+    MethodDeclaration(types::Type* type, Identifier* identifier, Formals* formals, StatementList* statementList);
+    MethodDeclaration(types::Type* type, Identifier* identifier, StatementList* statementList);
     ~MethodDeclaration() = default;
+  types::Type *GetType() const;
+  Identifier *GetIdentifier() const;
+  Formals *GetFormals() const;
+  StatementList *GetStatementList() const;
 
-private:
-    Type* type_;
+ private:
+    types::Type* type_;
     Identifier* identifier_;
     Formals* formals_;
     StatementList* statementList_;

@@ -6,3 +6,6 @@
 
 Length::Length(Expr *expr) :
     expr_(expr) {}
+Expr *Length::GetExpr() const {
+  return expr_;
+}
