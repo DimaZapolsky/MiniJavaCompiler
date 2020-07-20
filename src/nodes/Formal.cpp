@@ -12,3 +12,6 @@ types::Type *Formal::GetType() const {
 Identifier *Formal::GetIdentifier() const {
   return identifier_;
 }
+void Formal::Accept(BaseVisitor *visitor) {
+  visitor->Visit(this);
+}

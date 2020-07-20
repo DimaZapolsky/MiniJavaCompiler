@@ -10,19 +10,19 @@
 #include "nodes/Lists/DeclarationList.h"
 
 class ClassDeclaration : public Declaration {
-public:
-    ClassDeclaration(Identifier* identifier, DeclarationList* statementList);
-    ClassDeclaration(Identifier* identifier, Identifier* extends, DeclarationList* statementList);
-    ~ClassDeclaration() = default;
+ public:
+  ClassDeclaration(Identifier *identifier, DeclarationList *statementList);
+  ClassDeclaration(Identifier *identifier, Identifier *extends, DeclarationList *statementList);
+  ~ClassDeclaration() = default;
   Identifier *GetIdentifier() const;
   Identifier *GetExtends() const;
   DeclarationList *GetDeclarationList() const;
+  void Accept(BaseVisitor *visitor) override;
 
  private:
-    Identifier* identifier_;
-    Identifier* extends_;
-    DeclarationList* declarationList_;
+  Identifier *identifier_;
+  Identifier *extends_;
+  DeclarationList *declarationList_;
 };
-
 
 #endif //COMPILERS_CLASSDECLARATION_H

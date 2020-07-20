@@ -8,7 +8,8 @@
 #include "../../Visitors/Visitable.h"
 
 class Expr : public Visitable {
+ public:
+  void Accept(BaseVisitor *visitor) override;
 };
-
 
 #endif //COMPILERS_EXPR_H

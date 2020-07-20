@@ -10,10 +10,11 @@
 namespace types {
 
 class Boolean : public SimpleType {
-public:
-    Boolean() = default;
-    ~Boolean() = default;
-    virtual std::string GetIdentifier() override;
+ public:
+  Boolean() = default;
+  ~Boolean() = default;
+  std::string GetIdentifier() override;
+  void Accept(BaseVisitor *visitor) override;
 };
 
 }

@@ -8,9 +8,12 @@ ExprList::ExprList() :
     expressions_() {}
 
 void ExprList::AddExpr(Expr *expr) {
-    expressions_.push_back(expr);
+  expressions_.push_back(expr);
 }
 
 const std::vector<Expr *> &ExprList::GetExpressions() const {
   return expressions_;
+}
+void ExprList::Accept(BaseVisitor *visitor) {
+  visitor->Visit(this);
 }

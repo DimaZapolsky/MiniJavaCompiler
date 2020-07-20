@@ -9,13 +9,13 @@
 #include "nodes/Declaration/VariableDeclaration.h"
 
 class LocalVariableDeclaration : public Statement {
-public:
-    LocalVariableDeclaration(VariableDeclaration* variableDeclaration);
-    ~LocalVariableDeclaration() = default;
+ public:
+  explicit LocalVariableDeclaration(VariableDeclaration *variableDeclaration);
+  ~LocalVariableDeclaration() = default;
   VariableDeclaration *GetVariableDeclaration() const;
+  void Accept(BaseVisitor *visitor) override;
  private:
-    VariableDeclaration* variableDeclaration_;
+  VariableDeclaration *variableDeclaration_;
 };
-
 
 #endif //COMPILERS_LOCALVARIABLEDECLARATION_H

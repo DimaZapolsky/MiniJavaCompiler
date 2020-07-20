@@ -7,8 +7,11 @@
 StatementList::StatementList() : statements_() {}
 
 void StatementList::AddStatement(Statement *statement) {
-    statements_.push_back(statement);
+  statements_.push_back(statement);
 }
 const std::vector<Statement *> &StatementList::GetStatements() const {
   return statements_;
+}
+void StatementList::Accept(BaseVisitor *visitor) {
+  visitor->Visit(this);
 }

@@ -6,19 +6,19 @@
 #define COMPILERS_MAINCLASS_H
 
 #include "Identifier.h"
-#include "nodes/lists/StatementList.h"
+#include "nodes/Lists/StatementList.h"
 #include "../Visitors/Visitable.h"
 
 class MainClass : public Visitable {
-public:
-    MainClass(Identifier* identifier, StatementList* statementList);
-    ~MainClass() = default;
+ public:
+  MainClass(Identifier *identifier, StatementList *statementList);
+  ~MainClass() = default;
   Identifier *GetIdentifier() const;
   StatementList *GetStatementList() const;
+  void Accept(BaseVisitor *visitor) override;
  private:
-    Identifier* identifier_;
-    StatementList* statementList_;
+  Identifier *identifier_;
+  StatementList *statementList_;
 };
-
 
 #endif //COMPILERS_MAINCLASS_H

@@ -9,18 +9,16 @@
 #include "nodes/Type/Type.h"
 #include "Visitors/Visitable.h"
 
-class Visitable;
-
 class Formal : public Visitable {
-public:
-    Formal(types::Type* type, Identifier* identifier);
-    ~Formal() = default;
+ public:
+  Formal(types::Type *type, Identifier *identifier);
+  ~Formal() = default;
   types::Type *GetType() const;
   Identifier *GetIdentifier() const;
+  void Accept(BaseVisitor *visitor) override;
  private:
-    types::Type* type_;
-    Identifier* identifier_;
+  types::Type *type_;
+  Identifier *identifier_;
 };
-
 
 #endif //COMPILERS_FORMAL_H

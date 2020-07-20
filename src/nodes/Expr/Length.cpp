@@ -9,3 +9,6 @@ Length::Length(Expr *expr) :
 Expr *Length::GetExpr() const {
   return expr_;
 }
+void Length::Accept(BaseVisitor *visitor) {
+  visitor->Visit(this);
+}

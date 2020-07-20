@@ -3,3 +3,6 @@
 //
 
 #include "Declaration.h"
+void Declaration::Accept(BaseVisitor *visitor) {
+  visitor->Visit(this);
+}

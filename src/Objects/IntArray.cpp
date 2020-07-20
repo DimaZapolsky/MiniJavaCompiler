@@ -12,7 +12,7 @@ objects::IntArray::IntArray() {
 
 objects::IntArray::IntArray(std::vector<int> value) {
   type_ = Types::IntArray;
-  value_ = std::make_shared<std::vector<int>>(value);
+  value_ = std::move(value);
 }
 
 int &objects::IntArray::GetIntValue() {
@@ -24,13 +24,9 @@ bool &objects::IntArray::GetBooleanValue() {
 }
 
 std::vector<int> &objects::IntArray::GetIntArray() {
-  return *value_;
+  return value_;
 }
 
 std::vector<bool> &objects::IntArray::GetBooleanArray() {
   throw std::runtime_error("Can't get boolean array from int array");
-}
-
-bool objects::IntArray::IsInitialized() {
-  return value_ != nullptr;
 }

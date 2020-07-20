@@ -7,5 +7,8 @@
 IntegerLiteral::IntegerLiteral(int n) : value_(n) {}
 
 int IntegerLiteral::GetValue() {
-    return value_;
+  return value_;
+}
+void IntegerLiteral::Accept(BaseVisitor *visitor) {
+  visitor->Visit(this);
 }

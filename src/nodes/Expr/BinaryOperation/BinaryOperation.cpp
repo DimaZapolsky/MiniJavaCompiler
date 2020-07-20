@@ -14,3 +14,6 @@ Expr *BinaryOperation::GetLExpr() const {
 Expr *BinaryOperation::GetRExpr() const {
   return r_expr_;
 }
+void BinaryOperation::Accept(BaseVisitor *visitor) {
+  visitor->Visit(this);
+}

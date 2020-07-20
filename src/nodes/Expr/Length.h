@@ -8,13 +8,13 @@
 #include "nodes/Expr/Expr.h"
 
 class Length : public Expr {
-public:
-    Length(Expr* expr);
-    ~Length() = default;
+ public:
+  explicit Length(Expr *expr);
+  ~Length() = default;
   Expr *GetExpr() const;
+  void Accept(BaseVisitor *visitor) override;
  private:
-    Expr* expr_;
+  Expr *expr_;
 };
-
 
 #endif //COMPILERS_LENGTH_H

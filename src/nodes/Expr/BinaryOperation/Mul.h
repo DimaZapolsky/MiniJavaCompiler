@@ -8,10 +8,10 @@
 #include "nodes/Expr/BinaryOperation/BinaryOperation.h"
 
 class Mul : public BinaryOperation {
-public:
-    Mul(Expr* exprLeft, Expr* exprRight);
-    ~Mul() = default;
+ public:
+  Mul(Expr *exprLeft, Expr *exprRight);
+  ~Mul() = default;
+  void Accept(BaseVisitor *visitor) override;
 };
-
 
 #endif //COMPILERS_MUL_H

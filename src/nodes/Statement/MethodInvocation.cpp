@@ -18,3 +18,6 @@ Identifier *MethodInvocation::GetIdentifier() const {
 ExprList *MethodInvocation::GetExprList() const {
   return exprList_;
 }
+void MethodInvocation::Accept(BaseVisitor *visitor) {
+  visitor->Visit(this);
+}

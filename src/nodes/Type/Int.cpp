@@ -5,5 +5,8 @@
 #include "Int.h"
 
 std::string types::Int::GetIdentifier() {
-    return "int";
+  return "int";
+}
+void types::Int::Accept(BaseVisitor *visitor) {
+  visitor->Visit(this);
 }

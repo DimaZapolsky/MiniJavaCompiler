@@ -4,13 +4,13 @@
 
 #include "PrintVisitor.h"
 
-//void PrintVisitor::Visit(Visitable *visitable) {
-//  throw std::runtime_error("visiting base class is incorrect");
-//}
+void PrintVisitor::Visit(Visitable *) {
+  throw std::runtime_error("visiting base class is incorrect");
+}
 
 PrintVisitor::PrintVisitor(const std::string &file_path) : file_(file_path) {}
 
-void PrintVisitor::PrintLine(const std::string& line) {
+void PrintVisitor::PrintLine(const std::string &line) {
   file_ << std::string((tabs_ - 1) * 4, ' ') << line << std::endl;
 }
 
@@ -63,51 +63,51 @@ void PrintVisitor::Visit(BinaryOperation *visitable) {
 
 void PrintVisitor::Visit(ComparisonGT *visitable) {
   PrintLine("    ComparisonGT:");
-  Visit((BinaryOperation*) visitable);
+  Visit((BinaryOperation *) visitable);
 }
 
 void PrintVisitor::Visit(ComparisonLT *visitable) {
   PrintLine("    ComparisonLT:");
-  Visit((BinaryOperation*) visitable);
+  Visit((BinaryOperation *) visitable);
 }
 
 void PrintVisitor::Visit(Dif *visitable) {
   PrintLine("    Difference:");
-  Visit((BinaryOperation*) visitable);
+  Visit((BinaryOperation *) visitable);
 }
 
 void PrintVisitor::Visit(Div *visitable) {
   PrintLine("    Division:");
-  Visit((BinaryOperation*) visitable);
+  Visit((BinaryOperation *) visitable);
 }
 void PrintVisitor::Visit(Equal *visitable) {
   PrintLine("    Equality:");
-  Visit((BinaryOperation*) visitable);
+  Visit((BinaryOperation *) visitable);
 }
 
 void PrintVisitor::Visit(LogicalAnd *visitable) {
   PrintLine("    Logical and:");
-  Visit((BinaryOperation*) visitable);
+  Visit((BinaryOperation *) visitable);
 }
 
 void PrintVisitor::Visit(LogicalOr *visitable) {
   PrintLine("    Logical or:");
-  Visit((BinaryOperation*) visitable);
+  Visit((BinaryOperation *) visitable);
 }
 
 void PrintVisitor::Visit(Mod *visitable) {
   PrintLine("    Modulo:");
-  Visit((BinaryOperation*) visitable);
+  Visit((BinaryOperation *) visitable);
 }
 
 void PrintVisitor::Visit(Mul *visitable) {
   PrintLine("    Multiplication:");
-  Visit((BinaryOperation*) visitable);
+  Visit((BinaryOperation *) visitable);
 }
 
 void PrintVisitor::Visit(Sum *visitable) {
   PrintLine("    Sum:");
-  Visit((BinaryOperation*) visitable);
+  Visit((BinaryOperation *) visitable);
 }
 
 void PrintVisitor::Visit(ArrayCreation *visitable) {
@@ -130,13 +130,13 @@ void PrintVisitor::Visit(ArrayElementVal *visitable) {
   tabs_--;
 }
 
-void PrintVisitor::Visit(Expr *visitable) {
+void PrintVisitor::Visit(Expr *) {
   tabs_++;
   PrintLine("-Expression:");
   tabs_--;
 }
 
-void PrintVisitor::Visit(False *visitable) {
+void PrintVisitor::Visit(False *) {
   tabs_++;
   PrintLine("-False");
   tabs_--;
@@ -176,13 +176,13 @@ void PrintVisitor::Visit(ObjectCreation *visitable) {
   tabs_--;
 }
 
-void PrintVisitor::Visit(This *visitable) {
+void PrintVisitor::Visit(This *) {
   tabs_++;
   PrintLine("This");
   tabs_--;
 }
 
-void PrintVisitor::Visit(True *visitable) {
+void PrintVisitor::Visit(True *) {
   tabs_++;
   PrintLine("True");
   tabs_--;
@@ -207,7 +207,7 @@ void PrintVisitor::Visit(ClassDeclarationList *visitable) {
 void PrintVisitor::Visit(DeclarationList *visitable) {
   tabs_++;
   PrintLine("Declaration list:");
-  for (auto & decl : visitable->GetDeclarations()) {
+  for (auto &decl : visitable->GetDeclarations()) {
     decl->Accept(this);
   }
   tabs_--;
@@ -216,7 +216,7 @@ void PrintVisitor::Visit(DeclarationList *visitable) {
 void PrintVisitor::Visit(ExprList *visitable) {
   tabs_++;
   PrintLine("Expression list:");
-  for (auto & expr : visitable->GetExpressions()) {
+  for (auto &expr : visitable->GetExpressions()) {
     expr->Accept(this);
   }
   tabs_--;
@@ -225,7 +225,7 @@ void PrintVisitor::Visit(ExprList *visitable) {
 void PrintVisitor::Visit(Formals *visitable) {
   tabs_++;
   PrintLine("Formals");
-  for (auto & formal : visitable->GetFormals()) {
+  for (auto &formal : visitable->GetFormals()) {
     formal->Accept(this);
   }
   tabs_--;
@@ -234,7 +234,7 @@ void PrintVisitor::Visit(Formals *visitable) {
 void PrintVisitor::Visit(StatementList *visitable) {
   tabs_++;
   PrintLine("Statement list:");
-  for (auto & statement : visitable->GetStatements()) {
+  for (auto &statement : visitable->GetStatements()) {
     statement->Accept(this);
   }
   tabs_--;
@@ -250,7 +250,7 @@ void PrintVisitor::Visit(ArrayElement *visitable) {
   tabs_--;
 }
 
-void PrintVisitor::Visit(Lvalue *visitable) {
+void PrintVisitor::Visit(Lvalue *) {
   tabs_++;
   PrintLine("Lvalue");
   tabs_--;
@@ -280,7 +280,7 @@ void PrintVisitor::Visit(Assignment *visitable) {
   tabs_--;
 }
 
-void PrintVisitor::Visit(Declaration *visitable) {
+void PrintVisitor::Visit(Declaration *) {
   tabs_++;
   PrintLine("Declaration");
   tabs_--;
@@ -341,7 +341,7 @@ void PrintVisitor::Visit(Sout *visitable) {
   tabs_--;
 }
 
-void PrintVisitor::Visit(Statement *visitable) {
+void PrintVisitor::Visit(Statement *) {
   tabs_++;
   PrintLine("Statement:");
   tabs_--;
@@ -364,13 +364,13 @@ void PrintVisitor::Visit(types::ArrayType *visitable) {
   tabs_--;
 }
 
-void PrintVisitor::Visit(types::Boolean *visitable) {
+void PrintVisitor::Visit(types::Boolean *) {
   tabs_++;
   PrintLine("Boolean");
   tabs_--;
 }
 
-void PrintVisitor::Visit(types::Int *visitable) {
+void PrintVisitor::Visit(types::Int *) {
   tabs_++;
   PrintLine("Int");
   tabs_--;
@@ -395,7 +395,7 @@ void PrintVisitor::Visit(types::TypeIdentifier *visitable) {
   tabs_--;
 }
 
-void PrintVisitor::Visit(types::Void *visitable) {
+void PrintVisitor::Visit(types::Void *) {
   tabs_++;
   PrintLine("Void");
   tabs_--;

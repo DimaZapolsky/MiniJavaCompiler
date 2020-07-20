@@ -3,3 +3,6 @@
 //
 
 #include "True.h"
+void True::Accept(BaseVisitor *visitor) {
+  visitor->Visit(this);
+}

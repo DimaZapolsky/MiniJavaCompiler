@@ -12,3 +12,6 @@ Identifier *ArrayElement::GetIdentifier() const {
 Expr *ArrayElement::GetExpr() const {
   return expr_;
 }
+void ArrayElement::Accept(BaseVisitor *visitor) {
+  visitor->Visit(this);
+}

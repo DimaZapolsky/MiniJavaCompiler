@@ -10,3 +10,6 @@ MethodInvocationVal::MethodInvocationVal(MethodInvocation *methodInvocation) :
 MethodInvocation *MethodInvocationVal::GetMethodInvocation() const {
   return methodInvocation_;
 }
+void MethodInvocationVal::Accept(BaseVisitor *visitor) {
+  visitor->Visit(this);
+}

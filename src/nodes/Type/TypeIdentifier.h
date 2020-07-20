@@ -12,13 +12,14 @@
 namespace types {
 
 class TypeIdentifier : public types::SimpleType {
-public:
-    TypeIdentifier(Identifier* identifier);
-    ~TypeIdentifier() = default;
-    std::string GetIdentifier();
-    Identifier* GetIdentifierPtr();
+ public:
+  explicit TypeIdentifier(Identifier *identifier);
+  ~TypeIdentifier() = default;
+  std::string GetIdentifier() override;
+  Identifier *GetIdentifierPtr();
+  void Accept(BaseVisitor *visitor) override;
  private:
-    Identifier* identifier_;
+  Identifier *identifier_;
 };
 
 }

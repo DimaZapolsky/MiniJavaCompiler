@@ -9,13 +9,13 @@
 #include "nodes/Type/TypeIdentifier.h"
 
 class ObjectCreation : public Expr {
-public:
-    ObjectCreation(types::TypeIdentifier* typeIdentifier);
-    ~ObjectCreation() = default;
+ public:
+  explicit ObjectCreation(types::TypeIdentifier *typeIdentifier);
+  ~ObjectCreation() = default;
   types::TypeIdentifier *GetTypeIdentifier() const;
+  void Accept(BaseVisitor *visitor) override;
  private:
-    types::TypeIdentifier* typeIdentifier_;
+  types::TypeIdentifier *typeIdentifier_;
 };
-
 
 #endif //COMPILERS_OBJECTCREATION_H

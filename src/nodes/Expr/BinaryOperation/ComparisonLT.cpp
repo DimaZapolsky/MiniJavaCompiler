@@ -5,3 +5,6 @@
 #include "ComparisonLT.h"
 
 ComparisonLT::ComparisonLT(Expr *leftExpr, Expr *rightExpr) : BinaryOperation(leftExpr, rightExpr) {}
+void ComparisonLT::Accept(BaseVisitor *visitor) {
+  visitor->Visit(this);
+}

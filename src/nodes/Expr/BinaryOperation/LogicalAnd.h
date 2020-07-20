@@ -8,10 +8,10 @@
 #include "nodes/Expr/BinaryOperation/BinaryOperation.h"
 
 class LogicalAnd : public BinaryOperation {
-public:
-    LogicalAnd(Expr* leftExpr, Expr* rightExpr);
-    ~LogicalAnd() = default;
+ public:
+  LogicalAnd(Expr *leftExpr, Expr *rightExpr);
+  ~LogicalAnd() = default;
+  void Accept(BaseVisitor *visitor) override;
 };
-
 
 #endif //COMPILERS_LOGICALAND_H

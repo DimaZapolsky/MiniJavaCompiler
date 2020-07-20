@@ -4,7 +4,7 @@
 
 #pragma once
 
-#if ! defined(yyFlexLexerOnce)
+#if !defined(yyFlexLexerOnce)
 #include <FlexLexer.h>
 #endif
 
@@ -15,10 +15,10 @@
 
 class Driver;
 
-class Scanner: public yyFlexLexer {
-public:
-    Scanner(Driver& driver): driver(driver) {}
-    virtual ~Scanner() {}
-    virtual yy::parser::symbol_type ScanToken();
-    Driver &driver;
+class Scanner : public yyFlexLexer {
+ public:
+  Scanner(Driver &driver);
+  virtual ~Scanner() {}
+  virtual yy::parser::symbol_type ScanToken();
+  Driver &driver;
 };

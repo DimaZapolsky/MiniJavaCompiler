@@ -9,3 +9,6 @@ LocalVariableDeclaration::LocalVariableDeclaration(VariableDeclaration *variable
 VariableDeclaration *LocalVariableDeclaration::GetVariableDeclaration() const {
   return variableDeclaration_;
 }
+void LocalVariableDeclaration::Accept(BaseVisitor *visitor) {
+  visitor->Visit(this);
+}

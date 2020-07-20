@@ -11,14 +11,14 @@
 #include "../../Visitors/Visitable.h"
 
 class Formals : public Visitable {
-public:
-    Formals();
-    ~Formals() = default;
-    void AddFormal(Formal* formal);
+ public:
+  Formals();
+  ~Formals() = default;
+  void AddFormal(Formal *formal);
   const std::vector<Formal *> &GetFormals() const;
+  void Accept(BaseVisitor *visitor) override;
  private:
-    std::vector<Formal*> formals_;
+  std::vector<Formal *> formals_;
 };
-
 
 #endif //COMPILERS_FORMALS_H

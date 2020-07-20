@@ -11,10 +11,11 @@
 namespace types {
 
 class Void : public types::SimpleType {
-public:
-    Void() = default;
-    ~Void() = default;
-    virtual std::string GetIdentifier() override;
+ public:
+  Void() = default;
+  ~Void() = default;
+  std::string GetIdentifier() override;
+  void Accept(BaseVisitor *visitor) override;
 };
 
 }

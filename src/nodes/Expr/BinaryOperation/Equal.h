@@ -8,10 +8,10 @@
 #include "nodes/Expr/BinaryOperation/BinaryOperation.h"
 
 class Equal : public BinaryOperation {
-public:
-    Equal(Expr* leftExpr, Expr* rightExpr);
-    ~Equal() = default;
+ public:
+  Equal(Expr *leftExpr, Expr *rightExpr);
+  ~Equal() = default;
+  void Accept(BaseVisitor *visitor) override;
 };
-
 
 #endif //COMPILERS_EQUAL_H

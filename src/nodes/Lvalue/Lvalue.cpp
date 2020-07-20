@@ -3,3 +3,6 @@
 //
 
 #include "Lvalue.h"
+void Lvalue::Accept(BaseVisitor *visitor) {
+  visitor->Visit(this);
+}

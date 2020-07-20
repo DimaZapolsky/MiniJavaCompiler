@@ -10,15 +10,15 @@
 #include "nodes/Expr/Expr.h"
 
 class ArrayElement : public Lvalue {
-public:
-    ArrayElement(Identifier* identifier, Expr* expr);
-    ~ArrayElement() = default;
+ public:
+  ArrayElement(Identifier *identifier, Expr *expr);
+  ~ArrayElement() = default;
   Identifier *GetIdentifier() const;
   Expr *GetExpr() const;
+  void Accept(BaseVisitor *visitor) override;
  private:
-    Identifier* identifier_;
-    Expr* expr_;
+  Identifier *identifier_;
+  Expr *expr_;
 };
-
 
 #endif //COMPILERS_ARRAYELEMENT_H

@@ -10,3 +10,6 @@ ObjectCreation::ObjectCreation(types::TypeIdentifier *typeIdentifier) :
 types::TypeIdentifier *ObjectCreation::GetTypeIdentifier() const {
   return typeIdentifier_;
 }
+void ObjectCreation::Accept(BaseVisitor *visitor) {
+  visitor->Visit(this);
+}

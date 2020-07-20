@@ -8,16 +8,16 @@
 #include "Expr.h"
 
 class ArrayElementVal : public Expr {
-public:
-    ArrayElementVal(Expr* expr, Expr* index);
-    ~ArrayElementVal() = default;
+ public:
+  ArrayElementVal(Expr *expr, Expr *index);
+  ~ArrayElementVal() = default;
   Expr *GetExpr() const;
   Expr *GetIndex() const;
+  void Accept(BaseVisitor *visitor) override;
 
  private:
-    Expr* expr_;
-    Expr* index_;
+  Expr *expr_;
+  Expr *index_;
 };
-
 
 #endif //COMPILERS_ARRAYELEMENTVAL_H

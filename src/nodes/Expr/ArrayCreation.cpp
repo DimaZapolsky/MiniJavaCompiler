@@ -14,3 +14,6 @@ types::SimpleType *ArrayCreation::GetSimpleType() const {
 Expr *ArrayCreation::GetExpr() const {
   return expr_;
 }
+void ArrayCreation::Accept(BaseVisitor *visitor) {
+  visitor->Visit(this);
+}

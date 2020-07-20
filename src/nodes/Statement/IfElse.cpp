@@ -15,3 +15,6 @@ Statement *IfElse::GetStatementTrue() const {
 Statement *IfElse::GetStatementFalse() const {
   return statementFalse_;
 }
+void IfElse::Accept(BaseVisitor *visitor) {
+  visitor->Visit(this);
+}

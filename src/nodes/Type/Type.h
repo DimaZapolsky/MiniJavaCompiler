@@ -11,10 +11,11 @@
 namespace types {
 
 class Type : public Visitable {
-public:
-    Type() = default;
-    ~Type() = default;
-    virtual std::string GetIdentifier() = 0;
+ public:
+  Type() = default;
+  ~Type() = default;
+  virtual std::string GetIdentifier() = 0;
+  void Accept(BaseVisitor *visitor) override;
 };
 
 }

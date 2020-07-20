@@ -10,66 +10,7 @@
     #include <string>
     class Scanner;
     class Driver;
-
-    class ArrayCreation;
-    class ArrayElement;
-    class ArrayElementVal;
-    class Assert;
-    class Assignment;
-    class BinaryOperation;
-    class ClassDeclaration;
-    class ClassDeclarationList;
-    class ComparisonGT;
-    class ComparisonLT;
-    class Declaration;
-    class DeclarationList;
-    class Dif;
-    class Div;
-    class Equal;
-    class Expr;
-    class ExprList;
-    class False;
-    class Formal;
-    class Formals;
-    class Identifier;
-    class If;
-    class IfElse;
-    class IntegerLiteral;
-    class Length;
-    class LocalVariableDeclaration;
-    class LogicalAnd;
-    class LogicalOr;
-    class Lvalue;
-    class MainClass;
-    class MethodDeclaration;
-    class MethodInvocation;
-    class MethodInvocationVal;
-    class Mod;
-    class Mul;
-    class Not;
-    class ObjectCreation;
-    class Program;
-    class Return;
-    class Sout;
-    class Statement;
-    class StatementList;
-    class Sum;
-    class This;
-    class True;
-    class Variable;
-    class VariableDeclaration;
-    class VariableVal;
-    class While;
-
-    namespace types {
-        class ArrayType;
-        class Boolean;
-        class Int;
-        class SimpleType;
-        class Type;
-        class TypeIdentifier;
-        class Void;
-    }
+    #include "nodes/ForwardDeclaration.h"
 }
 
 %define parse.trace
@@ -190,7 +131,7 @@ main_class:
     "class" identifier "{" "public" "static" "void" "main" "(" ")" "{" stmt_list "}" "}" { $$ = new MainClass($2, $11); };
 
 class_declaration_list:
-    class_declaration class_declaration_list {$2->AddClassDeclaration($1); $$ = $2;}
+    class_declaration_list class_declaration {$1->AddClassDeclaration($2); $$ = $1;}
     | %empty { $$ = new ClassDeclarationList(); };
 
 class_declaration:
@@ -198,7 +139,7 @@ class_declaration:
     | "class" identifier "extends" identifier "{" declaration_list "}" { $$ = new ClassDeclaration($2, $4, $6); };
 
 declaration_list:
-    declaration declaration_list { $2->AddDeclaration($1); $$ = $2; }
+    declaration_list declaration { $1->AddDeclaration($2); $$ = $1; }
     | %empty { $$ = new DeclarationList(); };
 
 declaration:
@@ -233,7 +174,7 @@ array_type:
     simple_type "[" "]" { $$ = new types::ArrayType($1); };
 
 stmt_list:
-    stmt stmt_list {$2->AddStatement($1); $$ = $2;}
+    stmt_list stmt {$1->AddStatement($2); $$ = $1;}
     | %empty {$$ = new StatementList(); };
 
 stmt:
@@ -254,7 +195,7 @@ method_invocation:
 
 expr_list:
     exp {$$ = new ExprList(); $$->AddExpr($1); }
-    | exp "," expr_list {$3->AddExpr($1); $$ = $3; };
+    | expr_list "," exp {$1->AddExpr($3); $$ = $1; };
 
 local_variable_declaration:
     variable_declaration {$$ = new LocalVariableDeclaration($1); };

@@ -8,10 +8,13 @@
 types::ArrayType::ArrayType(SimpleType *simpleType) :
     simpleType_(simpleType) {}
 
-types::SimpleType* types::ArrayType::GetSimpleType() {
-    return simpleType_;
+types::SimpleType *types::ArrayType::GetSimpleType() {
+  return simpleType_;
 }
 
 std::string types::ArrayType::GetIdentifier() {
-    return simpleType_->GetIdentifier() + "_array";
+  return simpleType_->GetIdentifier() + "_array";
+}
+void types::ArrayType::Accept(BaseVisitor *visitor) {
+  visitor->Visit(this);
 }

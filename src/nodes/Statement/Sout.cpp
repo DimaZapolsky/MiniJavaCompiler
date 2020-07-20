@@ -9,3 +9,6 @@ Sout::Sout(Expr *expr) :
 Expr *Sout::GetExpr() const {
   return expr_;
 }
+void Sout::Accept(BaseVisitor *visitor) {
+  visitor->Visit(this);
+}

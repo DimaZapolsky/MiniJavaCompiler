@@ -9,14 +9,14 @@
 #include <vector>
 
 class DeclarationList : public Declaration {
-public:
-    DeclarationList();
-    ~DeclarationList() = default;
-    void AddDeclaration(Declaration* declaration);
+ public:
+  DeclarationList();
+  ~DeclarationList() = default;
+  void AddDeclaration(Declaration *declaration);
   const std::vector<Declaration *> &GetDeclarations() const;
+  void Accept(BaseVisitor *visitor) override;
  private:
-    std::vector<Declaration*> declarations_;
+  std::vector<Declaration *> declarations_;
 };
-
 
 #endif //COMPILERS_DECLARATIONLIST_H

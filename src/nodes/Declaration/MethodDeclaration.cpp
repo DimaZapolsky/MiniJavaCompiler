@@ -4,11 +4,14 @@
 
 #include "MethodDeclaration.h"
 
-MethodDeclaration::MethodDeclaration(types::Type *type, Identifier *identifier, Formals *formals, StatementList* statementList) :
+MethodDeclaration::MethodDeclaration(types::Type *type,
+                                     Identifier *identifier,
+                                     Formals *formals,
+                                     StatementList *statementList) :
     type_(type), identifier_(identifier), formals_(formals), statementList_(statementList) {}
 
-MethodDeclaration::MethodDeclaration(types::Type *type, Identifier *identifier, StatementList* statementList) :
-        type_(type), identifier_(identifier), formals_(new Formals()), statementList_(statementList) {}
+MethodDeclaration::MethodDeclaration(types::Type *type, Identifier *identifier, StatementList *statementList) :
+    type_(type), identifier_(identifier), formals_(new Formals()), statementList_(statementList) {}
 
 types::Type *MethodDeclaration::GetType() const {
   return type_;
@@ -24,4 +27,7 @@ Formals *MethodDeclaration::GetFormals() const {
 
 StatementList *MethodDeclaration::GetStatementList() const {
   return statementList_;
+}
+void MethodDeclaration::Accept(BaseVisitor *visitor) {
+  visitor->Visit(this);
 }

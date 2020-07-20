@@ -9,14 +9,14 @@
 #include <vector>
 
 class StatementList : public Statement {
-public:
-    StatementList();
-    ~StatementList() = default;
-    void AddStatement(Statement* statement);
+ public:
+  StatementList();
+  ~StatementList() = default;
+  void AddStatement(Statement *statement);
   const std::vector<Statement *> &GetStatements() const;
+  void Accept(BaseVisitor *visitor) override;
  private:
-    std::vector<Statement*> statements_;
+  std::vector<Statement *> statements_;
 };
-
 
 #endif //COMPILERS_STATEMENTLIST_H

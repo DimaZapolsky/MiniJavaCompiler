@@ -12,3 +12,6 @@ Identifier *MainClass::GetIdentifier() const {
 StatementList *MainClass::GetStatementList() const {
   return statementList_;
 }
+void MainClass::Accept(BaseVisitor *visitor) {
+  visitor->Visit(this);
+}

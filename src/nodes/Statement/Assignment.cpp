@@ -12,3 +12,6 @@ Lvalue *Assignment::GetLvalue() const {
 Expr *Assignment::GetExpr() const {
   return expr_;
 }
+void Assignment::Accept(BaseVisitor *visitor) {
+  visitor->Visit(this);
+}

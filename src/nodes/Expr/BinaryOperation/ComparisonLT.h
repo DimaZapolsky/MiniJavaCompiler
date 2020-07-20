@@ -8,10 +8,10 @@
 #include "nodes/Expr/BinaryOperation/BinaryOperation.h"
 
 class ComparisonLT : public BinaryOperation {
-public:
-    ComparisonLT(Expr* leftExpr, Expr* rightExpr);
-    ~ComparisonLT() = default;
+ public:
+  ComparisonLT(Expr *leftExpr, Expr *rightExpr);
+  ~ComparisonLT() = default;
+  void Accept(BaseVisitor *visitor) override;
 };
-
 
 #endif //COMPILERS_COMPARISONLT_H

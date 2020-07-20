@@ -15,15 +15,13 @@ class Boolean : public BaseObject {
  public:
   Boolean();
   explicit Boolean(bool value);
-  explicit Boolean(std::shared_ptr<bool> value);
   int &GetIntValue() override;
   bool &GetBooleanValue() override;
   std::vector<int> &GetIntArray() override;
   std::vector<bool> &GetBooleanArray() override;
-  bool IsInitialized() override;
 
  private:
-  std::shared_ptr<bool> value_{nullptr};
+  bool value_{false};
 };
 
 }

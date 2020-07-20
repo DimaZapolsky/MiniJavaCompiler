@@ -5,3 +5,6 @@
 #include "Equal.h"
 
 Equal::Equal(Expr *leftExpr, Expr *rightExpr) : BinaryOperation(leftExpr, rightExpr) {}
+void Equal::Accept(BaseVisitor *visitor) {
+  visitor->Visit(this);
+}

@@ -5,4 +5,7 @@
 #include "Dif.h"
 
 Dif::Dif(Expr *leftExpr, Expr *rightExpr) : BinaryOperation(leftExpr, rightExpr) {}
+void Dif::Accept(BaseVisitor *visitor) {
+  visitor->Visit(this);
+}
 

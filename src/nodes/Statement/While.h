@@ -9,15 +9,15 @@
 #include "nodes/Expr/Expr.h"
 
 class While : public Statement {
-public:
-    While(Expr* expr, Statement* statement);
-    ~While() = default;
+ public:
+  While(Expr *expr, Statement *statement);
+  ~While() = default;
   Expr *GetExpr() const;
   Statement *GetStatement() const;
+  void Accept(BaseVisitor *visitor) override;
  private:
-    Expr* expr_;
-    Statement* statement_;
+  Expr *expr_;
+  Statement *statement_;
 };
-
 
 #endif //COMPILERS_WHILE_H

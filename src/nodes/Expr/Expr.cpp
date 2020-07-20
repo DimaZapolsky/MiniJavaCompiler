@@ -3,3 +3,6 @@
 //
 
 #include "Expr.h"
+void Expr::Accept(BaseVisitor *visitor) {
+  visitor->Visit(this);
+}

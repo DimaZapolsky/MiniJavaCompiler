@@ -13,15 +13,13 @@ class Int : public BaseObject {
  public:
   Int();
   explicit Int(int value);
-  explicit Int(std::shared_ptr<int> value);
   int &GetIntValue() override;
   bool &GetBooleanValue() override;
   std::vector<int> &GetIntArray() override;
   std::vector<bool> &GetBooleanArray() override;
-  bool IsInitialized() override;
 
  private:
-  std::shared_ptr<int> value_{nullptr};
+  int value_{0};
 };
 
 }

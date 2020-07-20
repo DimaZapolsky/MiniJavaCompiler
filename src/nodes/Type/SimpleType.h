@@ -9,10 +9,11 @@
 
 namespace types {
 class SimpleType : public Type {
-public:
-    SimpleType() = default;
-    ~SimpleType() = default;
-    virtual std::string GetIdentifier() = 0;
+ public:
+  SimpleType() = default;
+  ~SimpleType() = default;
+  std::string GetIdentifier() override = 0;
+  void Accept(BaseVisitor *visitor) override;
 };
 }
 

@@ -8,14 +8,13 @@
 #include "nodes/Expr/Expr.h"
 
 class IntegerLiteral : public Expr {
-public:
-    IntegerLiteral(int n);
-    ~IntegerLiteral() = default;
-    int GetValue();
-
+ public:
+  explicit IntegerLiteral(int n);
+  ~IntegerLiteral() = default;
+  int GetValue();
+  void Accept(BaseVisitor *visitor) override;
  private:
-    int value_;
+  int value_;
 };
-
 
 #endif //COMPILERS_INTEGERLITERAL_H

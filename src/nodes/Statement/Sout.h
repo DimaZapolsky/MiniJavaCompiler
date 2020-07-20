@@ -9,13 +9,13 @@
 #include "nodes/Expr/Expr.h"
 
 class Sout : public Statement {
-public:
-    Sout(Expr* expr);
-    ~Sout() = default;
+ public:
+  explicit Sout(Expr *expr);
+  ~Sout() = default;
   Expr *GetExpr() const;
+  void Accept(BaseVisitor *visitor) override;
  private:
-    Expr* expr_;
+  Expr *expr_;
 };
-
 
 #endif //COMPILERS_SOUT_H

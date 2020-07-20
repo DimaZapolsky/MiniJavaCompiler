@@ -8,14 +8,14 @@
 #include "nodes/Expr/Expr.h"
 #include "nodes/Statement/MethodInvocation.h"
 
-class MethodInvocationVal : public Expr{
-public:
-    MethodInvocationVal(MethodInvocation* methodInvocation);
-    ~MethodInvocationVal() = default;
+class MethodInvocationVal : public Expr {
+ public:
+  explicit MethodInvocationVal(MethodInvocation *methodInvocation);
+  ~MethodInvocationVal() = default;
   MethodInvocation *GetMethodInvocation() const;
+  void Accept(BaseVisitor *visitor) override;
  private:
-    MethodInvocation* methodInvocation_;
+  MethodInvocation *methodInvocation_;
 };
-
 
 #endif //COMPILERS_METHODINVOCATIONVAL_H

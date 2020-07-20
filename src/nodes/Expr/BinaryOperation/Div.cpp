@@ -5,3 +5,6 @@
 #include "Div.h"
 
 Div::Div(Expr *leftExpr, Expr *rightExpr) : BinaryOperation(leftExpr, rightExpr) {}
+void Div::Accept(BaseVisitor *visitor) {
+  visitor->Visit(this);
+}

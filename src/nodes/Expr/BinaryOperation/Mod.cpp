@@ -5,3 +5,6 @@
 #include "Mod.h"
 
 Mod::Mod(Expr *exprLeft, Expr *exprRight) : BinaryOperation(exprLeft, exprRight) {}
+void Mod::Accept(BaseVisitor *visitor) {
+  visitor->Visit(this);
+}

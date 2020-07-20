@@ -5,4 +5,7 @@
 #include "LogicalOr.h"
 
 LogicalOr::LogicalOr(Expr *leftExpr, Expr *rightExpr) : BinaryOperation(leftExpr, rightExpr) {}
+void LogicalOr::Accept(BaseVisitor *visitor) {
+  visitor->Visit(this);
+}
 

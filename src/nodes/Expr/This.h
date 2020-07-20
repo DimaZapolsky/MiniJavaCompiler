@@ -8,10 +8,10 @@
 #include "nodes/Expr/Expr.h"
 
 class This : public Expr {
-public:
-    This() = default;
-    ~This() = default;
+ public:
+  This() = default;
+  ~This() = default;
+  void Accept(BaseVisitor *visitor) override;
 };
-
 
 #endif //COMPILERS_THIS_H

@@ -3,8 +3,3 @@
 //
 
 #include "Visitable.h"
-#include "BaseVisitor.h"
-
-void Visitable::Accept(BaseVisitor *visitor) {
-  visitor->Visit(this);
-}

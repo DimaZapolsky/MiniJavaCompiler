@@ -5,4 +5,7 @@
 #include "Sum.h"
 
 Sum::Sum(Expr *l_expr, Expr *r_expr) : BinaryOperation(l_expr, r_expr) {}
+void Sum::Accept(BaseVisitor *visitor) {
+  visitor->Visit(this);
+}
 

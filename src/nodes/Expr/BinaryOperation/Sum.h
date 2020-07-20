@@ -8,10 +8,10 @@
 #include "nodes/Expr/BinaryOperation/BinaryOperation.h"
 
 class Sum : public BinaryOperation {
-public:
-    Sum(Expr* l_expr, Expr* r_expr);
-    ~Sum() = default;
+ public:
+  Sum(Expr *l_expr, Expr *r_expr);
+  ~Sum() = default;
+  void Accept(BaseVisitor *visitor) override;
 };
-
 
 #endif //COMPILERS_SUM_H

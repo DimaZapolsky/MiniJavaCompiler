@@ -4,7 +4,7 @@
 
 #include "Program.h"
 
-Program::Program(MainClass *mainClass, ClassDeclarationList* classDeclarationList) :
+Program::Program(MainClass *mainClass, ClassDeclarationList *classDeclarationList) :
     mainClass_(mainClass), classDeclarationList_(classDeclarationList) {}
 
 MainClass *Program::GetMainClass() const {
@@ -13,4 +13,7 @@ MainClass *Program::GetMainClass() const {
 
 ClassDeclarationList *Program::GetClassDeclarationList() const {
   return classDeclarationList_;
+}
+void Program::Accept(BaseVisitor *visitor) {
+  visitor->Visit(this);
 }

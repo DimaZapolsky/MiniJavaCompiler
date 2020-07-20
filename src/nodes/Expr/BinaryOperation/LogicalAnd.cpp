@@ -5,4 +5,7 @@
 #include "LogicalAnd.h"
 
 LogicalAnd::LogicalAnd(Expr *leftExpr, Expr *rightExpr) : BinaryOperation(leftExpr, rightExpr) {}
+void LogicalAnd::Accept(BaseVisitor *visitor) {
+  visitor->Visit(this);
+}
 

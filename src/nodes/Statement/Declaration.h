@@ -8,10 +8,10 @@
 #include "Statement.h"
 
 class Declaration : public Statement {
-public:
-    Declaration() = default;
-    ~Declaration() = default;
+ public:
+  Declaration() = default;
+  ~Declaration() = default;
+  void Accept(BaseVisitor *visitor) override;
 };
-
 
 #endif //COMPILERS_DECLARATION_H

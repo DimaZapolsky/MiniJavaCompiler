@@ -5,4 +5,7 @@
 #include "ComparisonGT.h"
 
 ComparisonGT::ComparisonGT(Expr *leftExpr, Expr *rightExpr) : BinaryOperation(leftExpr, rightExpr) {}
+void ComparisonGT::Accept(BaseVisitor *visitor) {
+  visitor->Visit(this);
+}
 

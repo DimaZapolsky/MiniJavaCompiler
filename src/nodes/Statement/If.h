@@ -9,15 +9,15 @@
 #include "nodes/Expr/Expr.h"
 
 class If : public Statement {
-public:
-    If(Expr* expr, Statement* statement);
-    ~If() = default;
+ public:
+  If(Expr *expr, Statement *statement);
+  ~If() = default;
   Expr *GetExpr() const;
   Statement *GetStatement() const;
+  void Accept(BaseVisitor *visitor) override;
  private:
-    Expr* expr_;
-    Statement* statement_;
+  Expr *expr_;
+  Statement *statement_;
 };
-
 
 #endif //COMPILERS_IF_H

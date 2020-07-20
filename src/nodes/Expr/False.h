@@ -8,10 +8,10 @@
 #include "nodes/Expr/Expr.h"
 
 class False : public Expr {
-public:
-    False() = default;
-    ~False() = default;
+ public:
+  False() = default;
+  ~False() = default;
+  void Accept(BaseVisitor *visitor) override;
 };
-
 
 #endif //COMPILERS_FALSE_H

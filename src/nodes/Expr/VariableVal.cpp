@@ -10,3 +10,6 @@ VariableVal::VariableVal(Identifier *identifier) :
 Identifier *VariableVal::GetIdentifier() const {
   return identifier_;
 }
+void VariableVal::Accept(BaseVisitor *visitor) {
+  visitor->Visit(this);
+}

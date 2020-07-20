@@ -8,10 +8,10 @@
 #include "nodes/Expr/BinaryOperation/BinaryOperation.h"
 
 class Dif : public BinaryOperation {
-public:
-    Dif(Expr* leftExpr, Expr* rightExpr);
-    ~Dif() = default;
+ public:
+  Dif(Expr *leftExpr, Expr *rightExpr);
+  ~Dif() = default;
+  void Accept(BaseVisitor *visitor) override;
 };
-
 
 #endif //COMPILERS_DIF_H

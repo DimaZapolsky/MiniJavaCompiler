@@ -14,3 +14,7 @@ Expr *ArrayElementVal::GetExpr() const {
 Expr *ArrayElementVal::GetIndex() const {
   return index_;
 }
+
+void ArrayElementVal::Accept(BaseVisitor *visitor) {
+  visitor->Visit(this);
+}

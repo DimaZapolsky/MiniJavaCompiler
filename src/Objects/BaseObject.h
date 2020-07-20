@@ -8,7 +8,7 @@
 #include <memory>
 #include <vector>
 
-enum Types {Int, Boolean, IntArray, BooleanArray, Class, Null};
+enum Types { Int, Boolean, IntArray, BooleanArray, Class, Null };
 
 namespace objects {
 
@@ -20,7 +20,6 @@ class BaseObject {
   virtual bool &GetBooleanValue() = 0;
   virtual std::vector<int> &GetIntArray() = 0;
   virtual std::vector<bool> &GetBooleanArray() = 0;
-  virtual bool IsInitialized() = 0;
 
  protected:
   Types type_{Null};

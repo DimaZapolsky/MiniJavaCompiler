@@ -5,5 +5,8 @@
 #include "Boolean.h"
 
 std::string types::Boolean::GetIdentifier() {
-    return "boolean";
+  return "boolean";
+}
+void types::Boolean::Accept(BaseVisitor *visitor) {
+  visitor->Visit(this);
 }

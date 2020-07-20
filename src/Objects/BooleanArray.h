@@ -17,10 +17,9 @@ class BooleanArray : public BaseObject {
   bool &GetBooleanValue() override;
   std::vector<int> &GetIntArray() override;
   std::vector<bool> &GetBooleanArray() override;
-  bool IsInitialized() override;
 
  private:
-  std::shared_ptr<std::vector<bool>> value_{nullptr};
+  std::vector<bool> value_{};
 };
 
 }

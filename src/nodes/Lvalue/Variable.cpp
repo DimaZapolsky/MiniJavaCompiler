@@ -9,3 +9,6 @@ Variable::Variable(Identifier *identifier) :
 Identifier *Variable::GetIdentifier() const {
   return identifier_;
 }
+void Variable::Accept(BaseVisitor *visitor) {
+  visitor->Visit(this);
+}

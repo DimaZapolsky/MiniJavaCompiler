@@ -9,14 +9,13 @@
 #include "nodes/Expr/Expr.h"
 
 class Assert : public Statement {
-public:
-    Assert(Expr* expr);
-    ~Assert();
+ public:
+  explicit Assert(Expr *expr);
+  ~Assert();
   Expr *GetExpr() const;
-
+  void Accept(BaseVisitor *visitor) override;
  private:
-    Expr* expr_;
+  Expr *expr_;
 };
-
 
 #endif //COMPILERS_ASSERT_H

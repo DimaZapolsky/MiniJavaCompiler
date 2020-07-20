@@ -9,3 +9,6 @@ Not::Not(Expr *expr) :
 Expr *Not::GetExpr() const {
   return expr_;
 }
+void Not::Accept(BaseVisitor *visitor) {
+  visitor->Visit(this);
+}

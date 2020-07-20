@@ -8,13 +8,13 @@
 #include "nodes/Expr/Expr.h"
 
 class Not : public Expr {
-public:
-    Not(Expr* expr);
-    ~Not() = default;
+ public:
+  explicit Not(Expr *expr);
+  ~Not() = default;
   Expr *GetExpr() const;
+  void Accept(BaseVisitor *visitor) override;
  private:
-    Expr* expr_;
+  Expr *expr_;
 };
-
 
 #endif //COMPILERS_NOT_H

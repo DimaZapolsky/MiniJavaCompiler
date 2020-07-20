@@ -14,3 +14,6 @@ types::Type *VariableDeclaration::GetType() const {
 Identifier *VariableDeclaration::GetIdentifier() const {
   return identifier_;
 }
+void VariableDeclaration::Accept(BaseVisitor *visitor) {
+  visitor->Visit(this);
+}

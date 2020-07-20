@@ -12,3 +12,6 @@ Expr *While::GetExpr() const {
 Statement *While::GetStatement() const {
   return statement_;
 }
+void While::Accept(BaseVisitor *visitor) {
+  visitor->Visit(this);
+}

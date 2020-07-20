@@ -8,10 +8,10 @@
 #include "nodes/Expr/BinaryOperation/BinaryOperation.h"
 
 class ComparisonGT : public BinaryOperation {
-public:
-    ComparisonGT(Expr* leftExpr, Expr* rightExpr);
-    ~ComparisonGT() = default;
+ public:
+  ComparisonGT(Expr *leftExpr, Expr *rightExpr);
+  ~ComparisonGT() = default;
+  void Accept(BaseVisitor *visitor) override;
 };
-
 
 #endif //COMPILERS_COMPARISONGT_H

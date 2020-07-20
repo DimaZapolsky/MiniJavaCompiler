@@ -4,8 +4,13 @@
 
 #include "Identifier.h"
 
-Identifier::Identifier(const std::string &s) : identifier_(s) {}
+#include <utility>
+
+Identifier::Identifier(std::string s) : identifier_(std::move(s)) {}
 
 std::string Identifier::GetIdentifier() {
-    return identifier_;
+  return identifier_;
+}
+void Identifier::Accept(BaseVisitor *visitor) {
+  visitor->Visit(this);
 }

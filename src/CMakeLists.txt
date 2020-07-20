@@ -145,6 +145,9 @@ add_executable(
         Objects/IntArray.cpp
         Objects/BooleanArray.cpp
         Objects/BaseObject.cpp
+        nodes/Type/Type.cpp
+        nodes/Type/SimpleType.cpp
+        nodes/Statement/Statement.cpp
 )
 
 target_include_directories(NaiveInterpreter PRIVATE ${ParserExample_SOURCE_DIR})

@@ -6,7 +6,10 @@
 #include <cassert>
 
 Assert::Assert(Expr *expr) :
-    expr_(expr){}
+    expr_(expr) {}
 Expr *Assert::GetExpr() const {
   return expr_;
+}
+void Assert::Accept(BaseVisitor *visitor) {
+  visitor->Visit(this);
 }

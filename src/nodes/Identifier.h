@@ -9,13 +9,13 @@
 #include "../Visitors/Visitable.h"
 
 class Identifier : public Visitable {
-public:
-    Identifier(const std::string &s);
-    ~Identifier() = default;
-    std::string GetIdentifier();
+ public:
+  explicit Identifier(std::string s);
+  ~Identifier() = default;
+  std::string GetIdentifier();
+  void Accept(BaseVisitor *visitor) override;
  private:
-    std::string identifier_;
+  std::string identifier_;
 };
-
 
 #endif //COMPILERS_IDENTIFIER_H

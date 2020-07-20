@@ -9,3 +9,6 @@ Return::Return(Expr *expr) :
 Expr *Return::GetExpr() const {
   return expr_;
 }
+void Return::Accept(BaseVisitor *visitor) {
+  visitor->Visit(this);
+}

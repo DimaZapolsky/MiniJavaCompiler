@@ -62,7 +62,6 @@ blank [ \t\r]
 "\n"       return yy::parser::make_EOL    (loc);
 "{"        return yy::parser::make_LBRACE (loc);
 "}"        return yy::parser::make_RBRACE (loc);
-
 ";"        return yy::parser::make_SEMICOLON (loc);
 ","        return yy::parser::make_COMMA  (loc);
 "int"      return yy::parser::make_INT    (loc);

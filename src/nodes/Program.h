@@ -10,16 +10,15 @@
 #include "../Visitors/Visitable.h"
 
 class Program : public Visitable {
-public:
-    Program(MainClass* mainClass, ClassDeclarationList* classDeclarationList);
-    ~Program() = default;
+ public:
+  Program(MainClass *mainClass, ClassDeclarationList *classDeclarationList);
+  ~Program() = default;
   MainClass *GetMainClass() const;
   ClassDeclarationList *GetClassDeclarationList() const;
-
+  void Accept(BaseVisitor *visitor) override;
  private:
-  MainClass* mainClass_;
-  ClassDeclarationList* classDeclarationList_;
+  MainClass *mainClass_;
+  ClassDeclarationList *classDeclarationList_;
 };
-
 
 #endif //COMPILERS_PROGRAM_H

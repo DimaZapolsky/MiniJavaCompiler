@@ -11,14 +11,14 @@
 #include "../../Visitors/Visitable.h"
 
 class ClassDeclarationList : public Visitable {
-public:
-    ClassDeclarationList();
-    ~ClassDeclarationList() = default;
-    void AddClassDeclaration(ClassDeclaration* classDeclaration);
+ public:
+  ClassDeclarationList();
+  ~ClassDeclarationList() = default;
+  void AddClassDeclaration(ClassDeclaration *classDeclaration);
   const std::vector<ClassDeclaration *> &GetClassDeclarations() const;
+  void Accept(BaseVisitor *visitor) override;
  private:
-    std::vector <ClassDeclaration*> classDeclarations_;
+  std::vector<ClassDeclaration *> classDeclarations_;
 };
-
 
 #endif //COMPILERS_CLASSESDECLARATION_H

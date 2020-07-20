@@ -8,8 +8,8 @@
 #include "../../Visitors/Visitable.h"
 
 class Lvalue : public Visitable {
-
+ public:
+  void Accept(BaseVisitor *visitor) override;
 };
-
 
 #endif //COMPILERS_LVALUE_H

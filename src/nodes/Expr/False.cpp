@@ -3,3 +3,6 @@
 //
 
 #include "False.h"
+void False::Accept(BaseVisitor *visitor) {
+  visitor->Visit(this);
+}

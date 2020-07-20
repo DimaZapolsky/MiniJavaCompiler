@@ -8,21 +8,21 @@
 #include "Statement.h"
 #include "nodes/Expr/Expr.h"
 #include "nodes/Identifier.h"
-#include "nodes/lists/ExprList.h"
+#include "nodes/Lists/ExprList.h"
 
 class MethodInvocation : public Statement {
-public:
-    MethodInvocation(Expr* expr, Identifier* identifier, ExprList* exprList);
-    MethodInvocation(Expr* expr, Identifier* identifier);
-    ~MethodInvocation() = default;
+ public:
+  MethodInvocation(Expr *expr, Identifier *identifier, ExprList *exprList);
+  MethodInvocation(Expr *expr, Identifier *identifier);
+  ~MethodInvocation() = default;
   Expr *GetExpr() const;
   Identifier *GetIdentifier() const;
   ExprList *GetExprList() const;
+  void Accept(BaseVisitor *visitor) override;
  private:
-    Expr* expr_;
-    Identifier* identifier_;
-    ExprList* exprList_;
+  Expr *expr_;
+  Identifier *identifier_;
+  ExprList *exprList_;
 };
-
 
 #endif //COMPILERS_METHODINVOCATION_H

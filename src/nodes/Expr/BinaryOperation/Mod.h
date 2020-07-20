@@ -8,10 +8,10 @@
 #include "nodes/Expr/BinaryOperation/BinaryOperation.h"
 
 class Mod : public BinaryOperation {
-public:
-    Mod(Expr* exprLeft, Expr* exprRight);
-    ~Mod() = default;
+ public:
+  Mod(Expr *exprLeft, Expr *exprRight);
+  ~Mod() = default;
+  void Accept(BaseVisitor *visitor) override;
 };
-
 
 #endif //COMPILERS_MOD_H

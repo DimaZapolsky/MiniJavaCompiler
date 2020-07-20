@@ -8,10 +8,10 @@
 #include "nodes/Expr/Expr.h"
 
 class True : public Expr {
-public:
-    True() = default;
-    ~True() = default;
+ public:
+  True() = default;
+  ~True() = default;
+  void Accept(BaseVisitor *visitor) override;
 };
-
 
 #endif //COMPILERS_TRUE_H

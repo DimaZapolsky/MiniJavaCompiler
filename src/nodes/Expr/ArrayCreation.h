@@ -9,16 +9,16 @@
 #include "nodes/Type/SimpleType.h"
 
 class ArrayCreation : public Expr {
-public:
-    ArrayCreation(types::SimpleType* simpleType, Expr* expr);
-    ~ArrayCreation() = default;
+ public:
+  ArrayCreation(types::SimpleType *simpleType, Expr *expr);
+  ~ArrayCreation() = default;
   types::SimpleType *GetSimpleType() const;
   Expr *GetExpr() const;
+  void Accept(BaseVisitor *visitor) override;
 
  private:
-    types::SimpleType* simpleType_;
-    Expr* expr_;
+  types::SimpleType *simpleType_;
+  Expr *expr_;
 };
-
 
 #endif //COMPILERS_ARRAYCREATION_H

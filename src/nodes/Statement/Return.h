@@ -9,13 +9,13 @@
 #include "nodes/Expr/Expr.h"
 
 class Return : public Statement {
-public:
-    Return(Expr* expr);
-    ~Return() = default;
+ public:
+  explicit Return(Expr *expr);
+  ~Return() = default;
   Expr *GetExpr() const;
+  void Accept(BaseVisitor *visitor) override;
  private:
-    Expr* expr_;
+  Expr *expr_;
 };
-
 
 #endif //COMPILERS_RETURN_H

@@ -11,13 +11,14 @@
 namespace types {
 
 class ArrayType : public Type {
-public:
-    ArrayType(SimpleType* simpleType);
-    ~ArrayType() = default;
-    SimpleType* GetSimpleType();
-    virtual std::string GetIdentifier() override;
+ public:
+  explicit ArrayType(SimpleType *simpleType);
+  ~ArrayType() = default;
+  SimpleType *GetSimpleType();
+  std::string GetIdentifier() override;
+  void Accept(BaseVisitor *visitor) override;
  private:
-    SimpleType* simpleType_;
+  SimpleType *simpleType_;
 };
 
 }

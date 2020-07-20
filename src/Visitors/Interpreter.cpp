@@ -9,8 +9,11 @@
 #include "Interpreter.h"
 
 template<typename Base, typename T>
-inline bool instanceof(const T*) {
-  return std::is_base_of<Base, T>::value;
+inline bool instanceof(T *obj) {
+//  return std::is_base_of<Base, T>::value;
+//  return std::is_convertible<Base, T>::value;
+  auto ptr = dynamic_cast<Base *>(obj);
+  return ptr != nullptr;
 }
 
 Interpreter::Interpreter() = default;
@@ -20,10 +23,10 @@ std::shared_ptr<objects::BaseObject> Interpreter::Accept(Visitable *visitable) {
   return tos_value_;
 }
 
-//void Interpreter::Visit(Visitable *visitable) {
-//  std::cerr << "Interpreter in class visitable" << std::endl;
-//  throw std::exception();
-//}
+void Interpreter::Visit(Visitable *visitable) {
+  std::cerr << "Interpreter in class visitable" << std::endl;
+  throw std::exception();
+}
 
 void Interpreter::Visit(ClassDeclaration *visitable) {
   throw std::runtime_error("Interpreter::Visit(ClassDeclaration) is not implemented");
@@ -44,7 +47,7 @@ void Interpreter::Visit(VariableDeclaration *visitable) {
       throw std::runtime_error("Unknown type in Interpreter::Visit(VariableDeclaration)");
     }
   } else if (instanceof<types::ArrayType>(type)) {
-    auto primitive_type = dynamic_cast<types::ArrayType*>(type)->GetSimpleType();
+    auto primitive_type = dynamic_cast<types::ArrayType *>(type)->GetSimpleType();
     if (!primitive_type) {
       throw std::runtime_error("Bad pointer after dynamic cast in Interpreter::Visit(VariableDeclaration");
     }
@@ -53,10 +56,10 @@ void Interpreter::Visit(VariableDeclaration *visitable) {
     } else if (instanceof<types::Boolean>(primitive_type)) {
       variables_[visitable->GetIdentifier()->GetIdentifier()] = std::make_shared<objects::BooleanArray>();
     } else {
-      throw std::runtime_error("Bad pointer after dynamic cast in Interpreter::Visit(VariableDeclaration");;
+      throw std::runtime_error("Unknown type in Interpreter::Visit(VariableDeclaration)");
     }
   } else {
-    throw std::runtime_error("Bad pointer after dynamic cast in Interpreter::Visit(VariableDeclaration");;
+    throw std::runtime_error("Unknown type in Interpreter::Visit(VariableDeclaration)");
   }
 }
 
@@ -65,43 +68,53 @@ void Interpreter::Visit(BinaryOperation *visitable) {
 }
 
 void Interpreter::Visit(ComparisonGT *visitable) {
-  tos_value_ = std::make_shared<objects::Boolean>(Accept(visitable->GetLExpr())->GetBooleanValue() > Accept(visitable->GetRExpr())->GetBooleanValue());
+  tos_value_ = std::make_shared<objects::Boolean>(
+      Accept(visitable->GetLExpr())->GetBooleanValue() > Accept(visitable->GetRExpr())->GetBooleanValue());
 }
 
 void Interpreter::Visit(ComparisonLT *visitable) {
-  tos_value_ = std::make_shared<objects::Boolean>(Accept(visitable->GetLExpr())->GetBooleanValue() < Accept(visitable->GetRExpr())->GetBooleanValue());
+  tos_value_ = std::make_shared<objects::Boolean>(
+      Accept(visitable->GetLExpr())->GetBooleanValue() < Accept(visitable->GetRExpr())->GetBooleanValue());
 }
 
 void Interpreter::Visit(Dif *visitable) {
-  tos_value_ = std::make_shared<objects::Int>(Accept(visitable->GetLExpr())->GetIntValue() - Accept(visitable->GetRExpr())->GetIntValue());
+  tos_value_ = std::make_shared<objects::Int>(
+      Accept(visitable->GetLExpr())->GetIntValue() - Accept(visitable->GetRExpr())->GetIntValue());
 }
 
 void Interpreter::Visit(Div *visitable) {
-  tos_value_ = std::make_shared<objects::Int>(Accept(visitable->GetLExpr())->GetIntValue() / Accept(visitable->GetRExpr())->GetIntValue());
+  tos_value_ = std::make_shared<objects::Int>(
+      Accept(visitable->GetLExpr())->GetIntValue() / Accept(visitable->GetRExpr())->GetIntValue());
 }
 
 void Interpreter::Visit(Equal *visitable) {
-  tos_value_ = std::make_shared<objects::Boolean>(Accept(visitable->GetLExpr())->GetIntValue() == Accept(visitable->GetRExpr())->GetIntValue());
+  tos_value_ = std::make_shared<objects::Boolean>(
+      Accept(visitable->GetLExpr())->GetIntValue() == Accept(visitable->GetRExpr())->GetIntValue());
 }
 
 void Interpreter::Visit(LogicalAnd *visitable) {
-  tos_value_ = std::make_shared<objects::Boolean>(Accept(visitable->GetLExpr())->GetBooleanValue() && Accept(visitable->GetRExpr())->GetBooleanValue());
+  tos_value_ = std::make_shared<objects::Boolean>(
+      Accept(visitable->GetLExpr())->GetBooleanValue() && Accept(visitable->GetRExpr())->GetBooleanValue());
 }
 
 void Interpreter::Visit(LogicalOr *visitable) {
-  tos_value_ = std::make_shared<objects::Boolean>(Accept(visitable->GetLExpr())->GetBooleanValue() || Accept(visitable->GetRExpr())->GetBooleanValue());
+  tos_value_ = std::make_shared<objects::Boolean>(
+      Accept(visitable->GetLExpr())->GetBooleanValue() || Accept(visitable->GetRExpr())->GetBooleanValue());
 }
 
 void Interpreter::Visit(Mod *visitable) {
-  tos_value_ = std::make_shared<objects::Int>(Accept(visitable->GetLExpr())->GetIntValue() % Accept(visitable->GetRExpr())->GetIntValue());
+  tos_value_ = std::make_shared<objects::Int>(
+      Accept(visitable->GetLExpr())->GetIntValue() % Accept(visitable->GetRExpr())->GetIntValue());
 }
 
 void Interpreter::Visit(Mul *visitable) {
-  tos_value_ = std::make_shared<objects::Int>(Accept(visitable->GetLExpr())->GetIntValue() * Accept(visitable->GetRExpr())->GetIntValue());
+  tos_value_ = std::make_shared<objects::Int>(
+      Accept(visitable->GetLExpr())->GetIntValue() * Accept(visitable->GetRExpr())->GetIntValue());
 }
 
 void Interpreter::Visit(Sum *visitable) {
-  tos_value_ = std::make_shared<objects::Int>(Accept(visitable->GetLExpr())->GetIntValue() + Accept(visitable->GetRExpr())->GetIntValue());
+  tos_value_ = std::make_shared<objects::Int>(
+      Accept(visitable->GetLExpr())->GetIntValue() + Accept(visitable->GetRExpr())->GetIntValue());
 }
 
 void Interpreter::Visit(ArrayCreation *visitable) {
@@ -109,7 +122,8 @@ void Interpreter::Visit(ArrayCreation *visitable) {
   if (instanceof<types::Int>(type)) {
     tos_value_ = std::make_shared<objects::IntArray>(std::vector<int>(Accept(visitable->GetExpr())->GetIntValue()));
   } else if (instanceof<types::Boolean>(type)) {
-    tos_value_ = std::make_shared<objects::BooleanArray>(std::vector<bool>(Accept(visitable->GetExpr())->GetIntValue()));
+    tos_value_ =
+        std::make_shared<objects::BooleanArray>(std::vector<bool>(Accept(visitable->GetExpr())->GetIntValue()));
   } else {
     throw std::runtime_error("Unknown type in array creation");
   }
@@ -179,13 +193,13 @@ void Interpreter::Visit(ClassDeclarationList *visitable) {
 }
 
 void Interpreter::Visit(DeclarationList *visitable) {
-  for (auto& decl : visitable->GetDeclarations()) {
+  for (auto &decl : visitable->GetDeclarations()) {
     decl->Accept(this);
   }
 }
 
 void Interpreter::Visit(ExprList *visitable) {
-  for (auto& expr : visitable->GetExpressions()) {
+  for (auto &expr : visitable->GetExpressions()) {
     expr->Accept(this);
   }
 }
@@ -195,7 +209,7 @@ void Interpreter::Visit(Formals *visitable) {
 }
 
 void Interpreter::Visit(StatementList *visitable) {
-  for (auto& statement : visitable->GetStatements()) {
+  for (auto &statement : visitable->GetStatements()) {
     statement->Accept(this);
   }
 }

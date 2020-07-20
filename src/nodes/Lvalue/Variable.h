@@ -9,13 +9,13 @@
 #include "nodes/Identifier.h"
 
 class Variable : public Lvalue {
-public:
-    Variable(Identifier* identifier);
-    ~Variable() = default;
+ public:
+  explicit Variable(Identifier *identifier);
+  ~Variable() = default;
   Identifier *GetIdentifier() const;
+  void Accept(BaseVisitor *visitor) override;
  private:
-    Identifier* identifier_;
+  Identifier *identifier_;
 };
-
 
 #endif //COMPILERS_VARIABLE_H

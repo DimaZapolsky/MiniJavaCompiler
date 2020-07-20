@@ -5,5 +5,8 @@
 #include "Void.h"
 
 std::string types::Void::GetIdentifier() {
-    return "void";
+  return "void";
+}
+void types::Void::Accept(BaseVisitor *visitor) {
+  visitor->Visit(this);
 }

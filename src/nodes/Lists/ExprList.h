@@ -11,14 +11,14 @@
 #include "../../Visitors/Visitable.h"
 
 class ExprList : public Visitable {
-public:
-    ExprList();
-    ~ExprList() = default;
-    void AddExpr(Expr* expr);
+ public:
+  ExprList();
+  ~ExprList() = default;
+  void AddExpr(Expr *expr);
   const std::vector<Expr *> &GetExpressions() const;
+  void Accept(BaseVisitor *visitor) override;
  private:
-    std::vector<Expr*> expressions_;
+  std::vector<Expr *> expressions_;
 };
-
 
 #endif //COMPILERS_EXPRLIST_H

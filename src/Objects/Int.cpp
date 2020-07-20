@@ -12,16 +12,11 @@ objects::Int::Int() {
 
 objects::Int::Int(int value) {
   type_ = Types::Int;
-  value_ = std::make_shared<int>(value);
+  value_ = value;
 };
 
-objects::Int::Int(std::shared_ptr<int> value) {
-  type_ = Types::Int;
-  value_ = std::move(value);
-}
-
 int &objects::Int::GetIntValue() {
-  return *value_;
+  return value_;
 }
 
 bool &objects::Int::GetBooleanValue() {
@@ -34,8 +29,4 @@ std::vector<int> &objects::Int::GetIntArray() {
 
 std::vector<bool> &objects::Int::GetBooleanArray() {
   throw std::runtime_error("Can't get boolean array from int");
-}
-
-bool objects::Int::IsInitialized() {
-  return value_ != nullptr;
 }

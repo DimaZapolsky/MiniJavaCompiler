@@ -12,3 +12,6 @@ Expr *If::GetExpr() const {
 Statement *If::GetStatement() const {
   return statement_;
 }
+void If::Accept(BaseVisitor *visitor) {
+  visitor->Visit(this);
+}

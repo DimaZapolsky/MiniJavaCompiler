@@ -11,15 +11,15 @@
 
 class VariableDeclaration : public Declaration {
  public:
-    VariableDeclaration(types::Type* type, Identifier* identifier);
-    ~VariableDeclaration() = default;
+  VariableDeclaration(types::Type *type, Identifier *identifier);
+  ~VariableDeclaration() = default;
   types::Type *GetType() const;
   Identifier *GetIdentifier() const;
+  void Accept(BaseVisitor *visitor) override;
 
  private:
-    types::Type* type_;
-    Identifier* identifier_;
+  types::Type *type_;
+  Identifier *identifier_;
 };
-
 
 #endif //COMPILERS_VARIABLEDECLARATION_H

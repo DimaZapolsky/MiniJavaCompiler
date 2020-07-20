@@ -9,17 +9,17 @@
 #include "nodes/Expr/Expr.h"
 
 class IfElse : public Statement {
-public:
-    IfElse(Expr* expr, Statement* statementTrue, Statement* statementFalse);
-    ~IfElse() = default;
+ public:
+  IfElse(Expr *expr, Statement *statementTrue, Statement *statementFalse);
+  ~IfElse() = default;
   Expr *GetExpr() const;
   Statement *GetStatementTrue() const;
   Statement *GetStatementFalse() const;
+  void Accept(BaseVisitor *visitor) override;
  private:
-    Expr* expr_;
-    Statement* statementTrue_;
-    Statement* statementFalse_;
+  Expr *expr_;
+  Statement *statementTrue_;
+  Statement *statementFalse_;
 };
-
 
 #endif //COMPILERS_IFELSE_H
