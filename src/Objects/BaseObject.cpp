@@ -7,3 +7,4 @@
 Types objects::BaseObject::GetType() const {
   return type_;
 }
+objects::BaseObject::~BaseObject() = default;

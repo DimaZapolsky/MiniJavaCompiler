@@ -15,8 +15,9 @@ class Int : public BaseObject {
   explicit Int(int value);
   int &GetIntValue() override;
   bool &GetBooleanValue() override;
-  std::vector<int> &GetIntArray() override;
-  std::vector<bool> &GetBooleanArray() override;
+  std::vector<std::shared_ptr<objects::BaseObject>> &GetIntArray() override;
+  std::vector<std::shared_ptr<objects::BaseObject>> &GetBooleanArray() override;
+  std::string GetTypeIdentifier() override;
 
  private:
   int value_{0};

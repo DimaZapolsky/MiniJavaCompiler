@@ -148,6 +148,11 @@ add_executable(
         nodes/Type/Type.cpp
         nodes/Type/SimpleType.cpp
         nodes/Statement/Statement.cpp
-)
+        Scopes/ScopeLayer.cpp
+        Objects/Class.cpp
+        Objects/Method.cpp
+        Objects/Variable.cpp
+        Objects/ClassObj.cpp
+        Objects/NonSimpleObject.cpp Objects/Uninitialized.cpp Objects/Uninitialized.h)
 
 target_include_directories(NaiveInterpreter PRIVATE ${ParserExample_SOURCE_DIR})

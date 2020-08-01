@@ -5,11 +5,20 @@ class Main {
         int y;
         y = 3;
         int c;
+        {
+            int c;
+            c = 3;
+            c = c * c + c;
+            System.out.println(c);
+        }
         c = x + y;
         c = c * c;
         int v;
         v = 4;
         c = c / v - v;
+        System.out.println(x);
+        System.out.println(y);
         System.out.println(c);
+        System.out.println(v);
     }
 }

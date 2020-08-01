@@ -4,9 +4,8 @@
 Driver::Driver() :
     trace_parsing(false),
     trace_scanning(false),
-    scanner(*this), parser(scanner, *this) {
-  variables["one"] = 1;
-  variables["two"] = 2;
+    scanner(*this),
+    parser(scanner, *this) {
 }
 
 int Driver::parse(const std::string &f) {

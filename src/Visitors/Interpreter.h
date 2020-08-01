@@ -10,10 +10,13 @@
 #include "nodes/NodesInclude.h"
 #include "BaseVisitor.h"
 #include "Objects/ObjectsInclude.h"
+#include "Scopes/ScopeLayer.h"
 
 class Interpreter : public BaseVisitor {
  public:
   Interpreter();
+  ~Interpreter() = default;
+
   void Visit(Visitable *visitable) override;
   void Visit(ClassDeclaration *visitable) override;
   void Visit(MethodDeclaration *visitable) override;
@@ -73,10 +76,19 @@ class Interpreter : public BaseVisitor {
   void Visit(Identifier *visitable) override;
 
   std::shared_ptr<objects::BaseObject> Accept(Visitable *visitable);
+  std::shared_ptr<objects::BaseObject>* AcceptPtr(Visitable *visitable);
+  std::pair<std::unordered_map<std::string, std::string>,
+            std::unordered_map<std::string, std::shared_ptr<objects::Method>>> AcceptDecl(DeclarationList* visitable);
 
  private:
-  std::map<std::string, std::shared_ptr<objects::BaseObject>> variables_;
-  std::shared_ptr<objects::BaseObject> tos_value_;
+  std::shared_ptr<objects::BaseObject> tos_value_{nullptr};
+  std::shared_ptr<objects::BaseObject>* tos_value_ptr{nullptr};
+  std::shared_ptr<ScopeLayer> current_layer_{nullptr};
+  std::unordered_map<std::string, std::shared_ptr<objects::Class>> classes_;
+  std::pair<std::unordered_map<std::string, std::string>, std::unordered_map<std::string, std::shared_ptr<objects::Method>>> tos_decl_{{}, {}};
+
+  void BeginScope();
+  void EndScope();
 };
 
 #endif //NAIVEINTERPRETER_SRC_VISITORS_INTERPRETER_H_

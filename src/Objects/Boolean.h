@@ -17,8 +17,9 @@ class Boolean : public BaseObject {
   explicit Boolean(bool value);
   int &GetIntValue() override;
   bool &GetBooleanValue() override;
-  std::vector<int> &GetIntArray() override;
-  std::vector<bool> &GetBooleanArray() override;
+  std::vector<std::shared_ptr<objects::BaseObject>> &GetIntArray() override;
+  std::vector<std::shared_ptr<objects::BaseObject>> &GetBooleanArray() override;
+  std::string GetTypeIdentifier() override;
 
  private:
   bool value_{false};

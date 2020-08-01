@@ -7,10 +7,14 @@
 
 #include <memory>
 #include <vector>
+#include <string>
 
-enum Types { Int, Boolean, IntArray, BooleanArray, Class, Null };
+enum Types { Int, Boolean, IntArray, BooleanArray, Class, Null, Variable_t, Method };
 
 namespace objects {
+
+class Int;
+class Boolean;
 
 class BaseObject {
  public:
@@ -18,8 +22,11 @@ class BaseObject {
 
   virtual int &GetIntValue() = 0;
   virtual bool &GetBooleanValue() = 0;
-  virtual std::vector<int> &GetIntArray() = 0;
-  virtual std::vector<bool> &GetBooleanArray() = 0;
+  virtual std::vector<std::shared_ptr<objects::BaseObject>> &GetIntArray() = 0;
+  virtual std::vector<std::shared_ptr<objects::BaseObject>> &GetBooleanArray() = 0;
+
+  virtual std::string GetTypeIdentifier() = 0;
+  virtual ~BaseObject();
 
  protected:
   Types type_{Null};

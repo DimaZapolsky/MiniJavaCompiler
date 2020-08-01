@@ -12,14 +12,16 @@ namespace objects {
 class BooleanArray : public BaseObject {
  public:
   BooleanArray();
-  explicit BooleanArray(std::vector<bool> value_);
+  BooleanArray(size_t size);
   int &GetIntValue() override;
   bool &GetBooleanValue() override;
-  std::vector<int> &GetIntArray() override;
-  std::vector<bool> &GetBooleanArray() override;
+  std::vector<std::shared_ptr<objects::BaseObject>> &GetIntArray() override;
+  std::vector<std::shared_ptr<objects::BaseObject>> &GetBooleanArray() override;
+
+  std::string GetTypeIdentifier() override;
 
  private:
-  std::vector<bool> value_{};
+  std::vector<std::shared_ptr<objects::BaseObject>> value_{};
 };
 
 }

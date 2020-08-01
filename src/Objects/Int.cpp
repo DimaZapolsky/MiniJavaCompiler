@@ -23,10 +23,14 @@ bool &objects::Int::GetBooleanValue() {
   throw std::runtime_error("Can't get boolean from int");
 }
 
-std::vector<int> &objects::Int::GetIntArray() {
+std::vector<std::shared_ptr<objects::BaseObject>> &objects::Int::GetIntArray() {
   throw std::runtime_error("Can't get int array from int");
 }
 
-std::vector<bool> &objects::Int::GetBooleanArray() {
+std::vector<std::shared_ptr<objects::BaseObject>> &objects::Int::GetBooleanArray() {
   throw std::runtime_error("Can't get boolean array from int");
+}
+
+std::string objects::Int::GetTypeIdentifier() {
+  return "int";
 }

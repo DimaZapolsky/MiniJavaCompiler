@@ -10,5 +10,10 @@
 #include "Boolean.h"
 #include "IntArray.h"
 #include "BooleanArray.h"
+#include "Class.h"
+#include "Method.h"
+#include "Variable.h"
+#include "ClassObj.h"
+#include "Uninitialized.h"
 
 #endif //NAIVEINTERPRETER_SRC_OBJECTS_OBJECTSINCLUDE_H_

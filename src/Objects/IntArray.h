@@ -8,20 +8,22 @@
 #include <vector>
 
 #include "BaseObject.h"
+#include <Objects/Int.h>
 
 namespace objects {
 
 class IntArray : public BaseObject {
  public:
   IntArray();
-  explicit IntArray(std::vector<int> value);
+  IntArray(size_t size);
   int &GetIntValue() override;
   bool &GetBooleanValue() override;
-  std::vector<int> &GetIntArray() override;
-  std::vector<bool> &GetBooleanArray() override;
+  std::vector<std::shared_ptr<objects::BaseObject>> &GetIntArray() override;
+  std::vector<std::shared_ptr<objects::BaseObject>> &GetBooleanArray() override;
+  std::string GetTypeIdentifier() override;
 
  private:
-  std::vector<int> value_{};
+  std::vector<std::shared_ptr<objects::BaseObject>> value_{};
 };
 
 }
