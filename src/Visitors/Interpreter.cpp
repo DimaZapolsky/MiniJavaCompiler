@@ -50,11 +50,13 @@ void Interpreter::Visit(ClassDeclaration *visitable) {
   auto class_ = std::make_shared<objects::Class>();
   class_->SetIdentifier(visitable->GetIdentifier());
   auto extends = visitable->GetExtends();
-  if (!classes_.count(extends->GetIdentifier())) {
-    throw std::runtime_error("Parent class(" + extends->GetIdentifier() + ") is not declared");
+  if (extends) {
+    if (!classes_.count(extends->GetIdentifier())) {
+      throw std::runtime_error("Parent class(" + extends->GetIdentifier() + ") is not declared");
+    }
+    class_->SetExtends(classes_[extends->GetIdentifier()]);
   }
-  class_->SetExtends(classes_[extends->GetIdentifier()]);
-  const auto& [variables_, methods_] = AcceptDecl(visitable->GetDeclarationList());
+  auto [variables_, methods_] = AcceptDecl(visitable->GetDeclarationList());
   class_->SetVariables(variables_);
   class_->SetMethods(methods_);
   classes_[class_->GetIdentifier()->GetIdentifier()] = class_;
@@ -181,35 +183,7 @@ void Interpreter::Visit(Length *visitable) {
 }
 
 void Interpreter::Visit(MethodInvocationVal *visitable) {
-  auto expr_val = Accept(visitable->GetMethodInvocation()->GetExpr());
-  auto type = expr_val->GetTypeIdentifier();
-  if (!classes_.count(type)) {
-    throw std::runtime_error("Unknown type in method invocation");
-  }
-  auto return_type = classes_[type]->GetMethod(visitable->GetMethodInvocation()->GetIdentifier()->GetIdentifier())->GetReturnType();
-  if (instanceof<types::Int>(return_type)) {
-    tos_value_ = std::make_shared<objects::Int>();
-  } else if (instanceof<types::Boolean>(return_type)) {
-    tos_value_ = std::make_shared<objects::Boolean>();
-  } else if (instanceof<types::ArrayType>(return_type)) {
-    auto primitive_type = dynamic_cast<types::ArrayType*>(return_type)->GetSimpleType();
-    if (instanceof<types::Int>(primitive_type)) {
-      tos_value_ = std::make_shared<objects::IntArray>();
-    } else if (instanceof<types::Boolean>(primitive_type)) {
-      tos_value_ = std::make_shared<objects::BooleanArray>();
-    } else {
-      throw std::runtime_error("Unexpected primitive type of array(" + primitive_type->GetIdentifier() + ")");
-    }
-  } else if (instanceof<types::TypeIdentifier>(return_type)) {
-    if (classes_.count(return_type->GetIdentifier())) {
-      tos_value_ = std::make_shared<objects::ClassObj>(new Identifier("temp class"), classes_[return_type->GetIdentifier()], std::shared_ptr<ScopeLayer>());
-    } else {
-      throw std::runtime_error("Unexpected class(" + return_type->GetIdentifier() + ")");
-    }
-  } else {
-    throw std::runtime_error("Unexpected type of expr(" + return_type->GetIdentifier() + ")");
-  }
-  throw std::runtime_error("There is no implementation for Interpreter::Visit(Expr)");
+  visitable->GetMethodInvocation()->Accept(this);
 }
 
 void Interpreter::Visit(Not *visitable) {
@@ -217,7 +191,11 @@ void Interpreter::Visit(Not *visitable) {
 }
 
 void Interpreter::Visit(ObjectCreation *visitable) {
-  throw std::runtime_error("There is no implementation for Interpreter::Visit(Expr)");
+  if (!classes_.count(visitable->GetTypeIdentifier()->GetIdentifier())) {
+    throw std::runtime_error("Class " + visitable->GetTypeIdentifier()->GetIdentifier() + " is not declared");
+  }
+  tos_value_ = std::make_shared<objects::ClassObj>(classes_[visitable->GetTypeIdentifier()->GetIdentifier()]);
+  return;
 }
 
 void Interpreter::Visit(This *visitable) {
@@ -238,7 +216,7 @@ void Interpreter::Visit(VariableVal *visitable) {
 void Interpreter::Visit(ClassDeclarationList *visitable) {
   for (auto decl : visitable->GetClassDeclarations()) {
     auto class_ = Accept(decl);
-    classes_[decl->GetIdentifier()->GetIdentifier()] = std::shared_ptr<objects::Class>(dynamic_cast<objects::Class*>(class_.get()));
+//    classes_[decl->GetIdentifier()->GetIdentifier()] = std::shared_ptr<objects::Class>(dynamic_cast<objects::Class*>(class_.get()));
   }
 }
 
@@ -250,7 +228,8 @@ void Interpreter::Visit(DeclarationList *visitable) {
     if (instanceof<objects::Variable>(declared.get())) {
       vars_[dynamic_cast<objects::Variable*>(declared.get())->GetIdentifier()->GetIdentifier()] = declared->GetTypeIdentifier();
     } else {
-      auto method_decl = std::shared_ptr<objects::Method>(dynamic_cast<objects::Method*>(declared.get()));
+//      auto method_decl = std::shared_ptr<objects::Method>(dynamic_cast<objects::Method*>(declared.get()));
+      auto method_decl = std::dynamic_pointer_cast<objects::Method>(declared);
       methods_[method_decl->GetIdentifier()->GetIdentifier()] = method_decl;
     }
   }
@@ -259,7 +238,7 @@ void Interpreter::Visit(DeclarationList *visitable) {
 
 void Interpreter::Visit(ExprList *visitable) {
   for (auto &expr : visitable->GetExpressions()) {
-    expr->Accept(this);
+    formals_.push_back(Accept(expr));
   }
 }
 
@@ -271,6 +250,7 @@ void Interpreter::Visit(StatementList *visitable) {
   BeginScope();
   for (auto &statement : visitable->GetStatements()) {
     statement->Accept(this);
+    tos_value_ = nullptr;
   }
   EndScope();
 }
@@ -302,6 +282,8 @@ void Interpreter::Visit(Assert *visitable) {
 void Interpreter::Visit(Assignment *visitable) {
   auto lvalue = AcceptPtr(visitable->GetLvalue());
   auto expr = Accept(visitable->GetExpr());
+  std::string name1 = (*lvalue)->GetTypeIdentifier();
+  std::string name2 = expr->GetTypeIdentifier();
   if ((*lvalue)->GetTypeIdentifier() != expr->GetTypeIdentifier()) {
     throw std::runtime_error("Types are in incompatible");
   } else {
@@ -353,11 +335,46 @@ void Interpreter::Visit(LocalVariableDeclaration *visitable) {
 }
 
 void Interpreter::Visit(MethodInvocation *visitable) {
-  throw std::runtime_error("There is no implementation for Interpreter::Visit(MethodInvocation)");
+  tos_value_ = nullptr;
+//  auto class_obj =
+//      std::shared_ptr<objects::ClassObj>(dynamic_cast<objects::ClassObj *>(Accept(visitable->GetExpr()).get()));
+  auto class_obj = std::dynamic_pointer_cast<objects::ClassObj>(Accept(visitable->GetExpr()));
+  if (!class_obj) {
+    throw std::runtime_error("Can't call method on not class object");
+  }
+  visitable->GetExprList()->Accept(this);
+  auto method = class_obj->GetMethod(visitable->GetIdentifier());
+  const auto& formals = method->GetFormals()->GetFormals();
+  std::cout << formals.size() << std::endl;
+  if (formals.size() != formals_.size()) {
+    throw std::runtime_error("Wrong number of arguments");
+  }
+  for (int i = 0; i < formals_.size(); ++i) {
+    if (formals_[i]->GetTypeIdentifier() != formals[i]->GetType()->GetIdentifier()) {
+      throw std::runtime_error("formals type mismatch");
+    }
+  }
+  last_class_.push_back(class_obj);
+  BeginScope();
+  for (int i = 0; i < formals.size(); ++i) {
+    current_layer_->DeclareVar(formals[i]->GetIdentifier(), formals[i]->GetType()->GetIdentifier());
+    current_layer_->PutVar(formals[i]->GetIdentifier(), formals_[i]);
+  }
+  method->GetStatementList()->Accept(this);
+  EndScope();
+  last_class_.pop_back();
+
+  auto return_type = method->GetReturnType();
+  if (instanceof<types::Void>(return_type) && tos_value_ == nullptr) {
+    return;
+  }
+  if (return_type->GetIdentifier() != tos_value_->GetTypeIdentifier()) {
+    throw std::runtime_error("Function return type mismatch");
+  }
 }
 
 void Interpreter::Visit(Return *visitable) {
-
+  tos_value_ = Accept(visitable->GetExpr());
 }
 
 void Interpreter::Visit(Sout *visitable) {
@@ -390,6 +407,8 @@ void Interpreter::Visit(MainClass *visitable) {
 }
 
 void Interpreter::Visit(Program *visitable) {
+  visitable->GetClassDeclarationList()->Accept(this);
+
   visitable->GetMainClass()->Accept(this);
 }
 

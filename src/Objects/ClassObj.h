@@ -13,11 +13,11 @@ namespace objects {
 
 class ClassObj : public NonSimpleObject {
  public:
-  ClassObj(Identifier* identifier, std::shared_ptr<Class> a_class, std::shared_ptr<ScopeLayer> layer);
+  ClassObj(std::shared_ptr<Class> a_class);
   std::string GetTypeIdentifier() override;
+  std::shared_ptr<Method> GetMethod(Identifier* identifier);
 
  private:
-  Identifier* identifier_;
   std::shared_ptr<Class> class_;
   std::shared_ptr<ScopeLayer> layer_;
 };

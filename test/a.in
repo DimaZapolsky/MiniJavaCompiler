@@ -20,5 +20,26 @@ class Main {
         System.out.println(y);
         System.out.println(c);
         System.out.println(v);
+        Kek kek;
+        kek = new Kek();
+        kek.func(v);
+    }
+}
+
+class Kek {
+    public void func(int z) {
+        int x;
+        x = 123;
+        boolean y;
+        if (x == 123) {
+            y = true;
+        } else {
+            y = false;
+        }
+        if (y) {
+            System.out.println(z * 2);
+        } else {
+            System.out.println(z * 3);
+        }
     }
 }

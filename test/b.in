@@ -1,0 +1,13 @@
+class Main {
+    public static void main() {
+        Kek kek;
+        kek = new Kek();
+        kek.func(4);
+    }
+}
+
+class Kek {
+    public void func(int z) {
+        System.out.println(z);
+    }
+}

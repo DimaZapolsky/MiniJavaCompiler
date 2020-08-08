@@ -10,7 +10,7 @@ types::Type *Method::GetReturnType() {
   return return_type_;
 }
 
-Formals *Method::GetFormals() {
+Formals* Method::GetFormals() {
   return formals_;
 }
 
@@ -23,6 +23,9 @@ Identifier *Method::GetIdentifier() const {
 }
 std::string Method::GetTypeIdentifier() {
   return identifier_->GetIdentifier() + "_method";
+}
+StatementList *Method::GetStatementList() const {
+  return statement_list_;
 }
 
 }

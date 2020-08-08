@@ -12,7 +12,13 @@ std::string ClassObj::GetTypeIdentifier() {
   return class_->GetTypeIdentifier();
 }
 
-ClassObj::ClassObj(Identifier *identifier, std::shared_ptr<Class> a_class, std::shared_ptr<ScopeLayer> layer)
-  : identifier_(identifier), class_(std::move(a_class)), layer_(std::move(layer)) {}
+ClassObj::ClassObj(std::shared_ptr<Class> a_class)
+  : class_(a_class) {
+  type_ = Types::Class;
+}
+
+std::shared_ptr<Method> ClassObj::GetMethod(Identifier* identifier) {
+  return class_->GetMethod(identifier->GetIdentifier());
+}
 
 }

@@ -190,8 +190,8 @@ stmt:
     | method_invocation {$$ = $1; }
 
 method_invocation:
-    exp "." identifier "(" expr_list ")" {$$ = new MethodInvocation($1, $3, $5); }
-    | exp "." identifier "(" ")" {$$ = new MethodInvocation($1, $3); };
+    exp "." identifier "(" expr_list ")" ";" {$$ = new MethodInvocation($1, $3, $5); }
+    | exp "." identifier "(" ")" ";" {$$ = new MethodInvocation($1, $3); };
 
 expr_list:
     exp {$$ = new ExprList(); $$->AddExpr($1); }
@@ -204,12 +204,15 @@ lvalue:
     identifier {$$ = new Variable($1); }
     | identifier "[" exp "]" {$$ = new ArrayElement($1, $3); };
 
+type_identifier:
+	identifier {$$ = new types::TypeIdentifier($1); };
+
 exp:
     binary_operation {$$ = $1; }
     | exp "[" exp "]" {$$ = new ArrayElementVal($1, $3); }
     | exp "." "length" {$$ = new Length($1); }
-    | "new" simple_type "[" exp "]" {$$ = new ArrayCreation($2, $4); }
     | "new" type_identifier "(" ")" {$$ = new ObjectCreation($2); }
+    | "new" simple_type "[" exp "]" {$$ = new ArrayCreation($2, $4); }
     | "!" exp {$$ = new Not($2); }
     | "(" exp ")" { $$ = $2; }
     | identifier {$$ = new VariableVal($1); }

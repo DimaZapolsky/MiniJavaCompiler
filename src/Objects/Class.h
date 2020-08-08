@@ -21,16 +21,16 @@ class Class : public NonSimpleObject {
   std::string GetVariableType(std::string variable);
   void SetIdentifier(Identifier *identifier);
   void SetExtends(std::shared_ptr<Class> extends);
-  void SetVariables(const std::unordered_map<std::string, std::string> &variables);
-  void SetMethods(const std::unordered_map<std::string, std::shared_ptr<Method>> &methods);
+  void SetVariables(std::unordered_map<std::string, std::string> variables);
+  void SetMethods(std::unordered_map<std::string, std::shared_ptr<Method>> methods);
   Identifier *GetIdentifier() const;
   std::string GetTypeIdentifier() override;
 
  private:
   Identifier* identifier_{nullptr};
   std::shared_ptr<Class> extends_{nullptr};
-  std::unordered_map<std::string, std::string> variables_;
-  std::unordered_map<std::string, std::shared_ptr<Method>> methods_;
+  std::shared_ptr<std::unordered_map<std::string, std::string>> variables_;
+  std::shared_ptr<std::unordered_map<std::string, std::shared_ptr<Method>>> methods_;
 };
 
 }

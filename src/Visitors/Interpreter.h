@@ -86,6 +86,8 @@ class Interpreter : public BaseVisitor {
   std::shared_ptr<ScopeLayer> current_layer_{nullptr};
   std::unordered_map<std::string, std::shared_ptr<objects::Class>> classes_;
   std::pair<std::unordered_map<std::string, std::string>, std::unordered_map<std::string, std::shared_ptr<objects::Method>>> tos_decl_{{}, {}};
+  std::vector<std::shared_ptr<objects::BaseObject>> formals_;
+  std::vector<std::shared_ptr<objects::ClassObj>> last_class_;
 
   void BeginScope();
   void EndScope();
