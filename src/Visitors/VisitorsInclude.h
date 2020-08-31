@@ -9,5 +9,6 @@
 #include "Interpreter.h"
 #include "PrintVisitor.h"
 #include "Visitable.h"
+#include "ScopeBuilderVisitor.h"
 
 #endif //NAIVEINTERPRETER_SRC_VISITORS_VISITORSINCLUDE_H_

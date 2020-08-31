@@ -26,9 +26,12 @@
   std::shared_ptr<objects::BaseObject>* GetVariablePtr(Identifier* identifier);
   bool VariableDeclared(Identifier *identifier) const;
   bool VariableInitialized(Identifier *identifier);
+  void AddChild(std::shared_ptr<ScopeLayer> child);
+  std::shared_ptr<ScopeLayer> GetChild(size_t index);
 
  private:
   std::shared_ptr<ScopeLayer> parent_;
+  std::vector<std::shared_ptr<ScopeLayer>> children;
   std::unordered_map<std::string, std::shared_ptr<objects::BaseObject>> initialized_;
 };
 

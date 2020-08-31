@@ -70,4 +70,12 @@ void ScopeLayer::DeclareVar(Identifier *identifier, std::string type) {
   initialized_[identifier->GetIdentifier()] = std::make_shared<objects::Uninitialized>(std::move(type));
 }
 
+void ScopeLayer::AddChild(std::shared_ptr<ScopeLayer> child) {
+  children.push_back(std::move(child));
+}
+
+std::shared_ptr<ScopeLayer> ScopeLayer::GetChild(size_t index) {
+  return children.at(index);
+}
+
 ScopeLayer::~ScopeLayer() = default;

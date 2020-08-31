@@ -18,8 +18,11 @@ int main(int argc, char **argv) {
       driver.trace_scanning = true;
     } else if (!driver.parse(argv[i])) {
       PrintVisitor print_visitor("tree.txt");
-      Interpreter interpreter;
+      ScopeBuilderVisitor builder_visitor;
+      driver.program->Accept(&builder_visitor);
       driver.program->Accept(&print_visitor);
+      Interpreter interpreter(builder_visitor.GetRoot());
+      interpreter.SetClasses(builder_visitor.GetClasses());
       driver.program->Accept(&interpreter);
       std::cout << "OK" << std::endl;
     } else {

@@ -1,0 +1,46 @@
+class Main {
+    public static void main() {
+        int x;
+        x = 2;
+        int y;
+        y = 3;
+        int c;
+        {
+            int c;
+            c = 3;
+            c = c * c + c;
+            System.out.println(c);
+        }
+        c = x + y;
+        c = c * c;
+        int v;
+        v = 4;
+        c = c / v - v;
+        System.out.println(x);
+        System.out.println(y);
+        System.out.println(c);
+        System.out.println(v);
+        Kek kek;
+        kek = new Kek();
+        kek.func(v, c);
+    }
+}
+
+class Kek {
+    public void func(int z, int c) {
+        int x;
+        x = 123;
+        boolean y;
+        if (x == 123) {
+            y = true;
+        } else {
+            y = false;
+        }
+        System.out.println(y);
+        if (y) {
+            System.out.println(z * 2);
+        } else {
+            System.out.println(z * 3);
+        }
+    }
+}

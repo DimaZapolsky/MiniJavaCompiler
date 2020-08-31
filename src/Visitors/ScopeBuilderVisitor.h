@@ -1,22 +1,21 @@
 //
-// Created by Dima Zapolsky on 15.07.2020.
+// Created by Dima Zapolsky on 31.08.2020.
 //
 
-#ifndef NAIVEINTERPRETER_SRC_VISITORS_INTERPRETER_H_
-#define NAIVEINTERPRETER_SRC_VISITORS_INTERPRETER_H_
+#ifndef NAIVEINTERPRETER_SCOPEBUILDERVISITOR_H
+#define NAIVEINTERPRETER_SCOPEBUILDERVISITOR_H
 
-#include <map>
+#include <stack>
 
 #include "nodes/NodesInclude.h"
 #include "BaseVisitor.h"
 #include "Objects/ObjectsInclude.h"
 #include "Scopes/ScopeLayer.h"
-#include "ScopeBuilderVisitor.h"
 
-class Interpreter : public BaseVisitor {
+class ScopeBuilderVisitor : public BaseVisitor {
  public:
-  Interpreter(std::shared_ptr<ScopeLayer> root);
-  ~Interpreter() = default;
+  ScopeBuilderVisitor();
+  ~ScopeBuilderVisitor() = default;
 
   void Visit(Visitable *visitable) override;
   void Visit(ClassDeclaration *visitable) override;
@@ -76,26 +75,24 @@ class Interpreter : public BaseVisitor {
   void Visit(types::Void *visitable) override;
   void Visit(Identifier *visitable) override;
 
-  void SetClasses(std::unordered_map<std::string, std::shared_ptr<objects::Class>> classes);
-
   std::shared_ptr<objects::BaseObject> Accept(Visitable *visitable);
-  std::shared_ptr<objects::BaseObject>* AcceptPtr(Visitable *visitable);
   std::pair<std::unordered_map<std::string, std::string>,
             std::unordered_map<std::string, std::shared_ptr<objects::Method>>> AcceptDecl(DeclarationList* visitable);
 
+  std::shared_ptr<ScopeLayer> GetRoot();
+  std::unordered_map<std::string, std::shared_ptr<objects::Class>> GetClasses();
+
  private:
-  std::shared_ptr<objects::BaseObject> tos_value_{nullptr};
-  std::shared_ptr<objects::BaseObject>* tos_value_ptr{nullptr};
-  std::shared_ptr<ScopeLayer> current_layer_{nullptr};
-  std::stack<size_t> child_index;
-  std::unordered_map<std::string, std::shared_ptr<objects::Class>> classes_;
+  std::shared_ptr<ScopeLayer> root_;
+  std::shared_ptr<ScopeLayer> current_layer_;
   std::pair<std::unordered_map<std::string, std::string>, std::unordered_map<std::string, std::shared_ptr<objects::Method>>> tos_decl_{{}, {}};
   std::vector<std::shared_ptr<objects::BaseObject>> formals_;
-  std::vector<std::shared_ptr<objects::ClassObj>> last_class_;
+  std::vector<std::shared_ptr<objects::Class>> last_class_;
+  std::shared_ptr<objects::BaseObject> tos_value_{nullptr};
+  std::unordered_map<std::string, std::shared_ptr<objects::Class>> classes_;
 
-  void IncreaseChildNum();
-  void GoToChild(size_t offset = 0);
-  void GoToParent();
+  void BeginScope();
+  void EndScope();
 };
 
-#endif //NAIVEINTERPRETER_SRC_VISITORS_INTERPRETER_H_
+#endif //NAIVEINTERPRETER_SCOPEBUILDERVISITOR_H

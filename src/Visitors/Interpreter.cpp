@@ -10,25 +10,27 @@
 
 template<typename Base, typename T>
 inline bool instanceof(T *obj) {
-//  return std::is_base_of<Base, T>::value;
-//  return std::is_convertible<Base, T>::value;
   auto ptr = dynamic_cast<Base *>(obj);
   return ptr != nullptr;
 }
 
-Interpreter::Interpreter() {
-  current_layer_ = std::make_shared<ScopeLayer>(nullptr);
+Interpreter::Interpreter(std::shared_ptr<ScopeLayer> root) {
+  current_layer_ = root;
+  child_index.push(0);
 }
 
-//Interpreter::~Interpreter() = default;
-
-void Interpreter::BeginScope() {
-  auto new_scope = std::make_shared<ScopeLayer>(current_layer_);
-  current_layer_ = new_scope;
+void Interpreter::IncreaseChildNum() {
+  child_index.top() += 1;
 }
 
-void Interpreter::EndScope() {
+void Interpreter::GoToChild(size_t offset) {
+  current_layer_ = current_layer_->GetChild(child_index.top() + offset);
+  child_index.push(0);
+}
+
+void Interpreter::GoToParent() {
   current_layer_ = current_layer_->GetParent();
+  child_index.pop();
 }
 
 std::shared_ptr<objects::BaseObject> Interpreter::Accept(Visitable *visitable) {
@@ -47,38 +49,15 @@ void Interpreter::Visit(Visitable *visitable) {
 }
 
 void Interpreter::Visit(ClassDeclaration *visitable) {
-  auto class_ = std::make_shared<objects::Class>();
-  class_->SetIdentifier(visitable->GetIdentifier());
-  auto extends = visitable->GetExtends();
-  if (extends) {
-    if (!classes_.count(extends->GetIdentifier())) {
-      throw std::runtime_error("Parent class(" + extends->GetIdentifier() + ") is not declared");
-    }
-    class_->SetExtends(classes_[extends->GetIdentifier()]);
-  }
-  auto [variables_, methods_] = AcceptDecl(visitable->GetDeclarationList());
-  class_->SetVariables(variables_);
-  class_->SetMethods(methods_);
-  classes_[class_->GetIdentifier()->GetIdentifier()] = class_;
+
 }
 
 void Interpreter::Visit(MethodDeclaration *visitable) {
-  tos_value_ = std::make_shared<objects::Method>(visitable->GetIdentifier(), visitable->GetType(), visitable->GetFormals(), visitable->GetStatementList());
+
 }
 
 void Interpreter::Visit(VariableDeclaration *visitable) {
-  auto type = visitable->GetType();
-  if (instanceof<types::SimpleType>(type) || instanceof<types::ArrayType>(type)) {
-    tos_value_ = std::make_shared<objects::Variable>(visitable->GetIdentifier(), type);
-  } else if (instanceof<types::TypeIdentifier>(type)) {
-    auto identifier = dynamic_cast<types::TypeIdentifier *>(type);
-    if (!identifier || !classes_.count(identifier->GetIdentifier())) {
-      throw std::runtime_error("There is no such type");
-    }
-    tos_value_ = std::make_shared<objects::Variable>(visitable->GetIdentifier(), type);
-  } else {
-    throw std::runtime_error("Unknown type in Interpreter::Visit(VariableDeclaration)");
-  }
+
 }
 
 void Interpreter::Visit(BinaryOperation *visitable) {
@@ -214,26 +193,11 @@ void Interpreter::Visit(VariableVal *visitable) {
 }
 
 void Interpreter::Visit(ClassDeclarationList *visitable) {
-  for (auto decl : visitable->GetClassDeclarations()) {
-    auto class_ = Accept(decl);
-//    classes_[decl->GetIdentifier()->GetIdentifier()] = std::shared_ptr<objects::Class>(dynamic_cast<objects::Class*>(class_.get()));
-  }
+
 }
 
 void Interpreter::Visit(DeclarationList *visitable) {
-  std::unordered_map<std::string, std::string> vars_;
-  std::unordered_map<std::string, std::shared_ptr<objects::Method>> methods_;
-  for (auto &decl : visitable->GetDeclarations()) {
-    auto declared = Accept(decl);
-    if (instanceof<objects::Variable>(declared.get())) {
-      vars_[dynamic_cast<objects::Variable*>(declared.get())->GetIdentifier()->GetIdentifier()] = declared->GetTypeIdentifier();
-    } else {
-//      auto method_decl = std::shared_ptr<objects::Method>(dynamic_cast<objects::Method*>(declared.get()));
-      auto method_decl = std::dynamic_pointer_cast<objects::Method>(declared);
-      methods_[method_decl->GetIdentifier()->GetIdentifier()] = method_decl;
-    }
-  }
-  tos_decl_ = std::make_pair(vars_, methods_);
+
 }
 
 void Interpreter::Visit(ExprList *visitable) {
@@ -247,12 +211,13 @@ void Interpreter::Visit(Formals *visitable) {
 }
 
 void Interpreter::Visit(StatementList *visitable) {
-  BeginScope();
+  GoToChild();
   for (auto &statement : visitable->GetStatements()) {
     statement->Accept(this);
     tos_value_ = nullptr;
   }
-  EndScope();
+  GoToParent();
+  IncreaseChildNum();
 }
 
 void Interpreter::Visit(ArrayElement *visitable) {
@@ -287,9 +252,7 @@ void Interpreter::Visit(Assignment *visitable) {
   if ((*lvalue)->GetTypeIdentifier() != expr->GetTypeIdentifier()) {
     throw std::runtime_error("Types are in incompatible");
   } else {
-
     *lvalue = expr;
-
   }
 }
 
@@ -300,44 +263,36 @@ void Interpreter::Visit(Declaration *visitable) {
 void Interpreter::Visit(If *visitable) {
   auto expr = Accept(visitable->GetExpr());
   if (expr->GetBooleanValue()) {
-    BeginScope();
+    GoToChild();
     visitable->GetStatement()->Accept(this);
-    EndScope();
+    GoToParent();
   }
+  IncreaseChildNum();
 }
 
 void Interpreter::Visit(IfElse *visitable) {
   auto expr = Accept(visitable->GetExpr());
-  BeginScope();
   if (expr->GetBooleanValue()) {
+    GoToChild();
     visitable->GetStatementTrue()->Accept(this);
+    GoToParent();
+    IncreaseChildNum();
   } else {
+    IncreaseChildNum();
+    GoToChild();
     visitable->GetStatementFalse()->Accept(this);
+    GoToParent();
   }
-  EndScope();
+  IncreaseChildNum();
 }
 
 void Interpreter::Visit(LocalVariableDeclaration *visitable) {
 
-  auto decl = visitable->GetVariableDeclaration();
-  auto type = decl->GetType();
-  if (instanceof<types::SimpleType>(type) || instanceof<types::ArrayType>(type)) {
-    current_layer_->DeclareVar(decl->GetIdentifier(), type->GetIdentifier());
-  } else if (instanceof<types::TypeIdentifier>(type)) {
-    auto identifier = dynamic_cast<types::TypeIdentifier *>(type);
-    if (!identifier || !classes_.count(identifier->GetIdentifier())) {
-      throw std::runtime_error("There is no such type");
-    }
-    current_layer_->DeclareVar(decl->GetIdentifier(), type->GetIdentifier());
-  } else {
-    throw std::runtime_error("Unknown type in Interpreter::Visit(VariableDeclaration)");
-  }
 }
 
 void Interpreter::Visit(MethodInvocation *visitable) {
   tos_value_ = nullptr;
-//  auto class_obj =
-//      std::shared_ptr<objects::ClassObj>(dynamic_cast<objects::ClassObj *>(Accept(visitable->GetExpr()).get()));
+
   auto class_obj = std::dynamic_pointer_cast<objects::ClassObj>(Accept(visitable->GetExpr()));
   if (!class_obj) {
     throw std::runtime_error("Can't call method on not class object");
@@ -345,7 +300,6 @@ void Interpreter::Visit(MethodInvocation *visitable) {
   visitable->GetExprList()->Accept(this);
   auto method = class_obj->GetMethod(visitable->GetIdentifier());
   const auto& formals = method->GetFormals()->GetFormals();
-  std::cout << formals.size() << std::endl;
   if (formals.size() != formals_.size()) {
     throw std::runtime_error("Wrong number of arguments");
   }
@@ -355,13 +309,13 @@ void Interpreter::Visit(MethodInvocation *visitable) {
     }
   }
   last_class_.push_back(class_obj);
-  BeginScope();
+  GoToChild();
   for (int i = 0; i < formals.size(); ++i) {
-    current_layer_->DeclareVar(formals[i]->GetIdentifier(), formals[i]->GetType()->GetIdentifier());
     current_layer_->PutVar(formals[i]->GetIdentifier(), formals_[i]);
   }
   method->GetStatementList()->Accept(this);
-  EndScope();
+  GoToParent();
+  IncreaseChildNum();
   last_class_.pop_back();
 
   auto return_type = method->GetReturnType();
@@ -388,14 +342,15 @@ void Interpreter::Visit(Statement *visitable) {
 
 void Interpreter::Visit(While *visitable) {
   while (true) {
-    BeginScope();
     auto expr = Accept(visitable->GetExpr());
     if (!expr->GetBooleanValue()) {
       break;
     }
+    GoToChild();
     visitable->GetStatement()->Accept(this);
-    EndScope();
+    GoToParent();
   }
+  IncreaseChildNum();
 }
 
 void Interpreter::Visit(Formal *visitable) {
@@ -440,4 +395,8 @@ std::pair<std::unordered_map<std::string, std::string>,
           std::unordered_map<std::string, std::shared_ptr<objects::Method>>> Interpreter::AcceptDecl(DeclarationList *visitable) {
   visitable->Accept(this);
   return tos_decl_;
+}
+
+void Interpreter::SetClasses(std::unordered_map<std::string, std::shared_ptr<objects::Class>> classes) {
+  classes_ = std::move(classes);
 }

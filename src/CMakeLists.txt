@@ -153,6 +153,8 @@ add_executable(
         Objects/Method.cpp
         Objects/Variable.cpp
         Objects/ClassObj.cpp
-        Objects/NonSimpleObject.cpp Objects/Uninitialized.cpp Objects/Uninitialized.h)
+        Objects/NonSimpleObject.cpp
+        Objects/Uninitialized.cpp
+        Visitors/ScopeBuilderVisitor.cpp)
 
 target_include_directories(NaiveInterpreter PRIVATE ${ParserExample_SOURCE_DIR})
